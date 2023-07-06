@@ -52,21 +52,21 @@ const NavLinkk = styled(NavLink)`
 
 
 const HeaderComponent = () => {
-    const onClickLogout = () => {
+  const onClickLogout = () => {
 
-    }
-    const token = useSelector(getToken);
-    return <Header>
-        <Logo src="path/to/logo.png" alt="Logo" />
-        <Navigation>
-            {!token ? <NavLinkk to={"/login"}>Вхід</NavLinkk> : null}
-            {!token ? <NavLinkk to={"/register"}>Реєстрація</NavLinkk> : null}
-            {token ? <AppBar /> : null}
-            <NavLinkk to={"/slots"}>Слоти</NavLinkk>
-            {token ? <button onClick={onClickLogout} style={{ backgroundColor: 'red', color: 'white', borderRadius: '4px', padding: '8px 16px', border: 'none', cursor: 'pointer' }}>
-                Вийти
-            </button> : null}
-        </Navigation>
-    </Header>
+  }
+  const token = useSelector(getToken);
+  return <Header>
+    <Logo src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png" alt="Logo" />
+    <Navigation>
+      {!token ? <NavLinkk to={"/login"}>Вхід</NavLinkk> : null}
+      {!token ? <NavLinkk to={"/register"}>Реєстрація</NavLinkk> : null}
+      {token ? <AppBar /> : null}
+      <NavLinkk to={"/slots"}>Слоти</NavLinkk>
+      {token ? <button onClick={onClickLogout} style={{ backgroundColor: 'red', color: 'white', borderRadius: '4px', padding: '8px 16px', border: 'none', cursor: 'pointer' }}>
+        Вийти
+      </button> : null}
+    </Navigation>
+  </Header>
 }
 export default HeaderComponent;

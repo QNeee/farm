@@ -14,7 +14,6 @@ import betSound from '../../audio/bet.mp3';
 import useSound from "use-sound";
 import NumberComponent from "../Modal/Modal";
 const Container = styled.div`
-margin-top:150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +40,16 @@ const Header = styled.div`
   color: #fff;
   padding: 20px;
   font-size: 24px;
-  margin-bottom: 20px;
+
+  font-family: 'Arial', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 
 const Balance = styled.div`
@@ -180,6 +188,7 @@ export const SlotApp = () => {
                     bet: bets + 1,
                     id
                 }
+                console.log(reqData);
                 dispatch(postBetSlot(reqData));
                 playBet();
                 setW8(false);

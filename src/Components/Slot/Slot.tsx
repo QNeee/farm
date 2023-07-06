@@ -42,31 +42,31 @@ const Line = styled.div<{ line: boolean | string }>`
   top: ${({ line }) => (typeof line === 'boolean' ? '50%' : '50px')};
 `;
 interface IProps {
-    animate: boolean;
-    lines: number;
-    start: boolean;
+  animate: boolean;
+  lines: number;
+  start: boolean;
 }
 
 interface IImg {
-    id: string;
-    img: string;
-    value: number;
-    line?: boolean | string;
+  id: string;
+  img: string;
+  value: number;
+  line?: boolean | string;
 }
 
 export const Slots: React.FC<IProps> = ({ animate }) => {
-    const data: IImg[] = useSelector(getSlot);
+  const data: IImg[] = useSelector(getSlot);
 
-    return (
-        <Container>
-            {data.length > 0 &&
-                data.map((item, index) => (
-                    <AnimatedContainer key={index} animate={animate}>
-                        {item.line && typeof item.line === 'boolean' && <Line line={true} />}
-                        {item.line && typeof item.line === 'string' && <Line line={'true'} />}
-                        <ImageSlot src={item.img} alt={`item ${index}`} />
-                    </AnimatedContainer>
-                ))}
-        </Container>
-    );
+  return (
+    <Container>
+      {data.length > 0 &&
+        data.map((item, index) => (
+          <AnimatedContainer key={index} animate={animate}>
+            {item.line && typeof item.line === 'boolean' && <Line line={true} />}
+            {item.line && typeof item.line === 'string' && <Line line={'true'} />}
+            <ImageSlot src={item.img} alt={`item ${index}`} />
+          </AnimatedContainer>
+        ))}
+    </Container>
+  );
 };
