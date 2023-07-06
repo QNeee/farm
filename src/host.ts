@@ -1,0 +1,1 @@
+export const HOST = 'https://farm-j4yt.onrender.com/api';
