@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { useLocation } from "react-router-dom";
 import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from "../../Redux/slotsOperations";
-import { getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
+import { getRefreshed, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
 import { IPostSlotLine } from "../../types";
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
@@ -69,12 +69,14 @@ export const SlotApp = () => {
     const id = pathname.split('/')[2];
     const balance = useSelector(getUserBalance);
     const lines = useSelector(getSlotLines);
+    const refreshed = useSelector(getRefreshed);
     let result = useSelector(getUserResult);
     const bet = useSelector(getUserBet);
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
-        dispatch(getSlotsById(id));
-    }, [id, dispatch]);
+        if (refreshed)
+            dispatch(getSlotsById(id));
+    }, [id, dispatch, refreshed]);
     const [playedWinSound, setPlayedWinSound] = useState(false);
     useEffect(() => {
         if (result > 0 && playedWinSound) {
