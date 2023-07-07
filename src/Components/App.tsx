@@ -1,13 +1,22 @@
+import { useEffect } from "react";
 import { Auth } from "./Auth/Auth";
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from "./Layout/Layout";
 import SlotsContainer from "./SlotsContainer/SlotsContainer";
-import { useSelector } from "react-redux";
-import { getToken } from "../Redux/chatSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsLoggedIn, getToken } from "../Redux/chatSlice";
 import { SlotApp } from "./SlotApp/SlotApp";
+import { AppDispatch } from "../Redux/store";
+import { refresh } from "../Redux/authOperations";
 
 const App = () => {
+  const dispatch: AppDispatch = useDispatch();
   const token = useSelector(getToken);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  useEffect(() => {
+    if (isLoggedIn)
+      dispatch(refresh());
+  }, [dispatch, isLoggedIn])
   return (
     <>
       <Routes>

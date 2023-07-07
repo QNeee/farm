@@ -188,7 +188,6 @@ export const SlotApp = () => {
                     bet: bets + 1,
                     id
                 }
-                console.log(reqData);
                 dispatch(postBetSlot(reqData));
                 playBet();
                 setW8(false);

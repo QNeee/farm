@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "../../Redux/chatSlice";
 import AppBar from "../Appbar/Appbar";
+import { AppDispatch } from "../../Redux/store";
+import { logout } from "../../Redux/authOperations";
 
 const Header = styled.header`
   display: flex;
@@ -52,10 +54,12 @@ const NavLinkk = styled(NavLink)`
 
 
 const HeaderComponent = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const token = useSelector(getToken);
   const onClickLogout = () => {
 
+    dispatch(logout());
   }
-  const token = useSelector(getToken);
   return <Header>
     <Logo src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png" alt="Logo" />
     <Navigation>

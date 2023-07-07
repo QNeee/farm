@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getSlots } from "../../Redux/slotsOperations";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
-import { getAllSlots } from "../../Redux/chatSlice";
+import { getAllSlots, getRefreshed } from "../../Redux/chatSlice";
 import { useNavigate } from "react-router-dom";
 
 const ListContainer = styled.ul`
@@ -71,11 +71,12 @@ interface IData {
 const SlotsContainer: React.FC = () => {
     const slots: IData[] = useSelector(getAllSlots);
     const dispatch: AppDispatch = useDispatch();
+    const refreshed = useSelector(getRefreshed);
     const navigate = useNavigate();
-
     useEffect(() => {
-        dispatch(getSlots());
-    }, [dispatch]);
+        if (refreshed)
+            dispatch(getSlots());
+    }, [dispatch, refreshed]);
 
     const isSmallScreen = window.innerWidth <= 768;
 

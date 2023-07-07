@@ -11,7 +11,7 @@ export const getUserInfo = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.token as string);
+            setToken(state?.chat?.accessToken as string);
             const result = await axios.get('users/');
             return result;
         } catch (error) {
@@ -24,7 +24,7 @@ export const postUserBalance = createAsyncThunk(
     async (data: IUserBalance, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.token as string);
+            setToken(state?.chat?.accessToken as string);
             const result = await axios.post('users/balance', data);
             return result;
         } catch (error) {

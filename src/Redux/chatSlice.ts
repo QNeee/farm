@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { login, register } from './authOperations';
+import { login, logout, refresh, register } from './authOperations';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 import { getSlots, getSlotsById, postStartGame, postBetSlot, postSlotLine } from './slotsOperations';
@@ -19,7 +19,9 @@ export interface Messages {
 }
 interface IRootState {
     auth: IAuthState;
-    token: string | null;
+    accessToken: string | null;
+    sid: string | null;
+    refreshToken: string | null;
     isLoggedIn: boolean;
     loading: boolean;
     error: unknown;
@@ -27,7 +29,8 @@ interface IRootState {
     slot: [],
     result: number
     lines: number,
-    bet: number
+    bet: number,
+    refreshed: boolean
 }
 const initialState: IRootState = {
     auth: {
@@ -36,12 +39,15 @@ const initialState: IRootState = {
     allSlots: [],
     slot: [],
     result: 0,
-    token: null,
+    accessToken: null,
+    refreshToken: null,
+    sid: null,
     isLoggedIn: false,
     loading: false,
     error: null,
     lines: 1,
-    bet: 0
+    bet: 1,
+    refreshed: false,
 }
 
 
@@ -64,13 +70,47 @@ export const chatSlice = createSlice({
         }).addCase(login.pending, (state) => {
             state.loading = true;
             state.error = null;
-        }).addCase(login.fulfilled, (state, action) => {
-            console.log(action.payload);
-            state.loading = false;
-            state.auth.user.id = action.payload.data.id;
-            state.auth.user.email = action.payload.data.email;
-            state.token = action.payload.data.token;
+        }).addCase(login.fulfilled, (state, { payload }) => {
+            state.auth.user.id = payload.data.user.id;
+            state.auth.user.email = payload.data.user.email;
+            state.accessToken = payload.data.accessToken;
+            state.refreshToken = payload.data.refreshToken;
+            state.sid = payload.data.sid;
+            state.isLoggedIn = true;
         }).addCase(login.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        }).addCase(logout.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        }).addCase(logout.fulfilled, (state) => {
+            state.loading = false;
+            state.auth.user.id = null;
+            state.auth.user.email = '';
+            state.auth.user.balance = 0;
+            state.accessToken = null;
+            state.refreshToken = null;
+            state.sid = null;
+            state.allSlots = [];
+            state.slot = [];
+            state.result = 0;
+            state.bet = 1;
+            state.lines = 1;
+            state.isLoggedIn = false;
+        }).addCase(logout.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        }).addCase(refresh.pending, (state) => {
+            state.refreshed = false;
+            state.loading = true;
+            state.error = null;
+        }).addCase(refresh.fulfilled, (state, { payload }) => {
+            state.loading = false;
+            state.accessToken = payload.data.newAccessToken;
+            state.refreshToken = payload.data.newRefreshToken;
+            state.sid = payload.data.newSid;
+            state.refreshed = true;
+        }).addCase(refresh.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         }).addCase(getUserInfo.pending, (state) => {
@@ -147,13 +187,13 @@ export const chatSlice = createSlice({
 const persistConfig = {
     key: 'local-key',
     storage,
-    whitelist: ['isLoggedIn', 'token', 'adminToken']
+    whitelist: ['sid', 'accessToken', 'refreshToken', 'isLoggedIn']
 }
 export const chatReducer = persistReducer(
     persistConfig,
     chatSlice.reducer
 );
-export const getToken = (state: RootState) => state.chat.token;
+export const getToken = (state: RootState) => state.chat.sid;
 export const getAllSlots = (state: RootState) => state.chat.allSlots;
 export const getSlot = (state: RootState) => state.chat.slot;
 export const getUserBalance = (state: RootState) => state.chat.auth.user.balance;
@@ -161,3 +201,5 @@ export const getUserEmail = (state: RootState) => state.chat.auth.user.email;
 export const getSlotLines = (state: RootState) => state.chat.lines;
 export const getUserResult = (state: RootState) => state.chat.result;
 export const getUserBet = (state: RootState) => state.chat.bet;
+export const getIsLoggedIn = (state: RootState) => state.chat.isLoggedIn;
+export const getRefreshed = (state: RootState) => state.chat.refreshed;

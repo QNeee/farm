@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserEmail } from '../../Redux/chatSlice';
+import { getRefreshed, getUserEmail } from '../../Redux/chatSlice';
 import { AppDispatch } from "../../Redux/store";
 import { getUserInfo, postUserBalance } from "../../Redux/userOperations";
 
@@ -56,47 +56,49 @@ const Button = styled.button`
 `;
 
 const AppBar: React.FC = () => {
-    const [showModal, setShowModal] = useState(false);
-    const [balance, setBalance] = useState('');
-    const userEmail = useSelector(getUserEmail);
-    const dispatch: AppDispatch = useDispatch();
-    const handleContainerClick = () => {
-        setShowModal(true);
-    };
-    useEffect(() => {
-        dispatch(getUserInfo());
-    }, [dispatch])
-    const handleBalanceSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        const reqBody = {
-            balance: balance
-        }
-        dispatch(postUserBalance(reqBody))
-        setShowModal(false);
-    };
+  const [showModal, setShowModal] = useState(false);
+  const [balance, setBalance] = useState('');
+  const userEmail = useSelector(getUserEmail);
+  const refreshed = useSelector(getRefreshed);
+  const dispatch: AppDispatch = useDispatch();
+  const handleContainerClick = () => {
+    setShowModal(true);
+  };
+  useEffect(() => {
+    if (refreshed)
+      dispatch(getUserInfo());
+  }, [dispatch, refreshed])
+  const handleBalanceSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const reqBody = {
+      balance: balance
+    }
+    dispatch(postUserBalance(reqBody))
+    setShowModal(false);
+  };
 
-    return (
-        <>
-            <UserContainer onClick={handleContainerClick}>
-                <UserInfo>
-                    <UserEmail>{userEmail}</UserEmail>
-                </UserInfo>
-            </UserContainer>
-            {showModal && (
-                <Modal>
-                    <h2>Поповнити баланс</h2>
-                    <Input
-                        type="text"
-                        value={balance}
-                        onChange={(e) => setBalance(e.target.value)}
-                        placeholder="Введіть суму"
-                    />
-                    <Button onClick={handleBalanceSubmit}>ОК</Button>
-                    <button type="button">Exit</button>
-                </Modal>
-            )}
-        </>
-    );
+  return (
+    <>
+      <UserContainer onClick={handleContainerClick}>
+        <UserInfo>
+          <UserEmail>{userEmail}</UserEmail>
+        </UserInfo>
+      </UserContainer>
+      {showModal && (
+        <Modal>
+          <h2>Поповнити баланс</h2>
+          <Input
+            type="text"
+            value={balance}
+            onChange={(e) => setBalance(e.target.value)}
+            placeholder="Введіть суму"
+          />
+          <Button onClick={handleBalanceSubmit}>ОК</Button>
+          <button type="button">Exit</button>
+        </Modal>
+      )}
+    </>
+  );
 };
 
 export default AppBar;

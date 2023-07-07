@@ -20,7 +20,7 @@ export const postStartGame = createAsyncThunk(
     async (data: { id: string }, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.token as string);
+            setToken(state?.chat?.accessToken as string);
             const result = await axios.post('slots', data);
             return result;
         } catch (error) {
@@ -33,7 +33,7 @@ export const getSlotsById = createAsyncThunk(
     async (id: string, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.token as string);
+            setToken(state?.chat?.accessToken as string);
             const result = await axios.get(`slots/id/${id}`);
             return result;
         } catch (error) {
@@ -46,7 +46,7 @@ export const postSlotLine = createAsyncThunk(
     async (data: IPostSlotLine, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.token as string);
+            setToken(state?.chat?.accessToken as string);
             const result = await axios.post('slots/line', data);
             return result;
         } catch (error) {
@@ -59,7 +59,7 @@ export const postBetSlot = createAsyncThunk(
     async (data: IPostSlotLine, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.token as string);
+            setToken(state?.chat?.accessToken as string);
             const result = await axios.post('slots/bet', data);
             return result;
         } catch (error) {
