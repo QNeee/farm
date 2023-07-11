@@ -28,7 +28,7 @@ const AnimatedContainer = styled.div<{ animate: boolean }>`
   position: relative;
   border: 2px solid white;
   animation-name: ${({ animate }) => (animate ? SlotAnimation : "none")};
-  animation-duration: 2300ms;
+  animation-duration: 4300ms;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
