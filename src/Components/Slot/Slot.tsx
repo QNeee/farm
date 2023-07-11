@@ -15,10 +15,12 @@ const Container = styled.div`
 
 const SlotAnimation = keyframes`
   0% {
-    transform: translateY(-100%);
+    transform: rotateY(0deg);
+    filter: blur(0);
   }
   100% {
-    transform: translateY(0);
+    transform: rotateY(2000deg);
+    filter: blur(80px);
   }
 `;
 
@@ -26,12 +28,14 @@ const AnimatedContainer = styled.div<{ animate: boolean }>`
   position: relative;
   border: 2px solid white;
   animation-name: ${({ animate }) => (animate ? SlotAnimation : "none")};
-  animation-duration: 0.5s;
+  animation-duration: 2300ms;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   overflow: hidden;
 `;
+
+
 const Line = styled.div<{ line: boolean | string }>`
   position: absolute;
   left: ${({ line }) => (typeof line === 'boolean' ? '50%' : '0')};
@@ -58,7 +62,7 @@ export const Slots: React.FC<IProps> = ({ animate }) => {
   const data: IImg[] = useSelector(getSlot);
 
   return (
-    <Container>
+          <Container>
       {data.length > 0 &&
         data.map((item, index) => (
           <AnimatedContainer key={index} animate={animate}>

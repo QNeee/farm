@@ -13,6 +13,7 @@ import lineSound from '../../audio/line.mp3';
 import betSound from '../../audio/bet.mp3';
 import useSound from "use-sound";
 import NumberComponent from "../Modal/Modal";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -95,6 +96,9 @@ export const SlotApp = () => {
     const [playWin] = useSound(winSound);
     const [playLine] = useSound(lineSound);
     const [playBet] = useSound(betSound);
+    
+
+
 
     const startAnimation = async (flag?: string) => {
         const reqData = {
@@ -125,7 +129,7 @@ export const SlotApp = () => {
                 }, 1000);
 
                 count++;
-            }, 2000);
+            }, 800);
 
             setIntervalId(interval);
         } else {
@@ -136,7 +140,7 @@ export const SlotApp = () => {
                 setAnimate(false);
                 setStart(false);
                 setW8(false);
-            }, 1000);
+            }, 800);
         }
     };
 
@@ -222,6 +226,7 @@ export const SlotApp = () => {
             return `(+${result})`;
         }
     };
+
     return <><Header>
         <Balance>Balance: {balance}{expense ? <Span primary={result === 0 ? true : false}>
             {result > 0 ? checkWin() : `-(${bet * lines})`}</Span> : null}</Balance>
@@ -235,6 +240,7 @@ export const SlotApp = () => {
             <ButtonsContainer>
                 <audio id="audio" src="../../audio/spin.mp3"></audio>
                 {!showModal && <SpinButton onClick={() => onClickLines('modalBet')} primary={false}>Bet</SpinButton>}
+                
                 {!showModal && <SpinButton primary={!auto ? false : true} onClick={() => startAnimation()}>Spin</SpinButton>}
                 {!showModal && <SpinButton primary={false} onClick={() => !auto ? startAnimation("auto") : stopAnimation()}>{!auto ? "Auto" : "Stop"}</SpinButton>}
                 {!showModal && <SpinButton onClick={() => onClickLines('modalLine')} primary={false}>Lines</SpinButton>}
