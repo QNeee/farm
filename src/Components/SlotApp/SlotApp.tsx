@@ -86,7 +86,7 @@ export const SlotApp = () => {
         if (refreshed) {
             dispatch(getSlotsById(id));
         }
-    }, [id, dispatch, refreshed, slotImg]);
+    }, [id, dispatch, refreshed]);
     const [playedWinSound, setPlayedWinSound] = useState(false);
     useEffect(() => {
         if (result > 0 && playedWinSound) {
