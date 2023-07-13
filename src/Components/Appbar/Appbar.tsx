@@ -64,6 +64,9 @@ const AppBar: React.FC = () => {
   const handleContainerClick = () => {
     setShowModal(true);
   };
+  const onClickExit = () => {
+    setShowModal(false);
+  };
   useEffect(() => {
     if (refreshed)
       dispatch(getUserInfo());
@@ -94,7 +97,7 @@ const AppBar: React.FC = () => {
             placeholder="Введіть суму"
           />
           <Button onClick={handleBalanceSubmit}>ОК</Button>
-          <button type="button">Exit</button>
+          <Button onClick={onClickExit}>Exit</Button>
         </Modal>
       )}
     </>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { getAllSlots, getRefreshed } from "../../Redux/chatSlice";
 import { useNavigate } from "react-router-dom";
+import { IData } from "../../types";
 
 const ListContainer = styled.ul`
   padding: 0;
@@ -62,44 +63,40 @@ const Image = styled.img`
   border-radius: 3px;
 `;
 
-interface IData {
-    _id: string;
-    name: string;
-    img: string;
-}
+
 
 const SlotsContainer: React.FC = () => {
-    const slots: IData[] = useSelector(getAllSlots);
-    const dispatch: AppDispatch = useDispatch();
-    const refreshed = useSelector(getRefreshed);
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (refreshed)
-            dispatch(getSlots());
-    }, [dispatch, refreshed]);
+  const slots: IData[] = useSelector(getAllSlots);
+  const dispatch: AppDispatch = useDispatch();
+  const refreshed = useSelector(getRefreshed);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (refreshed)
+      dispatch(getSlots());
+  }, [dispatch, refreshed]);
 
-    const isSmallScreen = window.innerWidth <= 768;
+  const isSmallScreen = window.innerWidth <= 768;
 
-    const onClickSlot = (id: string) => {
-        navigate(`${id}`);
-    };
+  const onClickSlot = (id: string) => {
+    navigate(`${id}`);
+  };
 
-    return (
-        <ListContainer>
-            {slots.length > 0 &&
-                slots.map((item) => (
-                    <ListItem
-                        isSmallScreen={isSmallScreen}
-                        onClick={() => onClickSlot(item._id)}
-                        key={item._id}
-                    >
-                        <Bullet />
-                        <Text>{item.name}</Text>
-                        <Image src={item.img} alt={item._id} />
-                    </ListItem>
-                ))}
-        </ListContainer>
-    );
+  return (
+    <ListContainer>
+      {slots.length > 0 &&
+        slots.map((item) => (
+          <ListItem
+            isSmallScreen={isSmallScreen}
+            onClick={() => onClickSlot(item._id)}
+            key={item._id}
+          >
+            <Bullet />
+            <Text>{item.name}</Text>
+            <Image src={item.img} alt={item._id} />
+          </ListItem>
+        ))}
+    </ListContainer>
+  );
 };
 
 export default SlotsContainer;

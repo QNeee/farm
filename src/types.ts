@@ -2,7 +2,11 @@ export interface IUserBalance {
     balance: string
 }
 
-
+export interface IData {
+    _id: string;
+    name: string;
+    img: string;
+}
 export interface ISlotsData {
     id: string,
     value: number,

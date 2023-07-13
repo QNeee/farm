@@ -8,12 +8,12 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 0;
-  background-color: #000;
+  background: linear-gradient(45deg, white, lightblue);
   position: relative;
   overflow: hidden;
 `;
 
-const SlotAnimation = keyframes`
+const SlotAnimationNew = keyframes`
   0% {
     transform: rotateY(0deg);
     filter: blur(0);
@@ -23,12 +23,19 @@ const SlotAnimation = keyframes`
     filter: blur(80px);
   }
 `;
-
-const AnimatedContainer = styled.div<{ animate: boolean }>`
+const SlotAnimationOld = keyframes`
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
   position: relative;
-  border: 2px solid white;
-  animation-name: ${({ animate }) => (animate ? SlotAnimation : "none")};
-  animation-duration: 4300ms;
+  border: 2px solid green;
+  animation-name: ${({ animate, id }) => (animate && id === '64a5be6f083fae19e09b4871' ? SlotAnimationOld : animate && id !== '64a5be6f083fae19e09b4871' ? SlotAnimationNew : 'none')};
+  animation-duration:${({ animate, id }) => animate && id === '64a5be6f083fae19e09b4871' ? '0.5s' : '4300ms'};
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
@@ -49,6 +56,7 @@ interface IProps {
   animate: boolean;
   lines: number;
   start: boolean;
+  id: string;
 }
 
 interface IImg {
@@ -58,14 +66,14 @@ interface IImg {
   line?: boolean | string;
 }
 
-export const Slots: React.FC<IProps> = ({ animate }) => {
+export const Slots: React.FC<IProps> = ({ animate, id }) => {
   const data: IImg[] = useSelector(getSlot);
 
   return (
-          <Container>
+    <Container>
       {data.length > 0 &&
         data.map((item, index) => (
-          <AnimatedContainer key={index} animate={animate}>
+          <AnimatedContainer key={index} animate={animate} id={id}>
             {item.line && typeof item.line === 'boolean' && <Line line={true} />}
             {item.line && typeof item.line === 'string' && <Line line={'true'} />}
             <ImageSlot src={item.img} alt={`item ${index}`} />

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "../../Redux/chatSlice";
 import AppBar from "../Appbar/Appbar";
@@ -24,6 +24,7 @@ const Header = styled.header`
 const Logo = styled.img`
   width: 50px;
   height: 50px;
+  cursor: pointer;
 `;
 
 const Navigation = styled.nav`
@@ -55,13 +56,15 @@ const NavLinkk = styled(NavLink)`
 
 const HeaderComponent = () => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const token = useSelector(getToken);
   const onClickLogout = () => {
 
     dispatch(logout());
   }
+
   return <Header>
-    <Logo src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png" alt="Logo" />
+    <Logo onClick={() => navigate('/')} src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png" alt="Logo" />
     <Navigation>
       {!token ? <NavLinkk to={"/login"}>Вхід</NavLinkk> : null}
       {!token ? <NavLinkk to={"/register"}>Реєстрація</NavLinkk> : null}

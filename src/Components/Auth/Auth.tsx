@@ -28,7 +28,7 @@ export const Auth = () => {
             password: form.password
         }
         pathname === '/login' ? dispatch(login(newUser)) : dispatch(register(newUser));
-
+        setForm({ email: '', password: '' });
     }
     return (
         <Form onSubmit={onSubmit}>

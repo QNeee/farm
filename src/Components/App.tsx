@@ -8,6 +8,7 @@ import { getIsLoggedIn, getToken } from "../Redux/chatSlice";
 import { SlotApp } from "./SlotApp/SlotApp";
 import { AppDispatch } from "../Redux/store";
 import { refresh } from "../Redux/authOperations";
+import HomePage from "./HomePage/HomePage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -21,6 +22,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Layout />} >
+          <Route index element={<HomePage />} />
           <Route path='login' element={!token ? <Auth /> : <Navigate to={'/slots'} replace />} />
           <Route path='register' element={!token ? <Auth /> : <Navigate to={'/slots'} replace />} />
           <Route path='slots' element={token ? <SlotsContainer /> : <Navigate to={'/login'} replace />} />

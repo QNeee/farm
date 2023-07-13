@@ -8,15 +8,6 @@ import { getUserInfo, postUserBalance } from './userOperations';
 interface IAuthState {
     user: { email: string, id: number | null, balance: number | 0 };
 }
-export interface Messages {
-    from: string,
-    to: string,
-    date: Date
-    id: number,
-    content: string,
-    ip: string,
-
-}
 interface IRootState {
     auth: IAuthState;
     accessToken: string | null;
@@ -27,6 +18,7 @@ interface IRootState {
     error: unknown;
     allSlots: []
     slot: [],
+    slotImg: string
     result: number
     lines: number,
     bet: number,
@@ -45,6 +37,7 @@ const initialState: IRootState = {
     isLoggedIn: false,
     loading: false,
     error: null,
+    slotImg: '',
     lines: 1,
     bet: 1,
     refreshed: false,
@@ -149,6 +142,7 @@ export const chatSlice = createSlice({
             state.slot = payload.data.data;
             state.lines = parseInt(payload.data.lines);
             state.bet = parseInt(payload.data.bet);
+            state.slotImg = payload.data.img;
         }).addCase(getSlotsById.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
@@ -203,3 +197,4 @@ export const getUserResult = (state: RootState) => state.chat.result;
 export const getUserBet = (state: RootState) => state.chat.bet;
 export const getIsLoggedIn = (state: RootState) => state.chat.isLoggedIn;
 export const getRefreshed = (state: RootState) => state.chat.refreshed;
+export const getSlotImg = (state: RootState) => state.chat.slotImg;

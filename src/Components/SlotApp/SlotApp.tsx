@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { useLocation } from "react-router-dom";
 import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from "../../Redux/slotsOperations";
-import { getRefreshed, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
+import { getRefreshed, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
 import { IPostSlotLine } from "../../types";
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
@@ -13,13 +13,18 @@ import lineSound from '../../audio/line.mp3';
 import betSound from '../../audio/bet.mp3';
 import useSound from "use-sound";
 import NumberComponent from "../Modal/Modal";
-
+const MainContainer = styled.div<{ imgUrl: string }>`
+ background-image: url(${props => props.imgUrl});
+  background-size: cover;
+  width: 100%;
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 const ButtonsContainer = styled.div`
+margin-top:20px;
   display: flex;
   gap: 10px;
 `;
@@ -34,6 +39,8 @@ const SpinButton = styled.button<{ primary: boolean }>`
   cursor: pointer;
 `;
 const Header = styled.div`
+margin-top:15px;
+margin-bottom:15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,6 +75,7 @@ const Span = styled.span<{ primary: boolean }>`
 export const SlotApp = () => {
     const { pathname } = useLocation();
     const id = pathname.split('/')[2];
+    const slotImg = useSelector(getSlotImg);
     const balance = useSelector(getUserBalance);
     const lines = useSelector(getSlotLines);
     const refreshed = useSelector(getRefreshed);
@@ -75,9 +83,10 @@ export const SlotApp = () => {
     const bet = useSelector(getUserBet);
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
-        if (refreshed)
+        if (refreshed) {
             dispatch(getSlotsById(id));
-    }, [id, dispatch, refreshed]);
+        }
+    }, [id, dispatch, refreshed, slotImg]);
     const [playedWinSound, setPlayedWinSound] = useState(false);
     useEffect(() => {
         if (result > 0 && playedWinSound) {
@@ -96,7 +105,7 @@ export const SlotApp = () => {
     const [playWin] = useSound(winSound);
     const [playLine] = useSound(lineSound);
     const [playBet] = useSound(betSound);
-    
+
 
 
 
@@ -226,8 +235,7 @@ export const SlotApp = () => {
             return `(+${result})`;
         }
     };
-
-    return <><Header>
+    return <MainContainer imgUrl={slotImg}><Header>
         <Balance>Balance: {balance}{expense ? <Span primary={result === 0 ? true : false}>
             {result > 0 ? checkWin() : `-(${bet * lines})`}</Span> : null}</Balance>
         <LineCount>Lines:{lines}</LineCount>
@@ -236,11 +244,10 @@ export const SlotApp = () => {
     </Header>
         <Container>
             {result > 0 && <NumberComponent number={result} />}
-            <Slots start={start} lines={lines} animate={animate} />
+            <Slots start={start} lines={lines} animate={animate} id={id} />
             <ButtonsContainer>
-                <audio id="audio" src="../../audio/spin.mp3"></audio>
                 {!showModal && <SpinButton onClick={() => onClickLines('modalBet')} primary={false}>Bet</SpinButton>}
-                
+
                 {!showModal && <SpinButton primary={!auto ? false : true} onClick={() => startAnimation()}>Spin</SpinButton>}
                 {!showModal && <SpinButton primary={false} onClick={() => !auto ? startAnimation("auto") : stopAnimation()}>{!auto ? "Auto" : "Stop"}</SpinButton>}
                 {!showModal && <SpinButton onClick={() => onClickLines('modalLine')} primary={false}>Lines</SpinButton>}
@@ -248,5 +255,5 @@ export const SlotApp = () => {
                 {showModal && <SpinButton onClick={() => onClickLines(!showBet ? 'decLines' : 'decBets')} primary={false}>-</SpinButton>}
                 {showModal && <SpinButton onClick={onClickBack} primary={false}>back</SpinButton>}
             </ButtonsContainer>
-        </Container></>
+        </Container></MainContainer>
 }

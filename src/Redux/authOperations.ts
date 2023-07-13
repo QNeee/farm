@@ -25,9 +25,12 @@ export interface IRefreshResult {
 }
 export const register = createAsyncThunk(
     'auth/register',
-    async (data: IAuthData, { rejectWithValue }) => {
+    async (data: IAuthData, { rejectWithValue, dispatch }) => {
         try {
-            const result: IResult = await axios.post('auth/register', data);
+            const result = await axios.post('auth/register', data);
+            if (result.data._id) {
+                dispatch(login(data));
+            }
             return result;
         } catch (error) {
             return rejectWithValue(error);
