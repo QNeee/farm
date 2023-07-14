@@ -16,7 +16,7 @@ const Container = styled.div`
 
 // const Wrap = styled.div`
 //  margin: 0;
-  
+
 // `;
 
 
@@ -31,11 +31,18 @@ const SlotAnimationNew = keyframes`
   }
 `;
 
+const SlotAnimation = keyframes`
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
 
 
 
-
- const SlotAnimationOld = keyframes`
+const SlotAnimationOld = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -52,15 +59,15 @@ const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
   position: relative;
   border: 2px solid green;
   border-radius: ${({ animate }) => (animate ? '50%' : 'none')};
-  animation-name: ${({ animate, id }) => (animate && id === '64a5be6f083fae19e09b4871' ? SlotAnimationOld : animate && id !== '64a5be6f083fae19e09b4871' ? SlotAnimationNew : 'none')};
-  animation-duration:${({ animate, id }) => animate && id === '64a5be6f083fae19e09b4871' ? '0.7s' : '4300ms'};
+  animation-name: ${({ animate, id }) => (animate && id === '64a5be6f083fae19e09b4871' ? SlotAnimation : animate && id === '64a744f7083fae19e09b4874' ? SlotAnimationNew : animate && id === '64a744fd083fae19e09b4875' ? SlotAnimationOld : 'none')};
+  animation-duration:${({ animate, id }) => animate && id === '64a5be6f083fae19e09b4871' ? '0.4s' : animate && id === '64a744f7083fae19e09b4874' ? '4.3s' : '0.7s'};
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   overflow: hidden;
 `;
 
-const LineAnimation =  keyframes`
+const LineAnimation = keyframes`
    0% {filter: blur(0);
   background-color: blue;}
   10% {filter: blur(0);
@@ -108,19 +115,19 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
       {data.length > 0 &&
         data.map((item, index) => (
           <AnimatedContainer key={index} animate={animate} id={id}>
-            
-          {item.line && typeof item.line === 'boolean' && (
-  <>
-    <Line line={true} />
-    <Confetti />
-  </>
-)}
-{item.line && typeof item.line === 'string' && (
-  <>
-    <Line line={'true'} />
-    <Confetti />
-  </>
-)}
+
+            {item.line && typeof item.line === 'boolean' && (
+              <>
+                <Line line={true} />
+                <Confetti />
+              </>
+            )}
+            {item.line && typeof item.line === 'string' && (
+              <>
+                <Line line={'true'} />
+                <Confetti />
+              </>
+            )}
 
 
             <ImageSlot src={item.img} alt={`item ${index}`} />
@@ -171,7 +178,7 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
 //   100% {
 //     transform: translateY(0);
 //   }
-// `; 
+// `;
 
 // const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
 //   position: relative;
