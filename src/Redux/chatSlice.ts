@@ -24,7 +24,8 @@ interface IRootState {
     result: number
     lines: number,
     bet: number,
-    refreshed: boolean
+    refreshed: boolean,
+    version: string | null
 }
 const initialState: IRootState = {
     auth: {
@@ -45,6 +46,7 @@ const initialState: IRootState = {
     lines: 1,
     bet: 1,
     refreshed: false,
+    version: null
 }
 
 
@@ -146,8 +148,10 @@ export const chatSlice = createSlice({
             state.result = 0;
             state.loading = true;
             state.error = null;
+            state.version = null;
         }).addCase(getSlotsById.fulfilled, (state, { payload }) => {
             state.loading = false;
+            state.version = payload.data.version;
             state.slot = payload.data.data;
             state.lines = parseInt(payload.data.lines);
             state.bet = parseInt(payload.data.bet);
@@ -195,7 +199,7 @@ export const chatSlice = createSlice({
 const persistConfig = {
     key: 'local-key',
     storage,
-    whitelist: ['sid', 'accessToken', 'refreshToken', 'isLoggedIn', 'auth', 'lines', 'bet', 'slot', 'slotImg']
+    whitelist: ['sid', 'accessToken', 'refreshToken', 'isLoggedIn', 'auth', 'lines', 'bet', 'slot', 'slotImg', 'version']
 }
 export const chatReducer = persistReducer(
     persistConfig,
@@ -214,3 +218,4 @@ export const getRefreshed = (state: RootState) => state.chat.refreshed;
 export const getSlotImg = (state: RootState) => state.chat.slotImg;
 export const getLineRender = (state: RootState) => state.chat.lineRender;
 export const getConfetti = (state: RootState) => state.chat.confetti;
+export const getVersion = (state: RootState) => state.chat.version;

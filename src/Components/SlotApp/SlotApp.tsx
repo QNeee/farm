@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { useLocation } from "react-router-dom";
 import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from "../../Redux/slotsOperations";
-import { getConfetti, getRefreshed, getSlot, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
+import { getConfetti, getRefreshed, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
 import { IPostSlotLine } from "../../types";
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
@@ -80,8 +80,7 @@ export const SlotApp = () => {
     const balance = useSelector(getUserBalance);
     const lines = useSelector(getSlotLines);
     const refreshed = useSelector(getRefreshed);
-    const slot = useSelector(getSlot);
-    console.log(slot);
+
     let result = useSelector(getUserResult);
     const bet = useSelector(getUserBet);
     const confetti = useSelector(getConfetti);

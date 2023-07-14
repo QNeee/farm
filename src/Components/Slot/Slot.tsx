@@ -2,11 +2,11 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import ImageSlot from "../Image/ImageSlot";
 import { useSelector } from "react-redux";
-import { getLineRender, getSlot } from "../../Redux/chatSlice";
+import { getLineRender, getSlot, getVersion } from "../../Redux/chatSlice";
 
-const Container = styled.div`
+const Container = styled.div<{ version?: string | null }>`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns:${props => props.version ? 'repeat(3, 1fr)' : 'repeat(6, 1fr)'};
   grid-gap: 0;
   background: linear-gradient(45deg, white, lightblue);
   position: relative;
@@ -105,13 +105,15 @@ interface IImg {
   value: number;
   line?: boolean | string;
   ConfettiContainer: boolean;
+  version?: string
 }
 
 export const Slots: React.FC<IProps> = ({ animate, id }) => {
   const lineRender = useSelector(getLineRender);
   const data: IImg[] = useSelector(getSlot);
+  const version = useSelector(getVersion);
   return (
-    <Container>
+    <Container version={version}>
       {data.length > 0 &&
         data.map((item, index) => (
           <AnimatedContainer key={index} animate={animate} id={id}>
