@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import ImageSlot from "../Image/ImageSlot";
 import { useSelector } from "react-redux";
-import { getSlot } from "../../Redux/chatSlice";
+import { getLineRender, getSlot } from "../../Redux/chatSlice";
 
 const Container = styled.div`
   display: grid;
@@ -108,23 +108,24 @@ interface IImg {
 }
 
 export const Slots: React.FC<IProps> = ({ animate, id }) => {
+  const lineRender = useSelector(getLineRender);
   const data: IImg[] = useSelector(getSlot);
   return (
     <Container>
       {data.length > 0 &&
         data.map((item, index) => (
           <AnimatedContainer key={index} animate={animate} id={id}>
-            {item.line && typeof item.line === 'boolean' && (
+            {lineRender && item.line && typeof item.line === 'boolean' && (
               <>
                 <Line line={true} />
               </>
             )}
-            {item.line && typeof item.line === 'string' && (
+            {lineRender && item.line && typeof item.line === 'string' && (
               <>
                 <Line line={'true'} />
               </>
             )}
-            {item.line && typeof item.line === 'number' && (item.line === 1 || item.line === 2) && (
+            {lineRender && item.line && typeof item.line === 'number' && (item.line === 1 || item.line === 2) && (
               <>
                 <Line line={1} />
               </>

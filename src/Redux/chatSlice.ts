@@ -16,6 +16,8 @@ interface IRootState {
     isLoggedIn: boolean;
     loading: boolean;
     error: unknown;
+    lineRender: boolean,
+    confetti: boolean,
     allSlots: []
     slot: [],
     slotImg: string
@@ -36,6 +38,8 @@ const initialState: IRootState = {
     sid: null,
     isLoggedIn: false,
     loading: false,
+    lineRender: false,
+    confetti: false,
     error: null,
     slotImg: '',
     lines: 1,
@@ -135,6 +139,8 @@ export const chatSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         }).addCase(getSlotsById.pending, (state) => {
+            state.confetti = false;
+            state.lineRender = false;
             state.slot = [];
             state.slotImg = '';
             state.result = 0;
@@ -150,10 +156,15 @@ export const chatSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         }).addCase(postStartGame.pending, (state) => {
+            state.confetti = false;
+            state.lineRender = false;
+            state.result = 0;
             state.loading = true;
             state.error = null;
         }).addCase(postStartGame.fulfilled, (state, { payload }) => {
             state.loading = false;
+            state.confetti = payload.data.confetti;
+            state.lineRender = payload.data.winSound;
             state.auth.user.balance = payload.data.updatedUser.balance;
             state.slot = payload.data.data;
             state.result = payload.data.result;
@@ -201,3 +212,5 @@ export const getUserBet = (state: RootState) => state.chat.bet;
 export const getIsLoggedIn = (state: RootState) => state.chat.isLoggedIn;
 export const getRefreshed = (state: RootState) => state.chat.refreshed;
 export const getSlotImg = (state: RootState) => state.chat.slotImg;
+export const getLineRender = (state: RootState) => state.chat.lineRender;
+export const getConfetti = (state: RootState) => state.chat.confetti;

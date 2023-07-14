@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../Redux/store";
 import { useLocation } from "react-router-dom";
 import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from "../../Redux/slotsOperations";
-import { getRefreshed, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
+import { getConfetti, getRefreshed, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from "../../Redux/chatSlice";
 import { IPostSlotLine } from "../../types";
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
@@ -82,23 +82,13 @@ export const SlotApp = () => {
     const refreshed = useSelector(getRefreshed);
     let result = useSelector(getUserResult);
     const bet = useSelector(getUserBet);
+    const confetti = useSelector(getConfetti);
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
         if (refreshed) {
             dispatch(getSlotsById(id));
         }
     }, [id, dispatch, refreshed]);
-    const [playedWinSound, setPlayedWinSound] = useState(false);
-    const [confetti, setConfetti] = useState(false);
-    useEffect(() => {
-        if (result > 0) {
-            setPlayedWinSound(true);
-            setConfetti(true);
-        } else {
-            setPlayedWinSound(false);
-            setConfetti(false);
-        }
-    }, [result]);
     const [animate, setAnimate] = useState(false);
     const [w8, setW8] = useState(false);
     const [auto, setAuto] = useState(false);
@@ -111,8 +101,19 @@ export const SlotApp = () => {
     const [playWin] = useSound(winSound);
     const [playLine] = useSound(lineSound);
     const [playBet] = useSound(betSound);
+    const [isWinSoundPlayed, setWinSoundPlayed] = useState(false);
 
+    useEffect(() => {
+        if (result > 0) {
+            if (!isWinSoundPlayed) {
+                playWin();
+                setWinSoundPlayed(true);
+            }
+        } else {
+            setWinSoundPlayed(false);
 
+        }
+    }, [result, isWinSoundPlayed, playWin])
 
 
     const startAnimation = async (flag?: string) => {
@@ -121,7 +122,6 @@ export const SlotApp = () => {
         }
         if (w8) return;
         if (balance < bet) return;
-        result = 0;
         setExpense(true);
         setW8(true);
         setStart(true);
@@ -233,17 +233,20 @@ export const SlotApp = () => {
         setShowBet(false);
         setW8(false);
     }
-    const checkWin = () => {
-        if (result > 0) {
-            if (!playedWinSound && !confetti) {
-                playWin();
-            }
-            return `(+${result})`;
-        }
-    };
+    // const checkWin = () => {
+    //     if (result > 0) {
+    //         if (!isWinSoundPlayed) {
+    //             playWin();
+    //             setWinSoundPlayed(true);
+    //         }
+    //         return `(+${result})`;
+    //     } else {
+    //         setWinSoundPlayed(false);
+    //     }
+    // };
     return <MainContainer imgUrl={slotImg}><Header>
         <Balance>Balance: {balance}{expense ? <Span primary={result === 0 ? true : false}>
-            {result > 0 ? checkWin() : `-(${bet * lines})`}</Span> : null}</Balance>
+            {result > 0 ? `+(${result})` : `-(${bet * lines})`}</Span> : null}</Balance>
         <LineCount>Lines:{lines}</LineCount>
         <LineCount>Bet:{bet}</LineCount>
         <LineCount>TotalBet:{bet * lines}</LineCount>
