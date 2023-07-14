@@ -82,16 +82,17 @@ const LineAnimation = keyframes`
 `;
 
 
-const Line = styled.div<{ line: boolean | string }>`
+const Line = styled.div<{ line: boolean | string | number }>`
   position: absolute;
-  left: ${({ line }) => (typeof line === 'boolean' ? '50%' : '0')};
-  width: ${({ line }) => (typeof line === 'boolean' ? '12px' : '100%')};
-  height: ${({ line }) => (typeof line === 'boolean' ? '100%' : '12px')};
-  background-color: blue;
-  transform: ${({ line }) => (typeof line === 'boolean' ? 'translate(-50%, -50%)' : 'none')};
-  top: ${({ line }) => (typeof line === 'boolean' ? '50%' : '50px')};
+  left: ${({ line }) => (typeof line === 'boolean' ? '50%' : typeof line === 'string' ? '0' : '45%')};
+  width: ${({ line }) => (typeof line === 'boolean' ? '12px' : typeof line === 'string' ? '100%' : '12px')};
+  height: ${({ line }) => (typeof line === 'boolean' ? '100%' : typeof line === 'string' ? '12px' : '100%')};
+  background-color: ${({ line }) => (typeof line === 'boolean' || typeof line === 'string') ? 'blue' : 'transparent'};
+  transform: ${({ line }) => (typeof line === 'boolean' ? 'translate(-50%, -50%)' : typeof line === 'string' ? 'none' : typeof line === 'number' && line === 2 ? 'rotate(-45deg)' : 'rotate(45deg)')};
+  top: ${({ line }) => (typeof line === 'boolean' ? '50%' : typeof line === 'string' ? '45%' : '0')};
   animation: ${LineAnimation} 2s linear infinite;
 `;
+
 interface IProps {
   animate: boolean;
   lines: number;
@@ -109,7 +110,6 @@ interface IImg {
 
 export const Slots: React.FC<IProps> = ({ animate, id }) => {
   const data: IImg[] = useSelector(getSlot);
-
   return (
     <Container>
       {data.length > 0 &&
@@ -125,6 +125,12 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
             {item.line && typeof item.line === 'string' && (
               <>
                 <Line line={'true'} />
+                <Confetti />
+              </>
+            )}
+            {item.line && typeof item.line === 'number' && (item.line === 1 || item.line === 2) && (
+              <>
+                <Line line={1} />
                 <Confetti />
               </>
             )}

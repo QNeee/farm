@@ -1,1 +1,1 @@
-export const HOST = 'https://farm-j4yt.onrender.com/api';
+export const HOST = 'http://farm-j4yt.onrender.com/api';
