@@ -13,6 +13,7 @@ import lineSound from '../../audio/line.mp3';
 import betSound from '../../audio/bet.mp3';
 import useSound from "use-sound";
 import NumberComponent from "../Modal/Modal";
+import { Confetti } from "../Confetti";
 const MainContainer = styled.div<{ imgUrl: string }>`
  background-image: url(${props => props.imgUrl});
   background-size: cover;
@@ -88,11 +89,16 @@ export const SlotApp = () => {
         }
     }, [id, dispatch, refreshed]);
     const [playedWinSound, setPlayedWinSound] = useState(false);
+    const [confetti, setConfetti] = useState(false);
     useEffect(() => {
-        if (result > 0 && playedWinSound) {
+        if (result > 0) {
+            setPlayedWinSound(true);
+            setConfetti(true);
+        } else {
             setPlayedWinSound(false);
+            setConfetti(false);
         }
-    }, [result, playedWinSound]);
+    }, [result]);
     const [animate, setAnimate] = useState(false);
     const [w8, setW8] = useState(false);
     const [auto, setAuto] = useState(false);
@@ -142,6 +148,7 @@ export const SlotApp = () => {
 
             setIntervalId(interval);
         } else {
+            result = 0;
             playSpin();
             setAnimate(true);
             dispatch(postStartGame(reqData));
@@ -228,9 +235,8 @@ export const SlotApp = () => {
     }
     const checkWin = () => {
         if (result > 0) {
-            if (!playedWinSound) {
+            if (!playedWinSound && !confetti) {
                 playWin();
-                setPlayedWinSound(true);
             }
             return `(+${result})`;
         }
@@ -245,6 +251,7 @@ export const SlotApp = () => {
         <Container>
             {result > 0 && <NumberComponent number={result} />}
             <Slots start={start} lines={lines} animate={animate} id={id} />
+            {confetti ? <Confetti /> : null}
             <ButtonsContainer>
                 {!showModal && <SpinButton onClick={() => onClickLines('modalBet')} primary={false}>Bet</SpinButton>}
 

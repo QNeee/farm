@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Confetti } from '../Confetti';
 import ImageSlot from "../Image/ImageSlot";
 import { useSelector } from "react-redux";
 import { getSlot } from "../../Redux/chatSlice";
@@ -130,7 +129,7 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
                 <Line line={1} />
               </>
             )}
-            {item.line && <Confetti />}
+            {/* {item.line && <Confetti />} */}
 
             <ImageSlot src={item.img} alt={`item ${index}`} />
           </AnimatedContainer>
