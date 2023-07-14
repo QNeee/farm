@@ -115,26 +115,22 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
       {data.length > 0 &&
         data.map((item, index) => (
           <AnimatedContainer key={index} animate={animate} id={id}>
-
             {item.line && typeof item.line === 'boolean' && (
               <>
                 <Line line={true} />
-                <Confetti />
               </>
             )}
             {item.line && typeof item.line === 'string' && (
               <>
                 <Line line={'true'} />
-                <Confetti />
               </>
             )}
             {item.line && typeof item.line === 'number' && (item.line === 1 || item.line === 2) && (
               <>
                 <Line line={1} />
-                <Confetti />
               </>
             )}
-
+            {item.line && <Confetti />}
 
             <ImageSlot src={item.img} alt={`item ${index}`} />
           </AnimatedContainer>

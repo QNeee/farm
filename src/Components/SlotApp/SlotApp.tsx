@@ -226,7 +226,6 @@ export const SlotApp = () => {
         setShowBet(false);
         setW8(false);
     }
-    console.log(result);
     const checkWin = () => {
         if (result > 0) {
             if (!playedWinSound) {
