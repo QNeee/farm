@@ -60,6 +60,20 @@ const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
   overflow: hidden;
 `;
 
+const LineAnimation =  keyframes`
+   0% {filter: blur(0);
+  background-color: blue;}
+  10% {filter: blur(0);
+  background-color: brown;}
+  30% {filter: blur(6px);
+    background-color: green;}
+  60% {filter: blur(6px);
+  background-color: brown;}
+  80% {filter: blur(0);
+  background-color: green;
+  }
+`;
+
 
 const Line = styled.div<{ line: boolean | string }>`
   position: absolute;
@@ -69,6 +83,7 @@ const Line = styled.div<{ line: boolean | string }>`
   background-color: blue;
   transform: ${({ line }) => (typeof line === 'boolean' ? 'translate(-50%, -50%)' : 'none')};
   top: ${({ line }) => (typeof line === 'boolean' ? '50%' : '50px')};
+  animation: ${LineAnimation} 2s linear infinite;
 `;
 interface IProps {
   animate: boolean;
