@@ -195,7 +195,7 @@ export const chatSlice = createSlice({
 const persistConfig = {
     key: 'local-key',
     storage,
-    whitelist: ['sid', 'accessToken', 'refreshToken', 'isLoggedIn']
+    whitelist: ['sid', 'accessToken', 'refreshToken', 'isLoggedIn', 'auth', 'lines', 'bet']
 }
 export const chatReducer = persistReducer(
     persistConfig,
