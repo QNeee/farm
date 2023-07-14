@@ -121,6 +121,7 @@ export const SlotApp = () => {
         }
         if (w8) return;
         if (balance < bet) return;
+        result = 0;
         setExpense(true);
         setW8(true);
         setStart(true);
@@ -148,7 +149,6 @@ export const SlotApp = () => {
 
             setIntervalId(interval);
         } else {
-            result = 0;
             playSpin();
             setAnimate(true);
             dispatch(postStartGame(reqData));
