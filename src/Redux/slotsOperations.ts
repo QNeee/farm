@@ -1,8 +1,9 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { setToken } from './authOperations';
 import { IPostSlotLine } from '../types';
 import { RootState } from './store';
-import { setToken } from './authOperations';
 
 export const getSlots = createAsyncThunk(
     'slots',

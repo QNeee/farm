@@ -1,0 +1,213 @@
+.machine {
+  /* outline: 5px solid pink;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 100vw;
+  height: 60vw; */
+  /* background-color: red; */
+}
+
+.slots {
+  outline: 5px solid tomato;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 40vw;
+  transform: translate3d(-50%, -50%, 0);
+  perspective: 800vw;
+  overflow: hidden;
+  background-color: #050505;
+  box-shadow: 1vw 1vw 2vw #ff8f8f, -1vw -1vw 2vw #000, -1vw 1vw 2vw #000, 1vw -1vw 2vw #000;
+}
+
+/* эффект тени */
+/* .slots:after {    
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 12%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 1) 100%);
+} */
+
+/* инструмент для вращения */
+.slot {
+  outline: 5px solid green;
+  position: absolute;
+  top: 0vw;
+  width: 30%;
+  height: 20vw;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  left: 35%;
+  animation-name: rotate;
+  animation-duration: 6s;
+}
+
+.slot:nth-child(1) {
+  outline: 5px solid blue;
+  left: 3%;
+  animation-name: rotate;
+  animation-duration: 5s;
+}
+
+.slot:nth-child(2) {
+  outline: 5px solid red;
+  left: 35%;
+  animation-name: rotate;
+  animation-duration: 6s;
+}
+
+.slot:nth-child(3) {
+  left: 67%;
+  animation-name: rotate;
+  animation-duration: 5.4s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  100% {
+    transform: rotateX(-1440deg);
+  }
+}
+
+.pic {
+  outline: 1px solid red;
+  position: absolute;
+  top: 10vw;
+  right: 0;
+  left: 0;
+  display: flex;
+  height: 20vw;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 2vw rgba(0, 0, 0, 0.8), inset 0 0 0.5vw rgba(0, 0, 0, 0.5);
+  background-color: rgba(204, 193, 163, 0.95);
+  transform-origin: 50% 50%;
+}
+
+.pic:nth-child(1) {
+  transform: rotateX(36deg) translateZ(30vw);
+}
+
+.pic:nth-child(2) {
+  transform: rotateX(72deg) translateZ(30vw);
+}
+
+.pic:nth-child(3) {
+  transform: rotateX(108deg) translateZ(30vw);
+}
+
+.pic:nth-child(4) {
+  transform: rotateX(144deg) translateZ(30vw);
+}
+
+.pic:nth-child(5) {
+  transform: rotateX(180deg) translateZ(30vw);
+}
+
+.pic:nth-child(6) {
+  transform: rotateX(216deg) translateZ(30vw);
+}
+
+.pic:nth-child(7) {
+  transform: rotateX(252deg) translateZ(30vw);
+}
+
+.pic:nth-child(8) {
+  transform: rotateX(288deg) translateZ(30vw);
+}
+
+.pic:nth-child(9) {
+  transform: rotateX(324deg) translateZ(30vw);
+}
+
+.pic:nth-child(10) {
+  transform: rotateX(360deg) translateZ(30vw);
+}
+
+/* .pic:nth-child(1) {
+  transform: rotateX(20deg) translateZ(30vw);
+}
+
+.pic:nth-child(2) {
+  transform: rotateX(40deg) translateZ(30vw);
+}
+
+.pic:nth-child(3) {
+  transform: rotateX(60deg) translateZ(30vw);
+}
+
+.pic:nth-child(4) {
+  transform: rotateX(80deg) translateZ(30vw);
+}
+
+.pic:nth-child(5) {
+  transform: rotateX(100deg) translateZ(30vw);
+}
+
+.pic:nth-child(6) {
+  transform: rotateX(120deg) translateZ(30vw);
+}
+
+.pic:nth-child(7) {
+  transform: rotateX(140deg) translateZ(30vw);
+}
+
+.pic:nth-child(8) {
+  transform: rotateX(160deg) translateZ(30vw);
+}
+
+.pic:nth-child(9) {
+  transform: rotateX(180deg) translateZ(30vw);
+}
+
+.pic:nth-child(10) {
+  transform: rotateX(200deg) translateZ(30vw);
+}
+
+.pic:nth-child(11) {
+  transform: rotateX(220deg) translateZ(30vw);
+}
+
+.pic:nth-child(12) {
+  transform: rotateX(240deg) translateZ(30vw);
+}
+
+.pic:nth-child(13) {
+  transform: rotateX(260deg) translateZ(30vw);
+}
+
+.pic:nth-child(14) {
+  transform: rotateX(280deg) translateZ(30vw);
+}
+
+.pic:nth-child(15) {
+  transform: rotateX(300deg) translateZ(30vw);
+}
+
+.pic:nth-child(16) {
+  transform: rotateX(320deg) translateZ(30vw);
+}
+
+.pic:nth-child(17) {
+  transform: rotateX(340deg) translateZ(30vw);
+}
+
+.pic:nth-child(18) {
+  transform: rotateX(360deg) translateZ(30vw);
+} */

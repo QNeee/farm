@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-import ConfettiComponent from 'react-confetti';
+import { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
-
+import ConfettiComponent from 'react-confetti';
 import EventEmitter from 'events';
 
 const TIMEOUT = 4_000;
@@ -22,10 +21,17 @@ export const confetti = new ConfettiEmmiter();
 
 export const Confetti = () => {
   const [party, setParty] = useState(true);
-  const [size, setSize] = useState({ y: window.innerHeight, x: window.innerWidth - SCROLL_BAR_WIDTH });
+  const [size, setSize] = useState({
+    y: window.innerHeight,
+    x: window.innerWidth - SCROLL_BAR_WIDTH,
+  });
 
   useEffect(() => {
-    const resize = () => setSize({ y: window?.innerHeight, x: window.innerWidth - SCROLL_BAR_WIDTH });
+    const resize = () =>
+      setSize({
+        y: window?.innerHeight,
+        x: window.innerWidth - SCROLL_BAR_WIDTH,
+      });
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
   }, []);
@@ -37,23 +43,33 @@ export const Confetti = () => {
       clearTimeout(id);
     };
   }, []);
+
   return ReactDOM.createPortal(
     <ConfettiComponent
-      style={{ position: 'fixed', top: 0, left: 0, zIndex: 100000, width: '100%', pointerEvents: 'none' }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 100000,
+        width: '100%',
+        pointerEvents: 'none',
+      }}
       numberOfPieces={party ? 200 : 0}
       gravity={0.3}
-      onConfettiComplete={(c: { reset: () => void; }) => {
+      onConfettiComplete={(c: { reset: () => void }) => {
         setParty(false);
         c?.reset();
       }}
       width={size.x}
       height={size.y}
     />,
-    document.body,
+    document.body
   );
 };
+
 export const ConfettiContainer = () => {
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

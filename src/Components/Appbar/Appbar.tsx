@@ -1,82 +1,45 @@
-import React, { useState, useEffect } from "react";
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { getRefreshed, getUserEmail } from '../../Redux/chatSlice';
-import { AppDispatch } from "../../Redux/store";
-import { getUserInfo, postUserBalance } from "../../Redux/userOperations";
+import { getUserInfo, postUserBalance } from '../../redux/userOperations';
+import { getRefreshed, getUserEmail } from '../../redux/chatSlice';
+import { AppDispatch } from '../../redux/store';
 
-const UserContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background-color: #f0f0f0;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const UserEmail = styled.p`
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-`;
-
-const Modal = styled.div`
-z-index: 2;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Input = styled.input`
-  margin-bottom: 16px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Button = styled.button`
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
+import {
+  UserContainer,
+  UserInfo,
+  UserEmail,
+  Modal,
+  Input,
+  Button,
+} from './AppBar.styled';
 
 const AppBar: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [balance, setBalance] = useState('');
+  const dispatch: AppDispatch = useDispatch();
   const userEmail = useSelector(getUserEmail);
   const refreshed = useSelector(getRefreshed);
-  const dispatch: AppDispatch = useDispatch();
+
+  const [showModal, setShowModal] = useState(false);
+  const [balance, setBalance] = useState('');
+
   const handleContainerClick = () => {
     setShowModal(true);
   };
+
   const onClickExit = () => {
     setShowModal(false);
   };
+
   useEffect(() => {
-    if (refreshed)
-      dispatch(getUserInfo());
-  }, [dispatch, refreshed])
+    if (refreshed) dispatch(getUserInfo());
+  }, [dispatch, refreshed]);
+
   const handleBalanceSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const reqBody = {
-      balance: balance
-    }
-    dispatch(postUserBalance(reqBody))
+      balance: balance,
+    };
+    dispatch(postUserBalance(reqBody));
     setShowModal(false);
   };
 
