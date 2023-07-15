@@ -42,7 +42,7 @@ export const Confetti = () => {
       style={{ position: 'fixed', top: 0, left: 0, zIndex: 100000, width: '100%', pointerEvents: 'none' }}
       numberOfPieces={party ? 200 : 0}
       gravity={0.3}
-      onConfettiComplete={c => {
+      onConfettiComplete={(c: { reset: () => void; }) => {
         setParty(false);
         c?.reset();
       }}
@@ -53,7 +53,7 @@ export const Confetti = () => {
   );
 };
 export const ConfettiContainer = () => {
-  const timeoutId = useRef(null);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

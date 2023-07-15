@@ -13,7 +13,8 @@ import lineSound from '../../audio/line.mp3';
 import betSound from '../../audio/bet.mp3';
 import useSound from "use-sound";
 import NumberComponent from "../Modal/Modal";
-import { Confetti } from "../Confetti";
+import { Confetti } from "../Confetti/Confetti";
+
 const MainContainer = styled.div<{ imgUrl: string }>`
  background-image: url(${props => props.imgUrl});
   background-size: cover;
