@@ -57,9 +57,36 @@ const SlotAnimationOld = keyframes`
 const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
   position: relative;
   border: 2px solid green;
+  
   border-radius: ${({ animate }) => (animate ? '50%' : 'none')};
-  animation-name: ${({ animate, id }) => (animate && id === '64a5be6f083fae19e09b4871' ? SlotAnimation : animate && id === '64a744f7083fae19e09b4874' ? SlotAnimationNew : animate && id === '64a744fd083fae19e09b4875' ? SlotAnimationOld : 'none')};
-  animation-duration:${({ animate, id }) => animate && id === '64a5be6f083fae19e09b4871' ? '0.4s' : animate && id === '64a744f7083fae19e09b4874' ? '4.3s' : '0.7s'};
+   animation-name:${({ animate, id }) => {
+    if (animate) {
+      switch (id) {
+        case '64a5be6f083fae19e09b4871':
+          return SlotAnimation;
+        case '64a744f7083fae19e09b4874':
+          return SlotAnimationNew;
+        case '64a744fd083fae19e09b4875':
+          return SlotAnimationOld;
+        default:
+          return 'none';
+      }
+    }
+  }};
+   animation-duration:${({ animate, id }) => {
+    if (animate) {
+      switch (id) {
+        case '64a5be6f083fae19e09b4871':
+          return '0.4s'
+        case '64a744f7083fae19e09b4874':
+          return '4.3s'
+        case '64a744fd083fae19e09b4875':
+          return '0.7s'
+        default:
+          return 'none';
+      }
+    }
+  }};
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
@@ -83,12 +110,67 @@ const LineAnimation = keyframes`
 
 const Line = styled.div<{ line: boolean | string | number }>`
   position: absolute;
-  left: ${({ line }) => (typeof line === 'boolean' ? '50%' : typeof line === 'string' ? '0' : '45%')};
-  width: ${({ line }) => (typeof line === 'boolean' ? '12px' : typeof line === 'string' ? '100%' : '12px')};
-  height: ${({ line }) => (typeof line === 'boolean' ? '100%' : typeof line === 'string' ? '12px' : '100%')};
-  background-color: ${({ line }) => (typeof line === 'boolean' || typeof line === 'string') ? 'blue' : 'transparent'};
-  transform: ${({ line }) => (typeof line === 'boolean' ? 'translate(-50%, -50%)' : typeof line === 'string' ? 'none' : typeof line === 'number' && line === 2 ? 'rotate(-45deg)' : 'rotate(45deg)')};
-  top: ${({ line }) => (typeof line === 'boolean' ? '50%' : typeof line === 'string' ? '45%' : '0')};
+  left:${({ line }) => {
+    switch (typeof line) {
+      case 'boolean':
+        return '50%';
+      case 'string':
+        return '0';
+      case 'number':
+        return '45%';
+      default:
+        break;
+    }
+  }};
+   width:${({ line }) => {
+    switch (typeof line) {
+      case 'boolean':
+        return '12px';
+      case 'string':
+        return '100%';
+      case 'number':
+        return '12px';
+      default:
+        break;
+    }
+  }};
+   height:${({ line }) => {
+    switch (typeof line) {
+      case 'boolean':
+        return '100%';
+      case 'string':
+        return '12px';
+      case 'number':
+        return '100%';
+      default:
+        break;
+    }
+  }};
+    background-color:'blue';
+      transform:${({ line }) => {
+    switch (typeof line) {
+      case 'boolean':
+        return 'translate(-50%, -50%)';
+      case 'string':
+        return 'none';
+      case 'number':
+        return 'rotate(-45deg)';
+      default:
+        break;
+    }
+  }};
+      top:${({ line }) => {
+    switch (typeof line) {
+      case 'boolean':
+        return '50%';
+      case 'string':
+        return '45%';
+      case 'number':
+        return '0';
+      default:
+        break;
+    }
+  }};
   animation: ${LineAnimation} 2s linear infinite;
 `;
 
