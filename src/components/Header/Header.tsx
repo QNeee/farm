@@ -9,9 +9,9 @@ import {
   Logo,
   Button,
 } from './Header.styled';
-import { AppDispatch } from '../../Redux/store';
-import { getToken } from '../../Redux/chatSlice';
-import { logout } from '../../Redux/authOperations';
+import { AppDispatch } from '../../redux/store';
+import { getToken } from '../../redux/chatSlice';
+import { logout } from '../../redux/authOperations';
 
 const Header = () => {
   const dispatch: AppDispatch = useDispatch();

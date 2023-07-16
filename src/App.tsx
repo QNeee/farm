@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch } from './Redux/store';
+import { AppDispatch } from './redux/store';
 
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
-import Layout from './Components/Layout/Layout';
-import { Auth } from './Components/Auth';
-import SlotsContainer from './Components/SlotsContainer/SlotsContainer';
-import { SlotApp } from './Components/SlotApp';
-import SlotTest from './Components/Slot/SlotTest';
-import { getIsLoggedIn, getToken } from './Redux/chatSlice';
-import { refresh } from './Redux/authOperations';
-import NewSlotTest from './Components/Slot/NewSlotTest';
+import Layout from './components/Layout/Layout';
+import { Auth } from './components/Auth';
+import SlotsContainer from './components/SlotsContainer/SlotsContainer';
+import { SlotApp } from './components/SlotApp';
+import SlotTest from './components/Slot/SlotTest';
+import { getIsLoggedIn, getToken } from './redux/chatSlice';
+import { refresh } from './redux/authOperations';
+import { NewSlotTest } from './components/Slot';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -50,7 +50,9 @@ const App = () => {
           />
           <Route
             path="test"
-            element={token ? <NewSlotTest /> : <Navigate to={'/login'} replace />}
+            element={
+              token ? <NewSlotTest /> : <Navigate to={'/login'} replace />
+            }
           />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

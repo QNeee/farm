@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
-import { AppDispatch } from '../../Redux/store';
 import { Form, Label, Input, Button } from './Auth.styled';
-import { login, register } from '../../Redux/authOperations';
+import { AppDispatch } from '../../redux/store';
+import { login } from '../../redux/authOperations';
 
 interface IForm {
   email: string;
   password: string;
 }
-export const Auth = () => {
+
+export const AuthLogin = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { pathname } = useLocation();
+
   const [form, setForm] = useState<IForm>({ email: '', password: '' });
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,15 +29,12 @@ export const Auth = () => {
       email: form.email,
       password: form.password,
     };
-    pathname === '/login'
-      ? dispatch(login(newUser))
-      : dispatch(register(newUser));
-    setForm({ email: '', password: '' });
+    dispatch(login(newUser));
   };
 
   return (
     <Form onSubmit={onSubmit}>
-      <h2>{pathname === '/login' ? 'Login' : 'Register'}</h2>
+      <h2>Login</h2>
       <Label>
         Email
         <Input
@@ -56,9 +53,7 @@ export const Auth = () => {
           onChange={inputHandler}
         />
       </Label>
-      <Button type="submit">
-        {pathname === '/login' ? 'Login' : 'Register'}
-      </Button>
+      <Button type="submit">Login</Button>
     </Form>
   );
 };
