@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo, postUserBalance } from '../../Redux/userOperations';
+import { getUserInfo, postUserBalance } from '../../redux/userOperations';
 
 import {
   UserContainer,
@@ -11,8 +11,8 @@ import {
   Input,
   Button,
 } from './AppBar.styled';
-import { AppDispatch } from '../../Redux/store';
-import { getRefreshed, getUserEmail } from '../../Redux/chatSlice';
+import { AppDispatch } from '../../redux/store';
+import { getRefreshed, getUserEmail } from '../../redux/chatSlice';
 
 const AppBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

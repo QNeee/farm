@@ -5,7 +5,6 @@ import useSound from 'use-sound';
 
 import { Slots } from '../Slot';
 
-
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
 import lineSound from '../../audio/line.mp3';
@@ -23,9 +22,22 @@ import {
   Container,
   MainContainer,
 } from './SlotApp.styled';
-import { AppDispatch } from '../../Redux/store';
-import { getConfetti, getRefreshed, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from '../../Redux/chatSlice';
-import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from '../../Redux/slotsOperations';
+import { AppDispatch } from '../../redux/store';
+import {
+  getConfetti,
+  getRefreshed,
+  getSlotImg,
+  getSlotLines,
+  getUserBalance,
+  getUserBet,
+  getUserResult,
+} from '../../redux/chatSlice';
+import {
+  getSlotsById,
+  postBetSlot,
+  postSlotLine,
+  postStartGame,
+} from '../../redux/slotsOperations';
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();
