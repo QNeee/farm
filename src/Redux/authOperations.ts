@@ -1,11 +1,14 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { HOST } from '../host';
 import { RootState } from './store';
+
 axios.defaults.baseURL = HOST;
+
 export const setToken = (token: string) => {
     if (token) {
-        return axios.defaults.headers.common.authorization = `Bearer ${token}`;
+        return (axios.defaults.headers.common.authorization = `Bearer ${token}`);
     }
     axios.defaults.headers.common.authorization = '';
 };
@@ -14,14 +17,14 @@ export interface IAuthData {
     password: string;
 }
 export interface IResult {
-    email?: string,
-    password?: string,
-    token?: string
+    email?: string;
+    password?: string;
+    token?: string;
 }
 export interface IRefreshResult {
-    newAccessToken: string,
-    newSid: string,
-    newRefreshToken: string
+    newAccessToken: string;
+    newSid: string;
+    newRefreshToken: string;
 }
 export const register = createAsyncThunk(
     'auth/register',
