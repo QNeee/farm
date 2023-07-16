@@ -11,6 +11,8 @@ export const Container = styled.div`
   align-items: center;
 `;
 export const ButtonsContainer = styled.div`
+position: relative;
+z-index: 333;
   margin-top: 20px;
   display: flex;
   gap: 10px;

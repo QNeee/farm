@@ -1,10 +1,10 @@
 import styled, { keyframes } from 'styled-components';
-import Machine from '../../images/machine.png';
+// import Machine from '../../images/machine.png';
 
 export const Background = styled.div`
   width: 100%;
   height: 700px;
-  background-image: url(${Machine});
+  background-image: url('../../images/machine.png');
   background-size: cover;
   background-position: center;
   display: flex;

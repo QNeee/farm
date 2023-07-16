@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
-
 import { chatReducer } from './chatSlice';
+
 
 export const store = configureStore({
   reducer: {

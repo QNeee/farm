@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { getAllSlots, getRefreshed } from '../../redux/chatSlice';
-import { getSlots } from '../../redux/slotsOperations';
-import { AppDispatch } from '../../redux/store';
 import { IData } from '../../types';
 import {
   ListContainer,
@@ -13,6 +10,9 @@ import {
   Text,
   Image,
 } from './SlotsContainer.styled';
+import { AppDispatch } from '../../Redux/store';
+import { getAllSlots, getRefreshed } from '../../Redux/chatSlice';
+import { getSlots } from '../../Redux/slotsOperations';
 
 const SlotsContainer: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

@@ -1,10 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getToken } from '../../redux/chatSlice';
 import AppBar from '../Appbar';
-import { AppDispatch } from '../../redux/store';
-import { logout } from '../../redux/authOperations';
 import {
   HeaderStyled,
   NavLinkStyled,
@@ -12,6 +9,9 @@ import {
   Logo,
   Button,
 } from './Header.styled';
+import { AppDispatch } from '../../Redux/store';
+import { getToken } from '../../Redux/chatSlice';
+import { logout } from '../../Redux/authOperations';
 
 const Header = () => {
   const dispatch: AppDispatch = useDispatch();

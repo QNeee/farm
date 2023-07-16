@@ -1,3 +1,5 @@
+import { IImg } from "./Components/Slot";
+
 export interface IUserBalance {
     balance: string
 }
@@ -12,6 +14,11 @@ export interface ISlotsData {
     value: number,
     img: string,
     line?: boolean | string | undefined
+}
+export interface INewVersion {
+    uniqueArr: IImg[],
+    uniqueArr1: IImg[],
+    uniqueArr2: IImg[]
 }
 export interface IPostSlotLine {
     lines?: number,

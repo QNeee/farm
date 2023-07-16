@@ -12,6 +12,7 @@ import {
 } from './slotsOperations';
 import { getUserInfo, postUserBalance } from './userOperations';
 import { RootState } from './store';
+import { INewVersion } from '../types';
 
 interface IAuthState {
     user: { email: string; id: number | null; balance: number | 0 };
@@ -29,6 +30,7 @@ interface IRootState {
     confetti: boolean;
     allSlots: [];
     slot: [];
+    slotNew: INewVersion | null
     slotImg: string;
     result: number;
     lines: number;
@@ -42,6 +44,7 @@ const initialState: IRootState = {
     },
     allSlots: [],
     slot: [],
+    slotNew: null,
     result: 0,
     accessToken: null,
     refreshToken: null,
@@ -182,6 +185,7 @@ export const chatSlice = createSlice({
                 state.loading = false;
                 state.version = payload.data.version;
                 state.slot = payload.data.data;
+                state.slotNew = payload.data.data;
                 state.lines = parseInt(payload.data.lines);
                 state.bet = parseInt(payload.data.bet);
                 state.slotImg = payload.data.img;
@@ -203,6 +207,7 @@ export const chatSlice = createSlice({
                 state.lineRender = payload.data.winSound;
                 state.auth.user.balance = payload.data.updatedUser.balance;
                 state.slot = payload.data.data;
+                state.slotNew = payload.data.data;
                 state.result = payload.data.result;
             })
             .addCase(postStartGame.rejected, (state, action) => {
@@ -267,3 +272,4 @@ export const getSlotImg = (state: RootState) => state.chat.slotImg;
 export const getLineRender = (state: RootState) => state.chat.lineRender;
 export const getConfetti = (state: RootState) => state.chat.confetti;
 export const getVersion = (state: RootState) => state.chat.version;
+export const getSlotNew = (state: RootState) => state.chat.slotNew;

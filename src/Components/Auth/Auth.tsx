@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { AppDispatch } from '../../redux/store';
-import { login, register } from '../../redux/authOperations';
+import { AppDispatch } from '../../Redux/store';
 import { Form, Label, Input, Button } from './Auth.styled';
+import { login, register } from '../../Redux/authOperations';
 
 interface IForm {
   email: string;
