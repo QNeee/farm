@@ -14,6 +14,7 @@ import SlotTest from './components/Slot/SlotTest';
 import { getIsLoggedIn, getToken } from './redux/chatSlice';
 import { refresh } from './redux/authOperations';
 import { NewSlotTest } from './components/Slot';
+import CubicsApp from './components/Cubics/CubicsApp';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -47,6 +48,12 @@ const App = () => {
           <Route
             path="slots/:id"
             element={token ? <SlotApp /> : <Navigate to={'/login'} replace />}
+          />
+          <Route
+            path="cubics"
+            element={
+              token ? <CubicsApp /> : <Navigate to={'/login'} replace />
+            }
           />
           <Route
             path="test"

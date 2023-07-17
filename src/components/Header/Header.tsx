@@ -35,6 +35,7 @@ const Header = () => {
         ) : null}
         {token ? <AppBar /> : null}
         <NavLinkStyled to={'/slots'}>Слоти</NavLinkStyled>
+        <NavLinkStyled to={'/cubics'}>КубікПокер</NavLinkStyled>
         {token ? <Button onClick={onClickLogout}>Вийти</Button> : null}
       </NavigationStyled>
     </HeaderStyled>

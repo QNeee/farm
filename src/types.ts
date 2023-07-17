@@ -4,6 +4,11 @@ export interface IUserBalance {
   balance: string;
 }
 
+export interface ICubicsData {
+  img: string,
+  value: number,
+  name: string
+}
 export interface IData {
   _id: string;
   name: string;

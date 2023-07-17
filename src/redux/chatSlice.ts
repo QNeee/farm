@@ -12,7 +12,8 @@ import {
 } from './slotsOperations';
 import { getUserInfo, postUserBalance } from './userOperations';
 import { RootState } from './store';
-import { INewVersion } from '../types';
+import { ICubicsData, INewVersion } from '../types';
+import { deleteThrowGame, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicStartGame } from './cubicsOperations';
 
 interface IAuthState {
     user: { email: string; id: number | null; balance: number | 0 };
@@ -28,6 +29,10 @@ interface IRootState {
     error: unknown;
     lineRender: boolean;
     confetti: boolean;
+    school: string[];
+    other: string[];
+    cubics: ICubicsData[] | null;
+    startGame: boolean;
     allSlots: [];
     slot: [];
     slotNew: INewVersion | null
@@ -46,6 +51,9 @@ const initialState: IRootState = {
     slot: [],
     slotNew: null,
     result: 0,
+    school: [],
+    other: [],
+    cubics: null,
     accessToken: null,
     refreshToken: null,
     sid: null,
@@ -53,6 +61,7 @@ const initialState: IRootState = {
     loading: false,
     lineRender: false,
     confetti: false,
+    startGame: false,
     error: null,
     slotImg: '',
     lines: 1,
@@ -72,7 +81,6 @@ export const chatSlice = createSlice({
                 state.error = null;
             })
             .addCase(register.fulfilled, (state, action) => {
-                console.log(action.payload);
                 state.loading = false;
             })
             .addCase(register.rejected, (state, action) => {
@@ -113,6 +121,7 @@ export const chatSlice = createSlice({
                 state.bet = 1;
                 state.lines = 1;
                 state.isLoggedIn = false;
+                state.startGame = false;
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
@@ -237,6 +246,62 @@ export const chatSlice = createSlice({
             .addCase(postBetSlot.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            }).addCase(getCubicsTable.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsTable.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.school = payload.data.school;
+                state.other = payload.data.other;
+            })
+            .addCase(getCubicsTable.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getCubicsStartGame.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsStartGame.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubics = payload.data;
+            })
+            .addCase(getCubicsStartGame.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(postCubicStartGame.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(postCubicStartGame.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.startGame = payload.data.cubics;
+            })
+            .addCase(postCubicStartGame.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(deleteThrowGame.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteThrowGame.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.startGame = payload.data;
+            })
+            .addCase(deleteThrowGame.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getCubicsStart.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsStart.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.startGame = payload.data;
+            })
+            .addCase(getCubicsStart.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
@@ -254,6 +319,8 @@ const persistConfig = {
         'slot',
         'slotImg',
         'version',
+        'startGame',
+        'cubics'
     ],
 };
 export const chatReducer = persistReducer(persistConfig, chatSlice.reducer);
@@ -273,3 +340,7 @@ export const getLineRender = (state: RootState) => state.chat.lineRender;
 export const getConfetti = (state: RootState) => state.chat.confetti;
 export const getVersion = (state: RootState) => state.chat.version;
 export const getSlotNew = (state: RootState) => state.chat.slotNew;
+export const getSchool = (state: RootState) => state.chat.school;
+export const getOther = (state: RootState) => state.chat.other;
+export const getStartGame = (state: RootState) => state.chat.startGame;
+export const getCubics = (state: RootState) => state.chat.cubics;
