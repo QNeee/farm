@@ -51,7 +51,7 @@ export const SlotsContainer = styled.div`
 
   width: 48vw;
   height: 30vw;
-  /* perspective: 320vw; */
+  perspective: 320vw;
 
   overflow: hidden;
   background-color: black;
