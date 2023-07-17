@@ -1,3 +1,3 @@
 export * from './Slot';
-export { default as SlotTest } from './SlotTest';
-export { NewSlotTest } from './NewSlotTest';
+export { default as SlotTest } from './SlotsInDev/SlotTest';
+export { NewSlotTest } from './SlotsInDev/NewSlotTest';

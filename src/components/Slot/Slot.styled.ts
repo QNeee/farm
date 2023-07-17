@@ -1,4 +1,5 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
+
 const rotate = keyframes`
   0% {
     transform: rotateX(0deg);
@@ -20,7 +21,8 @@ export const SlotsContainer = styled.div`
   perspective: 800vw;
   overflow: hidden;
   background-color: #050505;
-  box-shadow: 1vw 1vw 2vw #ff8f8f, -1vw -1vw 2vw #000, -1vw 1vw 2vw #000, 1vw -1vw 2vw #000;
+  box-shadow: 1vw 1vw 2vw #ff8f8f, -1vw -1vw 2vw #000, -1vw 1vw 2vw #000,
+    1vw -1vw 2vw #000;
 `;
 
 export const SlotUl = styled.ul<{ animate: boolean }>`
@@ -39,26 +41,26 @@ export const SlotUl = styled.ul<{ animate: boolean }>`
   animation-iteration-count: infinite;
   animation-fill-mode: both;
   left: 35%;
-  animation-name:${({ animate }) => animate ? rotate : 'none'};
+  animation-name: ${({ animate }) => (animate ? rotate : 'none')};
   animation-duration: 6s;
 
   &:nth-child(1) {
     outline: 5px solid blue;
     left: 3%;
-  animation-name:${({ animate }) => animate ? rotate : 'none'};
+    animation-name: ${({ animate }) => (animate ? rotate : 'none')};
     animation-duration: 5s;
   }
 
   &:nth-child(2) {
     outline: 5px solid red;
     left: 35%;
-  animation-name:${({ animate }) => animate ? rotate : 'none'};
+    animation-name: ${({ animate }) => (animate ? rotate : 'none')};
     animation-duration: 6s;
   }
 
   &:nth-child(3) {
     left: 67%;
-  animation-name:${({ animate }) => animate ? rotate : 'none'};
+    animation-name: ${({ animate }) => (animate ? rotate : 'none')};
     animation-duration: 5.4s;
   }
 `;
@@ -73,7 +75,8 @@ export const SlotLi = styled.li`
   height: 20vw;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 0 2vw rgba(0, 0, 0, 0.8), inset 0 0 0.5vw rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 2vw rgba(0, 0, 0, 0.8),
+    inset 0 0 0.5vw rgba(0, 0, 0, 0.5);
   background-color: rgba(204, 193, 163, 0.95);
   transform-origin: 50% 50%;
 
@@ -119,7 +122,7 @@ export const SlotLi = styled.li`
 `;
 export const Container = styled.div`
   display: grid;
-  grid-template-columns:repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 0;
   background: linear-gradient(45deg, white, lightblue);
   position: relative;
@@ -158,12 +161,12 @@ const SlotAnimationOld = keyframes`
   } 
 `;
 
-export const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
+export const AnimatedContainer = styled.div<{ animate: boolean; id: string }>`
   position: relative;
   border: 2px solid green;
-  
+
   border-radius: ${({ animate }) => (animate ? '50%' : 'none')};
-   animation-name:${({ animate, id }) => {
+  animation-name: ${({ animate, id }) => {
     if (animate) {
       switch (id) {
         case '64a5be6f083fae19e09b4871':
@@ -177,15 +180,15 @@ export const AnimatedContainer = styled.div<{ animate: boolean, id: string }>`
       }
     }
   }};
-   animation-duration:${({ animate, id }) => {
+  animation-duration: ${({ animate, id }) => {
     if (animate) {
       switch (id) {
         case '64a5be6f083fae19e09b4871':
-          return '0.4s'
+          return '0.4s';
         case '64a744f7083fae19e09b4874':
-          return '4.3s'
+          return '4.3s';
         case '64a744fd083fae19e09b4875':
-          return '0.7s'
+          return '0.7s';
         default:
           return 'none';
       }
@@ -213,7 +216,7 @@ const LineAnimation = keyframes`
 
 export const Line = styled.div<{ line: boolean | string | number }>`
   position: absolute;
-  left:${({ line }) => {
+  left: ${({ line }) => {
     switch (typeof line) {
       case 'boolean':
         return '50%';
@@ -225,7 +228,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
         break;
     }
   }};
-   width:${({ line }) => {
+  width: ${({ line }) => {
     switch (typeof line) {
       case 'boolean':
         return '12px';
@@ -237,7 +240,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
         break;
     }
   }};
-   height:${({ line }) => {
+  height: ${({ line }) => {
     switch (typeof line) {
       case 'boolean':
         return '100%';
@@ -249,8 +252,8 @@ export const Line = styled.div<{ line: boolean | string | number }>`
         break;
     }
   }};
-    background-color:'blue';
-      transform:${({ line }) => {
+  background-color: 'blue';
+  transform: ${({ line }) => {
     switch (typeof line) {
       case 'boolean':
         return 'translate(-50%, -50%)';
@@ -262,7 +265,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
         break;
     }
   }};
-      top:${({ line }) => {
+  top: ${({ line }) => {
     switch (typeof line) {
       case 'boolean':
         return '50%';

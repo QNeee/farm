@@ -10,7 +10,7 @@ import Layout from './components/Layout/Layout';
 import { Auth } from './components/Auth';
 import SlotsContainer from './components/SlotsContainer/SlotsContainer';
 import { SlotApp } from './components/SlotApp';
-import SlotTest from './components/Slot/SlotTest';
+import SlotTest from './components/Slot/SlotsInDev/SlotTest';
 import { getIsLoggedIn, getToken } from './redux/chatSlice';
 import { refresh } from './redux/authOperations';
 import { NewSlotTest } from './components/Slot';
@@ -51,9 +51,7 @@ const App = () => {
           />
           <Route
             path="cubics"
-            element={
-              token ? <CubicsApp /> : <Navigate to={'/login'} replace />
-            }
+            element={token ? <CubicsApp /> : <Navigate to={'/login'} replace />}
           />
           <Route
             path="test"
