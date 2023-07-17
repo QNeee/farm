@@ -3,7 +3,14 @@ import { useSelector } from 'react-redux';
 import { getLineRender, getSlotNew } from '../../redux/chatSlice';
 import { ImageSlot } from '../Image/ImageSlot';
 import { INewVersion } from '../../types';
-import { SlotsContainer, SlotUl, SlotLi, Line } from './Slot.styled';
+import { Line } from './Slot.styled';
+import {
+  SlotsContainer,
+  RotaryContainer,
+  SlotLi,
+  Wrapper,
+  StyledImageSlot,
+} from './SlotDrum.styled';
 
 interface IProps {
   animate: boolean;
@@ -17,9 +24,9 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
   const slotNew: INewVersion | null = useSelector(getSlotNew);
 
   return (
-    <>
+    <Wrapper>
       <SlotsContainer>
-        <SlotUl animate={animate}>
+        <RotaryContainer animate={animate}>
           {slotNew?.uniqueArr.map((item, index) => (
             <SlotLi key={index + 'bb'}>
               {lineRender && item.line && typeof item.line === 'boolean' && (
@@ -32,11 +39,12 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}
-              <ImageSlot src={item.img} alt={`item ${index + 'dd'}`} />
+              {/* <ImageSlot src={item.img} alt={`item ${index + 'dd'}`} /> */}
+              <StyledImageSlot src={item.img} alt={`item ${index + 'dd'}`} />
             </SlotLi>
           ))}
-        </SlotUl>
-        <SlotUl animate={animate}>
+        </RotaryContainer>
+        <RotaryContainer animate={animate}>
           {slotNew?.uniqueArr1?.map((item, index) => (
             <SlotLi key={index + 'bb'}>
               {lineRender && item.line && typeof item.line === 'boolean' && (
@@ -49,11 +57,11 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}
-              <ImageSlot src={item.img} alt={`item ${index + 'dd'}`} />
+              <StyledImageSlot src={item.img} alt={`item ${index + 'dd'}`} />
             </SlotLi>
           ))}
-        </SlotUl>
-        <SlotUl animate={animate}>
+        </RotaryContainer>
+        <RotaryContainer animate={animate}>
           {slotNew?.uniqueArr2?.map((item, index) => (
             <SlotLi key={index + 'bb'}>
               {lineRender && item.line && typeof item.line === 'boolean' && (
@@ -66,11 +74,11 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}
-              <ImageSlot src={item.img} alt={`item ${index + 'dd'}`} />
+              <StyledImageSlot src={item.img} alt={`item ${index + 'dd'}`} />
             </SlotLi>
           ))}
-        </SlotUl>
+        </RotaryContainer>
       </SlotsContainer>
-    </>
+    </Wrapper>
   );
 };
