@@ -1,10 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { useEffect, useState } from 'react';
 import ConfettiComponent from 'react-confetti';
 import EventEmitter from 'events';
 
-const TIMEOUT = 4_000;
-const ANIMATION_DURATION = 2_000;
+const ANIMATION_DURATION = 5_000;
 const SCROLL_BAR_WIDTH = 20;
 
 class ConfettiEmmiter extends EventEmitter {
@@ -48,13 +47,13 @@ export const Confetti = () => {
     <ConfettiComponent
       style={{
         position: 'fixed',
-        top: 0,
+        top: 100,
         left: 0,
         zIndex: 100000,
         width: '100%',
         pointerEvents: 'none',
       }}
-      numberOfPieces={party ? 200 : 0}
+      numberOfPieces={party ? 800 : 0}
       gravity={0.3}
       onConfettiComplete={(c: { reset: () => void }) => {
         setParty(false);
@@ -65,32 +64,4 @@ export const Confetti = () => {
     />,
     document.body
   );
-};
-
-export const ConfettiContainer = () => {
-  const timeoutId = useRef<NodeJS.Timeout | null>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    confetti.on('confetti', setIsOpen);
-    return () => {
-      confetti.off('confetti', setIsOpen);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) {
-      timeoutId.current = setTimeout(() => {
-        confetti.close();
-      }, TIMEOUT);
-    }
-
-    return () => {
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current);
-      }
-    };
-  }, [isOpen]);
-  return isOpen && <Confetti />;
 };
