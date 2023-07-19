@@ -13,7 +13,8 @@ import {
 import { getUserInfo, postUserBalance } from './userOperations';
 import { RootState } from './store';
 import { ICubicsData, INewVersion } from '../types';
-import { deleteThrowGame, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicStartGame } from './cubicsOperations';
+import { deleteThrowGame, getCubicInStash, getCubicOutStash, getCubicsReroll, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicStartGame } from './cubicsOperations';
+import { AxiosResponse } from 'axios';
 
 interface IAuthState {
     user: { email: string; id: number | null; balance: number | 0 };
@@ -32,9 +33,11 @@ interface IRootState {
     school: string[];
     other: string[];
     cubics: ICubicsData[] | null;
+    cubicInStash: ICubicsData[] | undefined;
     startGame: boolean;
     allSlots: [];
     slot: [];
+    rolls: number | null,
     slotNew: INewVersion | null
     slotImg: string;
     result: number;
@@ -52,10 +55,12 @@ const initialState: IRootState = {
     slotNew: null,
     result: 0,
     school: [],
+    rolls: null,
     other: [],
     cubics: null,
     accessToken: null,
     refreshToken: null,
+    cubicInStash: undefined,
     sid: null,
     isLoggedIn: false,
     loading: false,
@@ -264,7 +269,8 @@ export const chatSlice = createSlice({
             })
             .addCase(getCubicsStartGame.fulfilled, (state, { payload }) => {
                 state.loading = false;
-                state.cubics = payload.data;
+                state.cubics = payload.data.cubicsImgRandom;
+                state.rolls = payload.data.rolls;
             })
             .addCase(getCubicsStartGame.rejected, (state, action) => {
                 state.loading = false;
@@ -287,6 +293,9 @@ export const chatSlice = createSlice({
             .addCase(deleteThrowGame.fulfilled, (state, { payload }) => {
                 state.loading = false;
                 state.startGame = payload.data;
+                state.cubics = null;
+                state.rolls = null;
+                state.cubicInStash = undefined;
             })
             .addCase(deleteThrowGame.rejected, (state, action) => {
                 state.loading = false;
@@ -300,6 +309,42 @@ export const chatSlice = createSlice({
                 state.startGame = payload.data;
             })
             .addCase(getCubicsStart.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getCubicsReroll.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsReroll.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubics = payload.data.cubicsImgRandom;
+                state.rolls = payload.data.rolls;
+            })
+            .addCase(getCubicsReroll.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getCubicInStash.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicInStash.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubics = payload.data.cubics;
+                state.cubicInStash = payload.data.cubicsInStash;
+            })
+            .addCase(getCubicInStash.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getCubicOutStash.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicOutStash.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubics = payload.data.cubics;
+                state.cubicInStash = payload.data.cubicsInStash;
+            })
+            .addCase(getCubicOutStash.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
@@ -320,7 +365,9 @@ const persistConfig = {
         'slotImg',
         'version',
         'startGame',
-        'cubics'
+        'cubics',
+        'rolls',
+        'cubicInStash'
     ],
 };
 export const chatReducer = persistReducer(persistConfig, chatSlice.reducer);
@@ -344,3 +391,5 @@ export const getSchool = (state: RootState) => state.chat.school;
 export const getOther = (state: RootState) => state.chat.other;
 export const getStartGame = (state: RootState) => state.chat.startGame;
 export const getCubics = (state: RootState) => state.chat.cubics;
+export const getCubicsRolls = (state: RootState) => state.chat.rolls;
+export const getCubicInStashArr = (state: RootState) => state.chat.cubicInStash

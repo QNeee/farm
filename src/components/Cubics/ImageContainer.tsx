@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
-import { deleteThrowGame, postCubicStartGame } from '../../redux/cubicsOperations';
+import { deleteThrowGame, getCubicInStash, postCubicStartGame } from '../../redux/cubicsOperations';
 import { getCubics, getStartGame } from '../../redux/chatSlice';
 import { ICubicsData } from '../../types';
 
@@ -46,6 +46,7 @@ margin-left: 10px;
 `;
 
 const ImageContainer = ({ cubicsData }: any) => {
+    const [w8, setW8] = useState(false);
     const dispatch: AppDispatch = useDispatch();
     const startGame = useSelector(getStartGame);
     const onClickStartGame = () => {
@@ -57,14 +58,17 @@ const ImageContainer = ({ cubicsData }: any) => {
     const onClickThrowGame = () => {
         dispatch(deleteThrowGame());
     }
-    const onClickCubic = () => {
-
+    const onClickCubic = (id: string) => {
+        if (w8) return;
+        setW8(true);
+        dispatch(getCubicInStash(id));
+        setW8(false);
     }
     return (
         <Container>
             {!startGame ? <Button onClick={onClickStartGame} type='button'>start</Button> : <ThrowButton onClick={onClickThrowGame} type='button'>throw</ThrowButton>}
             {cubicsData?.map((item: ICubicsData, index: number) => <CubicsContainer key={index}>
-                <Image onClick={onClickCubic} src={item.img} alt={index.toString()} width='40' />
+                <Image onClick={() => onClickCubic(item._id as string)} src={item.img} alt={index.toString()} width='40' />
             </CubicsContainer >)}
         </Container>
     );
