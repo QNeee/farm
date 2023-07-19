@@ -78,9 +78,8 @@ const GameField: React.FC = () => {
     }
     dispatch(getCubicsStartGame());
   }
-  console.log(cubicsData);
   const onClickCubic = (id: string | undefined) => {
-    if (!cubicInStash) return;
+    if (cubicInStash?.length === 0) return;
     if (w8) return;
     setW8(true);
     dispatch(getCubicOutStash(id as string));
