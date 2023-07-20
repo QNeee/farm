@@ -32,6 +32,8 @@ interface IRootState {
     confetti: boolean;
     school: string[];
     other: string[];
+    cubicsResult: string | null,
+    resultNumber: number | null,
     cubics: ICubicsData[] | null;
     cubicInStash: ICubicsData[] | undefined;
     startGame: boolean;
@@ -52,6 +54,8 @@ const initialState: IRootState = {
     },
     allSlots: [],
     slot: [],
+    cubicsResult: null,
+    resultNumber: null,
     slotNew: null,
     result: 0,
     school: [],
@@ -271,6 +275,8 @@ export const chatSlice = createSlice({
                 state.loading = false;
                 state.cubics = payload.data.cubicsImgRandom;
                 state.rolls = payload.data.rolls;
+                state.cubicsResult = payload.data.result;
+                state.resultNumber = payload.data.number;
             })
             .addCase(getCubicsStartGame.rejected, (state, action) => {
                 state.loading = false;
@@ -319,6 +325,8 @@ export const chatSlice = createSlice({
                 state.loading = false;
                 state.cubics = payload.data.cubicsImgRandom;
                 state.rolls = payload.data.rolls;
+                state.cubicsResult = payload.data.result;
+                state.resultNumber = payload.data.number;
             })
             .addCase(getCubicsReroll.rejected, (state, action) => {
                 state.loading = false;
@@ -392,4 +400,6 @@ export const getOther = (state: RootState) => state.chat.other;
 export const getStartGame = (state: RootState) => state.chat.startGame;
 export const getCubics = (state: RootState) => state.chat.cubics;
 export const getCubicsRolls = (state: RootState) => state.chat.rolls;
-export const getCubicInStashArr = (state: RootState) => state.chat.cubicInStash
+export const getCubicInStashArr = (state: RootState) => state.chat.cubicInStash;
+export const getCubicsResult = (state: RootState) => state.chat.cubicsResult;
+export const getNumberResult = (state: RootState) => state.chat.resultNumber;
