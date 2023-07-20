@@ -5,9 +5,10 @@ export interface IUserBalance {
 }
 
 export interface ICubicsData {
+  _id?: string,
   img: string,
   value: number,
-  name: string
+  name: string,
 }
 export interface IData {
   _id: string;

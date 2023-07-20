@@ -68,3 +68,42 @@ export const deleteThrowGame = createAsyncThunk(
         }
     }
 );
+export const getCubicsReroll = createAsyncThunk(
+    'cubics/reroll',
+    async (_, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.chat?.accessToken as string);
+            const result = await axios.get('cubics/reroll');
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const getCubicInStash = createAsyncThunk(
+    'cubics/instash',
+    async (id: string, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.chat?.accessToken as string);
+            const result = await axios.get(`cubics/inStash/${id}`);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const getCubicOutStash = createAsyncThunk(
+    'cubics/outstash',
+    async (id: string, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.chat?.accessToken as string);
+            const result = await axios.get(`cubics/outStash/${id}`);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
