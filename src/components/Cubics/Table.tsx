@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getCubicsTable } from '../../redux/cubicsOperations';
 import { AppDispatch } from '../../redux/store';
 import { getCubicsResult, getOther, getRefreshed, getSchool } from '../../redux/chatSlice';
-import ResultRender from './ResultRender';
+import ResultRenderSchool from './ResultRenderSchool';
 
 const TableContainer = styled.table`
   width: 50%;
@@ -28,13 +28,15 @@ const Table: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const refreshed = useSelector(getRefreshed);
     const cubicsResult = useSelector(getCubicsResult);
-    console.log(cubicsResult);
     useEffect(() => {
         if (refreshed)
             dispatch(getCubicsTable());
     }, [dispatch, refreshed]);
     const school: string[] | null = useSelector(getSchool);
     const others: string[] | null = useSelector(getOther);
+    const onClickTableSchool = () => {
+
+    }
     return (
         <TableContainer>
             <thead>
@@ -46,7 +48,7 @@ const Table: React.FC = () => {
                 {school?.map((item, index) => (
                     <TableRow key={index}>
                         <TableCell >{item}</TableCell>
-                        <TableCell key={index + ' user'} id={index + ' user'}><ResultRender cubicsResult={cubicsResult} /></TableCell>
+                        <TableCell onClick={onClickTableSchool} key={index + ' user'} id={index + ' user'}><ResultRenderSchool cubicsResult={cubicsResult} /></TableCell>
                         <TableCell key={index + 'user2'}></TableCell>
                     </TableRow>
                 ))}

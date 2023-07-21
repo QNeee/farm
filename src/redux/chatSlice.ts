@@ -30,9 +30,9 @@ interface IRootState {
     error: unknown;
     lineRender: boolean;
     confetti: boolean;
-    school: string[];
-    other: string[];
-    cubicsResult: string | null,
+    school: string[] | null;
+    other: string[] | null;
+    cubicsResult: string[] | null,
     resultNumber: number | null,
     cubics: ICubicsData[] | null;
     cubicInStash: ICubicsData[] | undefined;
@@ -302,6 +302,7 @@ export const chatSlice = createSlice({
                 state.cubics = null;
                 state.rolls = null;
                 state.cubicInStash = undefined;
+                state.cubicsResult = null;
             })
             .addCase(deleteThrowGame.rejected, (state, action) => {
                 state.loading = false;
@@ -322,6 +323,7 @@ export const chatSlice = createSlice({
                 state.error = null;
             })
             .addCase(getCubicsReroll.fulfilled, (state, { payload }) => {
+                console.log(payload);
                 state.loading = false;
                 state.cubics = payload.data.cubicsImgRandom;
                 state.rolls = payload.data.rolls;
