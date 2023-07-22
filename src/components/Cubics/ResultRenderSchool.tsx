@@ -1,41 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
 const ResultRenderSchool = ({ cubicsResult }: any) => {
-    const [textContent, setTextContent] = useState('');
-    const school = cubicsResult?.filter((item: any) => item.school).flatMap((item: any) => item.school).join('');
-    const schoolX = cubicsResult?.filter((item: any) => item.schoolX).flatMap((item: any) => item.schoolX).join('');
+    const results: string[] = ['schoolX', 'school'];
+    const result = cubicsResult ? cubicsResult.filter((item: any) => results.includes(item.result.split(' ')[0])).flatMap((item: any) => item.result).join('') : null;
     useEffect(() => {
-        if (cubicsResult?.length > 0) {
-            if (schoolX) {
-                const number = school?.split(' ')[1];
-                setTextContent(number);
-                const el = document.getElementById(number - 1 + ' user');
-                if (el) {
-                    el.style.border = '1px solid tomato'
-                }
+        const resultNumber = result?.split(' ')[1];
+        const allElements = document.querySelectorAll('[id$=" user"]');
+        allElements.forEach((el) => {
+            if (el.id === (resultNumber - 1) + ' user') {
+                (el as HTMLElement).style.border = cubicsResult && cubicsResult.length > 0 ? '1px solid tomato' : '';
             } else {
-                const number = school?.split(' ')[1];
-                const el = document.getElementById(number - 1 + ' user');
-                if (el) {
-                    el.style.border = '';
-                }
+                (el as HTMLElement).style.border = '';
             }
-            if (school) {
-                const number = school?.split(' ')[1];
-                setTextContent(number);
-                const el = document.getElementById(number - 1 + ' user');
-                if (el) {
-                    el.style.border = '1px solid tomato'
-                }
-            } else {
-                const number = school?.split(' ')[1];
-                const el = document.getElementById(number - 1 + ' user');
-                if (el) {
-                    el.style.border = '';
-                }
-            }
-        }
-    }, [textContent, school, schoolX]);
+        });
+    }, [cubicsResult, result]);
 
     return null;
 };
