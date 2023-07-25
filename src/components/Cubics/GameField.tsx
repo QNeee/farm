@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Table from './Table';
 import ImageContainer from './ImageContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCubicInStashArr, getCubics, getCubicsResult, getCubicsRolls, getNumberResult, getStartGame } from '../../redux/chatSlice';
+import { getCubicInStashArr, getCubics, getCubicsRolls, getNumberResult, getStartGame } from '../../redux/chatSlice';
 import { AppDispatch } from '../../redux/store';
 import { getCubicOutStash, getCubicsReroll, getCubicsStartGame } from '../../redux/cubicsOperations';
 import { ICubicsData } from '../../types';

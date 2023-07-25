@@ -3,7 +3,9 @@ import { IImg } from './components/Slot';
 export interface IUserBalance {
   balance: string;
 }
-
+export interface IResultCubicsSchool {
+  [key: string]: string
+}
 export interface ICubicsData {
   _id?: string,
   img: string,

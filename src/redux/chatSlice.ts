@@ -12,8 +12,8 @@ import {
 } from './slotsOperations';
 import { getUserInfo, postUserBalance } from './userOperations';
 import { RootState } from './store';
-import { ICubicsData, INewVersion } from '../types';
-import { deleteThrowGame, getCubicInStash, getCubicOutStash, getCubicsReroll, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicStartGame } from './cubicsOperations';
+import { ICubicsData, INewVersion, IResultCubicsSchool } from '../types';
+import { deleteThrowGame, getCubicInStash, getCubicOutStash, getCubicsReroll, getCubicsResult, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicResult, postCubicStartGame } from './cubicsOperations';
 import { AxiosResponse } from 'axios';
 
 interface IAuthState {
@@ -30,15 +30,16 @@ interface IRootState {
     error: unknown;
     lineRender: boolean;
     confetti: boolean;
-    school: string[];
-    other: string[];
-    cubicsResult: string | null,
+    school: string[] | null;
+    other: string[] | null;
+    cubicsResult: IResultCubicsSchool[] | null,
     resultNumber: number | null,
     cubics: ICubicsData[] | null;
     cubicInStash: ICubicsData[] | undefined;
     startGame: boolean;
     allSlots: [];
     slot: [];
+    cubicResultRender: [] | null;
     rolls: number | null,
     slotNew: INewVersion | null
     slotImg: string;
@@ -65,6 +66,7 @@ const initialState: IRootState = {
     accessToken: null,
     refreshToken: null,
     cubicInStash: undefined,
+    cubicResultRender: null,
     sid: null,
     isLoggedIn: false,
     loading: false,
@@ -302,6 +304,7 @@ export const chatSlice = createSlice({
                 state.cubics = null;
                 state.rolls = null;
                 state.cubicInStash = undefined;
+                state.cubicsResult = null;
             })
             .addCase(deleteThrowGame.rejected, (state, action) => {
                 state.loading = false;
@@ -355,6 +358,30 @@ export const chatSlice = createSlice({
             .addCase(getCubicOutStash.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            }).addCase(getCubicsResult.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsResult.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubicsResult = payload.data;
+            })
+            .addCase(getCubicsResult.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(postCubicResult.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(postCubicResult.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubicResultRender = payload.data;
+                state.cubicsResult = null;
+                // state.cubicsResult = payload.data;
+            })
+            .addCase(postCubicResult.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
@@ -375,7 +402,9 @@ const persistConfig = {
         'startGame',
         'cubics',
         'rolls',
-        'cubicInStash'
+        'cubicInStash',
+        'cubicsResult',
+        'cubicResultRender'
     ],
 };
 export const chatReducer = persistReducer(persistConfig, chatSlice.reducer);
@@ -401,5 +430,6 @@ export const getStartGame = (state: RootState) => state.chat.startGame;
 export const getCubics = (state: RootState) => state.chat.cubics;
 export const getCubicsRolls = (state: RootState) => state.chat.rolls;
 export const getCubicInStashArr = (state: RootState) => state.chat.cubicInStash;
-export const getCubicsResult = (state: RootState) => state.chat.cubicsResult;
+export const getCubicsResultData = (state: RootState) => state.chat.cubicsResult;
 export const getNumberResult = (state: RootState) => state.chat.resultNumber;
+export const getCubicsResultRender = (state: RootState) => state.chat.cubicResultRender;
