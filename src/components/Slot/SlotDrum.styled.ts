@@ -11,8 +11,8 @@ const rotate = keyframes`
 `;
 
 export const StyledImageSlot = styled.img`
-  width: 5vw;
-  height: 5vw;
+  width: 10vw;
+  height: 10vw;
 `;
 
 export const Wrapper = styled.div`
