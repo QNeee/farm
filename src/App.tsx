@@ -10,11 +10,11 @@ import Layout from './components/Layout/Layout';
 import { Auth } from './components/Auth';
 import SlotsContainer from './components/SlotsContainer/SlotsContainer';
 import { SlotApp } from './components/SlotApp';
-import SlotTest from './components/Slot/SlotsInDev/SlotTest';
 import { getIsLoggedIn, getToken } from './redux/chatSlice';
 import { refresh } from './redux/authOperations';
 import { NewSlotTest } from './components/Slot';
 import CubicsApp from './components/Cubics/CubicsApp';
+import TestPage from './template/TestPage';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -55,9 +55,7 @@ const App = () => {
           />
           <Route
             path="test"
-            element={
-              token ? <NewSlotTest /> : <Navigate to={'/login'} replace />
-            }
+            element={token ? <TestPage /> : <Navigate to={'/login'} replace />}
           />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
