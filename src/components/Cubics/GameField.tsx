@@ -74,7 +74,7 @@ const GameField: React.FC = () => {
   const onClickStartGame = () => {
     if (!startGame) return;
     if (rolls === 0) return;
-    if (rolls !== null && rolls > 0) {
+    if (rolls !== null && rolls > 0 && rolls < 3) {
       return dispatch(getCubicsReroll());
     }
     dispatch(getCubicsStartGame());
@@ -91,11 +91,6 @@ const GameField: React.FC = () => {
       <GameFieldContainer>
         <TopContainer>
           <Image src="https://klike.net/uploads/posts/2019-03/1551511823_2.jpg" alt="dd" width='60' />
-          <Square />
-          <Square />
-          <Square />
-          <Square />
-          <Square />
         </TopContainer>
         <ImageContainer cubicsData={cubicsData} />
         <BottomContainer>

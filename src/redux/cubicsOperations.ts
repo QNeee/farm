@@ -81,14 +81,26 @@ export const getCubicsResult = createAsyncThunk(
         }
     }
 );
-export const postCubicResult = createAsyncThunk(
-    'cubics/postresult',
+export const postCubicResultSchool = createAsyncThunk(
+    'cubics/postresultSchool',
     async (data: object, { rejectWithValue, getState }) => {
-        console.log(data);
         try {
             const state: RootState = getState() as RootState;
             setToken(state?.chat?.accessToken as string);
-            const result = await axios.post('cubics/result', data);
+            const result = await axios.post('cubics/resultSchool', data);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const postCubicResultOther = createAsyncThunk(
+    'cubics/postresultOther',
+    async (data: object, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.chat?.accessToken as string);
+            const result = await axios.post('cubics/resultOther', data);
             return result;
         } catch (error) {
             return rejectWithValue(error);

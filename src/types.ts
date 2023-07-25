@@ -33,3 +33,8 @@ export interface IPostSlotLine {
   id: string;
   bet?: number;
 }
+
+// export interface ISchoolResult {
+//   number: string,
+//   count: number
+// }
