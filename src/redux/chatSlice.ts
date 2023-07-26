@@ -313,6 +313,8 @@ export const chatSlice = createSlice({
                 state.cubicsResult = null;
                 state.cubicResultRenderUserSchool = null;
                 state.cubicResultRenderPcSchool = null;
+                state.cubicResultRenderUserOther = null;
+                state.cubicResultRenderPcOther = null;
             })
             .addCase(deleteThrowGame.rejected, (state, action) => {
                 state.loading = false;
@@ -464,3 +466,5 @@ export const getCubicsResultData = (state: RootState) => state.chat.cubicsResult
 export const getNumberResult = (state: RootState) => state.chat.resultNumber;
 export const getCubicsResultRenderUserSchool = (state: RootState) => state.chat.cubicResultRenderUserSchool;
 export const getCubicsResultRenderPcSchool = (state: RootState) => state.chat.cubicResultRenderPcSchool;
+export const getCubicsResultRenderUserOther = (state: RootState) => state.chat.cubicResultRenderUserOther;
+export const getCubicsResultRenderPcOther = (state: RootState) => state.chat.cubicResultRenderPcOther;
