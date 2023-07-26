@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getCubicsResult, getCubicsTable, postCubicResultSchool } from '../../redux/cubicsOperations';
+import { getCubicsResult, getCubicsTable, postCubicResultOther, postCubicResultSchool } from '../../redux/cubicsOperations';
 import { AppDispatch } from '../../redux/store';
-import { getCubicsResultData, getCubicsResultRenderPcSchool, getCubicsResultRenderUserSchool, getOther, getRefreshed, getSchool } from '../../redux/chatSlice';
+import { getCubicsResultData, getCubicsResultRenderPcSchool, getCubicsResultRenderUserSchool, getOther, getRefreshed, getSchool, getCubicsResultRenderUserOther, getCubicsResultRenderPcOther } from '../../redux/chatSlice';
 import ResultRenderSchool from './ResultRenderSchool';
 import ResultRenderOther from './ResultRenderOther';
 
@@ -31,8 +31,10 @@ const Table: React.FC = () => {
     const cubicsResult = useSelector(getCubicsResultData);
     const cubicResultRenderUserSchool = useSelector(getCubicsResultRenderUserSchool) as any[];
     const cubicResultRenderPcSchool = useSelector(getCubicsResultRenderPcSchool) as any[];
-    const ids: string[] = ['wl9pa', 'sum', 'pair', 'large', 'big', 'triangle', 'sqr', 'fx', 'poker'];
-    console.log(cubicsResult);
+    const cubicResultRenderUserOther = useSelector(getCubicsResultRenderUserOther) as any[];
+    const cubicResultRenderPcOther = useSelector(getCubicsResultRenderPcOther) as any[];
+    const ids: string[] = ['wl9pa', 'sum', 'pair', 'small', 'big', 'triangle', 'sqr', 'fx', 'poker'];
+
     useEffect(() => {
         if (refreshed) {
             dispatch(getCubicsTable());
@@ -72,6 +74,36 @@ const Table: React.FC = () => {
                 el.textContent = '';
             });
         }
+        if (cubicResultRenderUserOther) {
+            for (const elem of cubicResultRenderUserOther) {
+                const number = elem.combination;
+                const el = document.getElementById(number + ' userOther');
+                if (el) {
+                    el.textContent = elem.textContent;
+                }
+            }
+        } else {
+            const allElements = document.querySelectorAll('[id$=" userOther"]');
+            allElements.forEach((el) => {
+                el.textContent = '';
+            });
+        }
+
+        if (cubicResultRenderPcOther) {
+            for (const elem of cubicResultRenderPcOther) {
+                const number = elem.combination;
+                const el = document.getElementById(number + ' pcOther');
+                if (el) {
+
+                    el.textContent = elem.textContent;
+                }
+            }
+        } else {
+            const allElements = document.querySelectorAll('[id$=" pcOther"]');
+            allElements.forEach((el) => {
+                el.textContent = '';
+            });
+        }
     };
     const onClickTableSchool = () => {
         const results: string[] = ['schoolX', 'school'];
@@ -82,13 +114,17 @@ const Table: React.FC = () => {
         if (requestData.data === '' || requestData.data === null) return;
         dispatch(postCubicResultSchool(requestData));
     }
-    const onClickTableOther = () => {
-        const result = cubicsResult ? cubicsResult.filter((item: any) => ids.includes(item.result.split(' ')[0])).flatMap((item: any) => item.result).join('') : null;
-        const requestData = {
-            data: result && result
+    const onClickTableOther = (id: string) => {
+        const result = cubicsResult ? cubicsResult.filter((item: any) => id === item.result.split(' ')[0]).flatMap((item: any) => item.result).join(' ') : null;
+        if (result?.length as number > 0) {
+            const requestData = {
+                data: result && result
+            }
+            // console.log(requestData);
+            dispatch(postCubicResultOther(requestData));
+        } else {
+            return;
         }
-        if (requestData.data === '' || requestData.data === null) return;
-        // dispatch(postCubicResult(requestData));
     }
     func();
     return (
@@ -118,8 +154,8 @@ const Table: React.FC = () => {
                 {others?.map((item, index) => (
                     <TableRow key={index}>
                         <TableCell key={index}>{item}</TableCell>
-                        <TableCell onClick={() => onClickTableOther()} key={index + ' userOther'} id={ids[index] + ' userOther'}><ResultRenderOther cubicsResult={cubicsResult} /></TableCell>
-                        <TableCell key={index + ' pcOther'}></TableCell>
+                        <TableCell onClick={() => onClickTableOther(ids[index])} key={index + ' userOther'} id={ids[index] + ' userOther'}><ResultRenderOther cubicsResult={cubicsResult} /></TableCell>
+                        <TableCell key={ids[index] + ' pcOther'} id={ids[index] + ' pcOther'}></TableCell>
                     </TableRow>
                 ))}
             </tbody>

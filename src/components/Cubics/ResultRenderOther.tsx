@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 
 const ResultRenderOther = ({ cubicsResult }: any) => {
-    const results: string[] = ['wl9pa', 'sum', 'pair', 'large', 'big', 'triangle', 'sqr', 'fx', 'poker'];
-    const result = cubicsResult
-        ? cubicsResult.filter((item: any) => results.includes(item.result.split(' ')[0])).flatMap((item: any) => item.result).join('')
-        : '';
+    const results: string[] = ['wl9pa', 'sum', 'pair', 'small', 'big', 'triangle', 'sqr', 'fx', 'poker'];
     const result1 = cubicsResult
         ? cubicsResult.filter((item: any) => results.includes(item.result.split(' ')[0])).flatMap((item: any) => item.result.split(' '))
         : [];
