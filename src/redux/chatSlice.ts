@@ -13,7 +13,7 @@ import {
 import { getUserInfo, postUserBalance } from './userOperations';
 import { RootState } from './store';
 import { ICubicsData, INewVersion, IResultCubicsSchool } from '../types';
-import { deleteThrowGame, getCubicInStash, getCubicOutStash, getCubicsReroll, getCubicsResult, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicResultOther, postCubicResultSchool, postCubicStartGame } from './cubicsOperations';
+import { deleteThrowGame, getCubicInStash, getCubicOutStash, getCubicsReroll, getCubicsResult, getCubicsStart, getCubicsStartGame, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool, postCubicStartGame } from './cubicsOperations';
 
 interface IAuthState {
     user: { email: string; id: number | null; balance: number | 0 };
@@ -409,6 +409,22 @@ export const chatSlice = createSlice({
                 state.rolls = payload.data.rolls;
             })
             .addCase(postCubicResultOther.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(postCubicResultCherk.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(postCubicResultCherk.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubicResultRenderUserOther = payload.data.resultCombinationUserOther;
+                state.cubicsResult = null;
+                state.cubicResultRenderPcSchool = payload.data.resultCombinationPcSchool;
+                state.cubics = null;
+                state.cubicInStash = [];
+                state.rolls = payload.data.rolls;
+            })
+            .addCase(postCubicResultCherk.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

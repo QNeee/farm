@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getCubicsResult, getCubicsTable, postCubicResultOther, postCubicResultSchool } from '../../redux/cubicsOperations';
+import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubicsOperations';
 import { AppDispatch } from '../../redux/store';
 import { getCubicsResultData, getCubicsResultRenderPcSchool, getCubicsResultRenderUserSchool, getOther, getRefreshed, getSchool, getCubicsResultRenderUserOther, getCubicsResultRenderPcOther } from '../../redux/chatSlice';
 import ResultRenderSchool from './ResultRenderSchool';
@@ -116,14 +116,22 @@ const Table: React.FC = () => {
     }
     const onClickTableOther = (id: string) => {
         const result = cubicsResult ? cubicsResult.filter((item: any) => id === item.result.split(' ')[0]).flatMap((item: any) => item.result).join(' ') : null;
-        if (result?.length as number > 0) {
-            const requestData = {
-                data: result && result
+        const cross = cubicsResult ? cubicsResult.filter(item => item.result === 'cross') : null;
+        if (cross?.length === 0) {
+            if (result?.length as number > 0) {
+                const requestData = {
+                    data: result && result
+                }
+                dispatch(postCubicResultOther(requestData));
+            } else {
+                return;
             }
-            // console.log(requestData);
-            dispatch(postCubicResultOther(requestData));
         } else {
-            return;
+            const el = document.getElementById(id + ' userOther');
+            const requestData = {
+                data: el && id + ' ' + el.textContent
+            }
+            dispatch(postCubicResultCherk(requestData));
         }
     }
     func();

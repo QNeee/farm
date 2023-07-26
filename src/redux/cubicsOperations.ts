@@ -107,6 +107,19 @@ export const postCubicResultOther = createAsyncThunk(
         }
     }
 );
+export const postCubicResultCherk = createAsyncThunk(
+    'cubics/postresultCherk',
+    async (data: object, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.chat?.accessToken as string);
+            const result = await axios.post('cubics/resultCherk', data);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 export const getCubicsReroll = createAsyncThunk(
     'cubics/reroll',
     async (_, { rejectWithValue, getState }) => {
