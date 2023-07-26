@@ -20,7 +20,11 @@ export const ListItem = styled.li<{ isSmallScreen: boolean }>`
   margin-right: 10px;
   position: relative;
   overflow: hidden;
+  transition: border-color 2500ms cubic-bezier(0.075, 0.82, 0.165, 1);
   cursor: pointer;
+  &:hover {
+    border-color: tomato;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
