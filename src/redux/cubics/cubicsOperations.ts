@@ -1,14 +1,14 @@
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState } from './store';
-import { setToken } from './authOperations';
+import { RootState } from '../store';
+import { setToken } from '../auth/authOperations';
 export const postCubicStartGame = createAsyncThunk(
     'cubics/startGame',
     async (data: object, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.post('cubics', data);
             return result;
         } catch (error) {
@@ -21,7 +21,7 @@ export const getCubicsStart = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get('cubics/');
             return result;
         } catch (error) {
@@ -34,7 +34,7 @@ export const getCubicsStartGame = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get('cubics/start');
             return result;
         } catch (error) {
@@ -47,7 +47,7 @@ export const getCubicsTable = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get('cubics/table');
             return result;
         } catch (error) {
@@ -60,7 +60,7 @@ export const deleteThrowGame = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.delete('cubics/');
             return result;
         } catch (error) {
@@ -73,7 +73,7 @@ export const getCubicsResult = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get('cubics/result');
             return result;
         } catch (error) {
@@ -86,7 +86,7 @@ export const postCubicResultSchool = createAsyncThunk(
     async (data: object, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.post('cubics/resultSchool', data);
             return result;
         } catch (error) {
@@ -99,8 +99,21 @@ export const postCubicResultOther = createAsyncThunk(
     async (data: object, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.post('cubics/resultOther', data);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const postCubicResultCherk = createAsyncThunk(
+    'cubics/postresultCherk',
+    async (data: object, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.auth?.accessToken as string);
+            const result = await axios.post('cubics/resultCherk', data);
             return result;
         } catch (error) {
             return rejectWithValue(error);
@@ -112,7 +125,7 @@ export const getCubicsReroll = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get('cubics/reroll');
             return result;
         } catch (error) {
@@ -125,7 +138,7 @@ export const getCubicInStash = createAsyncThunk(
     async (id: string, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get(`cubics/inStash/${id}`);
             return result;
         } catch (error) {
@@ -138,7 +151,7 @@ export const getCubicOutStash = createAsyncThunk(
     async (id: string, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state?.auth?.accessToken as string);
             const result = await axios.get(`cubics/outStash/${id}`);
             return result;
         } catch (error) {

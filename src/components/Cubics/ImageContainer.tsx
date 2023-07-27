@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
-import { deleteThrowGame, getCubicInStash, postCubicStartGame } from '../../redux/cubicsOperations';
-import { getCubics, getStartGame } from '../../redux/chatSlice';
 import { ICubicsData } from '../../types';
+import { getStartGame } from '../../redux/cubics/cubicsSelectors';
+import { deleteThrowGame, getCubicInStash, postCubicStartGame } from '../../redux/cubics/cubicsOperations';
 
 const Container = styled.div`
   position: relative;

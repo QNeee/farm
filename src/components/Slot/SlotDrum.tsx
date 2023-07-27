@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 
-import { getLineRender, getSlotNew } from '../../redux/chatSlice';
 import { ImageSlot } from '../Image/ImageSlot';
 import { INewVersion } from '../../types';
 import { Line } from './Slot.styled';
@@ -11,6 +10,7 @@ import {
   Wrapper,
   StyledImageSlot,
 } from './SlotDrum.styled';
+import { getLineRender, getSlotNew } from '../../redux/slots/slotsSelectors';
 
 interface IProps {
   animate: boolean;

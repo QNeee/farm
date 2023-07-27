@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { AppDispatch } from '../../redux/store';
 import { Form, Label, Input, Button } from './Auth.styled';
-import { login, register } from '../../redux/authOperations';
+import { login, register } from '../../redux/auth/authOperations';
 
 interface IForm {
   email: string;

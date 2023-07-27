@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import Table from './Table';
 import ImageContainer from './ImageContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCubicInStashArr, getCubics, getCubicsRolls, getNumberResult, getStartGame } from '../../redux/chatSlice';
 import { AppDispatch } from '../../redux/store';
-import { getCubicOutStash, getCubicsReroll, getCubicsStartGame } from '../../redux/cubicsOperations';
 import { ICubicsData } from '../../types';
+import { getCubicInStashArr, getCubics, getCubicsRolls, getStartGame } from '../../redux/cubics/cubicsSelectors';
+import { getCubicOutStash, getCubicsReroll, getCubicsStartGame } from '../../redux/cubics/cubicsOperations';
 const GameFieldContainer = styled.div`
 position: relative;
   grid-template-columns: repeat(3, 1fr);

@@ -23,21 +23,10 @@ import {
   MainContainer,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
-import {
-  getConfetti,
-  getRefreshed,
-  getSlotImg,
-  getSlotLines,
-  getUserBalance,
-  getUserBet,
-  getUserResult,
-} from '../../redux/chatSlice';
-import {
-  getSlotsById,
-  postBetSlot,
-  postSlotLine,
-  postStartGame,
-} from '../../redux/slotsOperations';
+import { getConfetti, getSlotImg, getSlotLines, getUserBet, getUserResult } from '../../redux/slots/slotsSelectors';
+import { getRefreshed, getUserBalance } from '../../redux/auth/authSelectors';
+import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from '../../redux/slots/slotsOperations';
+
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();

@@ -11,8 +11,10 @@ import {
   Image,
 } from './SlotsContainer.styled';
 import { AppDispatch } from '../../redux/store';
-import { getAllSlots, getRefreshed } from '../../redux/chatSlice';
-import { getSlots } from '../../redux/slotsOperations';
+import { getRefreshed } from '../../redux/auth/authSelectors';
+import { getSlots } from '../../redux/slots/slotsOperations';
+import { getAllSlots } from '../../redux/slots/slotsSelectors';
+
 
 const SlotsContainer: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
