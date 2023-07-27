@@ -49,7 +49,7 @@ export const SlotsContainer = styled.div`
 
 export const RotaryContainer = styled.ul<{ animate: boolean }>`
   position: absolute;
-  top: 80px;
+  top: 75px;
   /* left: 50%; */
   /* transform: translate3d(-50%, -50%, 50%); */
 
@@ -88,13 +88,13 @@ export const SlotLi = styled.li`
   top: 0;
   right: 0;
   left: 0;
-  /* left: -12px; */
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: 79px;
+  height: 92px;
+  /* height: 79px; */
 
   border-width: 0 1px 0 1px;
   border-style: solid;
@@ -106,43 +106,43 @@ export const SlotLi = styled.li`
   transform-origin: 50% 50%;
 
   &:nth-child(1) {
-    transform: rotateX(36deg) translateZ(120px);
+    transform: rotateX(36deg) translateZ(140px);
   }
 
   &:nth-child(2) {
-    transform: rotateX(72deg) translateZ(120px);
+    transform: rotateX(72deg) translateZ(140px);
   }
 
   &:nth-child(3) {
-    transform: rotateX(108deg) translateZ(120px);
+    transform: rotateX(108deg) translateZ(140px);
   }
 
   &:nth-child(4) {
-    transform: rotateX(144deg) translateZ(120px);
+    transform: rotateX(144deg) translateZ(140px);
   }
 
   &:nth-child(5) {
-    transform: rotateX(180deg) translateZ(120px);
+    transform: rotateX(180deg) translateZ(140px);
   }
 
   &:nth-child(6) {
-    transform: rotateX(216deg) translateZ(120px);
+    transform: rotateX(216deg) translateZ(140px);
   }
 
   &:nth-child(7) {
-    transform: rotateX(252deg) translateZ(120px);
+    transform: rotateX(252deg) translateZ(140px);
   }
 
   &:nth-child(8) {
-    transform: rotateX(288deg) translateZ(120px);
+    transform: rotateX(288deg) translateZ(140px);
   }
 
   &:nth-child(9) {
-    transform: rotateX(324deg) translateZ(120px);
+    transform: rotateX(324deg) translateZ(140px);
   }
 
   &:nth-child(10) {
-    transform: rotateX(360deg) translateZ(120px);
+    transform: rotateX(360deg) translateZ(140px);
   }
 `;
 // import styled, { keyframes } from 'styled-components';
