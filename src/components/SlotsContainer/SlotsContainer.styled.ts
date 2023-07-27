@@ -7,7 +7,7 @@ export const ListContainer = styled.ul`
   justify-content: center;
 `;
 
-export  const ListItem = styled.li<{ isSmallScreen: boolean }>`
+export const ListItem = styled.li<{ isSmallScreen: boolean }>`
   display: ${({ isSmallScreen }) => (isSmallScreen ? 'block' : 'flex')};
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,11 @@ export  const ListItem = styled.li<{ isSmallScreen: boolean }>`
   margin-right: 10px;
   position: relative;
   overflow: hidden;
+  transition: border-color 2500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+  &:hover {
+    border-color: tomato;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
@@ -28,7 +33,7 @@ export  const ListItem = styled.li<{ isSmallScreen: boolean }>`
   }
 `;
 
-export  const Bullet = styled.span`
+export const Bullet = styled.span`
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -37,7 +42,7 @@ export  const Bullet = styled.span`
   margin-bottom: 10px;
 `;
 
-export  const Text = styled.span`
+export const Text = styled.span`
   color: white;
   background-color: blue;
   font-size: 16px;
@@ -50,7 +55,7 @@ export  const Text = styled.span`
   pointer-events: none;
 `;
 
-export  const Image = styled.img`
+export const Image = styled.img`
   width: 100%;
   height: auto;
   border-radius: 3px;
