@@ -13,9 +13,6 @@ const authPersistConfig = {
     'refreshToken',
     'isLoggedIn',
     'auth',
-    'lines',
-    'bet',
-    'slot',
   ],
 };
 const persistedAuthReducer = persistReducer(authPersistConfig, authSlice.reducer);
@@ -36,18 +33,14 @@ const cubicsPersistConfig = {
 };
 const persistedCubicsReducer = persistReducer(cubicsPersistConfig, cubicSlice.reducer);
 const slotsPersistConfig = {
-  key: 'slots',
+  key: 'slot',
   storage,
   whitelist: [
-    'startGame',
-    'cubics',
-    'rolls',
-    'cubicInStash',
-    'cubicsResult',
-    'cubicResultRenderUserSchool',
-    'cubicResultRenderPcSchool',
-    'cubicResultRenderUserOther',
-    'cubicResultRenderPcOther'
+    'slot',
+    'slotImg',
+    'version',
+    'lines',
+    'bet',
   ],
 };
 const persistedSlotsReducer = persistReducer(slotsPersistConfig, slotSlice.reducer);

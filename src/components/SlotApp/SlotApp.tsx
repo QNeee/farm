@@ -23,8 +23,8 @@ import {
   MainContainer,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
-import { getConfetti, getSlotImg, getSlotLines, getUserBalance, getUserBet, getUserResult } from '../../redux/slots/slotsSelectors';
-import { getRefreshed } from '../../redux/auth/authSelectors';
+import { getConfetti, getSlotImg, getSlotLines, getUserBet, getUserResult } from '../../redux/slots/slotsSelectors';
+import { getRefreshed, getUserBalance } from '../../redux/auth/authSelectors';
 import { getSlotsById, postBetSlot, postSlotLine, postStartGame } from '../../redux/slots/slotsOperations';
 
 

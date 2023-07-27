@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setToken } from '../auth/authOperations';
+import { getUserInfo, setToken } from '../auth/authOperations';
 import { RootState } from '../store';
 import { IPostSlotLine } from '../../types';
 
@@ -18,11 +18,12 @@ export const getSlots = createAsyncThunk(
 );
 export const postStartGame = createAsyncThunk(
     'slots/postbet',
-    async (data: { id: string }, { rejectWithValue, getState }) => {
+    async (data: { id: string }, { rejectWithValue, getState, dispatch }) => {
         try {
             const state: RootState = getState() as RootState;
             setToken(state?.auth?.accessToken as string);
             const result = await axios.post('slots', data);
+            await dispatch(getUserInfo());
             return result;
         } catch (error) {
             return rejectWithValue(error);

@@ -10,4 +10,3 @@ export const getSlot = (state: RootState) => state.slot.slot;
 export const getSlotLines = (state: RootState) => state.slot.lines;
 export const getUserBet = (state: RootState) => state.slot.bet;
 export const getUserResult = (state: RootState) => state.slot.result;
-export const getUserBalance = (state: RootState) => state.slot.auth.user.balance

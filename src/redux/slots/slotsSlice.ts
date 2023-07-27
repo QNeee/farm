@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { INewVersion } from '../../types';
 import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot } from '../slots/slotsOperations';
-interface IUserState {
-    user: { email: string; id: number | null; balance: number | 0 };
-}
 export interface ISlotState {
-    auth: IUserState;
     lineRender: boolean;
     confetti: boolean;
     error: unknown;
@@ -20,9 +16,6 @@ export interface ISlotState {
     version: string | null;
 }
 const initialState: ISlotState = {
-    auth: {
-        user: { email: '', id: null, balance: 0 },
-    },
     lineRender: false,
     confetti: false,
     allSlots: [],
@@ -88,7 +81,6 @@ export const slotSlice = createSlice({
                 state.loading = false;
                 state.confetti = payload.data.confetti;
                 state.lineRender = payload.data.winSound;
-                state.auth.user.balance = payload.data.updatedUser.balance;
                 state.slot = payload.data.data;
                 state.slotNew = payload.data.data;
                 state.result = payload.data.result;
