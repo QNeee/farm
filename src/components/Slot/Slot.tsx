@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { ImageSlot } from '../Image/ImageSlot';
 import { Container, AnimatedContainer, Line } from './Slot.styled';
-import { getLineRender, getSlot, getVersion } from '../../redux/chatSlice';
 import { SlotDrum } from './SlotDrum';
+import { getLineRender, getSlot, getVersion } from '../../redux/slots/slotsSelectors';
 
 interface IProps {
   animate: boolean;

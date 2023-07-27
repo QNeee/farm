@@ -10,8 +10,8 @@ import {
   Button,
 } from './Header.styled';
 import { AppDispatch } from '../../redux/store';
-import { getToken } from '../../redux/chatSlice';
-import { logout } from '../../redux/authOperations';
+import { getToken } from '../../redux/auth/authSelectors';
+import { logout } from '../../redux/auth/authOperations';
 
 const Header = () => {
   const dispatch: AppDispatch = useDispatch();

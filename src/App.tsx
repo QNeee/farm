@@ -10,11 +10,11 @@ import Layout from './components/Layout/Layout';
 import { Auth } from './components/Auth';
 import SlotsContainer from './components/SlotsContainer/SlotsContainer';
 import { SlotApp } from './components/SlotApp';
-import { getIsLoggedIn, getToken } from './redux/chatSlice';
-import { refresh } from './redux/authOperations';
 import { NewSlotTest } from './components/Slot';
 import CubicsApp from './components/Cubics/CubicsApp';
 import TestPage from './template/TestPage';
+import { getIsLoggedIn, getToken } from './redux/auth/authSelectors';
+import { refresh } from './redux/auth/authOperations';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();

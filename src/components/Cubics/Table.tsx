@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubicsOperations';
 import { AppDispatch } from '../../redux/store';
-import { getCubicsResultData, getCubicsResultRenderPcSchool, getCubicsResultRenderUserSchool, getOther, getRefreshed, getSchool, getCubicsResultRenderUserOther, getCubicsResultRenderPcOther } from '../../redux/chatSlice';
 import ResultRenderSchool from './ResultRenderSchool';
 import ResultRenderOther from './ResultRenderOther';
+import { getRefreshed } from '../../redux/auth/authSelectors';
+import { getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool } from '../../redux/cubics/cubicsSelectors';
+import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubics/cubicsOperations';
 
 const TableContainer = styled.table`
   width: 50%;

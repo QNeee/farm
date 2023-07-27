@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { HOST } from '../host';
-import { RootState } from './store';
+import { HOST } from '../../host';
+import { IUserBalance } from '../../types';
+import { RootState } from '../store';
 
 axios.defaults.baseURL = HOST;
 
@@ -56,7 +57,7 @@ export const logout = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.accessToken as string);
+            setToken(state.auth.accessToken as string);
             await axios.get('auth/logout');
         } catch (error) {
             return rejectWithValue(error);
@@ -68,9 +69,35 @@ export const refresh = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const state: RootState = getState() as RootState;
-            setToken(state?.chat?.refreshToken as string);
-            const sid = state?.chat?.sid as string;
+            setToken(state?.auth.refreshToken as string);
+            const sid = state?.auth.sid as string;
             const result = await axios.post('auth/refresh', { sid });
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const getUserInfo = createAsyncThunk(
+    'user',
+    async (_, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.auth.accessToken as string);
+            const result = await axios.get('users/');
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const postUserBalance = createAsyncThunk(
+    'user/balance',
+    async (data: IUserBalance, { rejectWithValue, getState }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.auth.accessToken as string);
+            const result = await axios.post('users/balance', data);
             return result;
         } catch (error) {
             return rejectWithValue(error);

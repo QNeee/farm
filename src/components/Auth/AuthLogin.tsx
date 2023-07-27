@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { Form, Label, Input, Button } from './Auth.styled';
 import { AppDispatch } from '../../redux/store';
-import { login } from '../../redux/authOperations';
+import { login } from '../../redux/auth/authOperations';
 
 interface IForm {
   email: string;
