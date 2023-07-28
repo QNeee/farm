@@ -15,6 +15,7 @@ import CubicsApp from './components/Cubics/CubicsApp';
 import TestPage from './template/TestPage';
 import { getIsLoggedIn, getToken } from './redux/auth/authSelectors';
 import { refresh } from './redux/auth/authOperations';
+import Google from './components/Google/Google';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -38,6 +39,10 @@ const App = () => {
           <Route
             path="register"
             element={!token ? <Auth /> : <Navigate to={'/slots'} replace />}
+          />
+          <Route
+            path="google"
+            element={!token ? <Google /> : <Navigate to={'/slots'} replace />}
           />
           <Route
             path="slots"

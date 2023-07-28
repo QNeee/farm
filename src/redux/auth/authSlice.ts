@@ -40,7 +40,17 @@ const initialState: IAuthState = {
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+
+        googleAuth: (state, { payload }) => {
+            state.accessToken = payload.accessToken;
+            state.refreshToken = payload.refreshToken;
+            state.sid = payload.sid;
+            state.auth.user.email = payload.email;
+            state.auth.user.id = payload.id;
+            state.isLoggedIn = true;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(register.pending, (state) => {
@@ -137,3 +147,4 @@ export const authSlice = createSlice({
             })
     },
 });
+export const { googleAuth } = authSlice.actions;

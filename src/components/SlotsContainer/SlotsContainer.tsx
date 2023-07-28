@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { IData } from '../../types';
 import {
@@ -21,7 +21,6 @@ const SlotsContainer: React.FC = () => {
   const slots: IData[] = useSelector(getAllSlots);
   const refreshed = useSelector(getRefreshed);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (refreshed) dispatch(getSlots());
   }, [dispatch, refreshed]);
