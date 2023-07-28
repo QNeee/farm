@@ -36,7 +36,7 @@ const Header = () => {
         {token ? <AppBar /> : null}
         <NavLinkStyled to={'/slots'}>Слоти</NavLinkStyled>
         <NavLinkStyled to={'/cubics'}>КубікПокер</NavLinkStyled>
-        <a href={HOST + '/auth/google'}>google</a>
+        {!token ? <a href={HOST + '/auth/google'}>google</a> : null}
         {token ? <Button onClick={onClickLogout}>Вийти</Button> : null}
       </NavigationStyled>
     </HeaderStyled>
