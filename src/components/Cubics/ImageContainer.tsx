@@ -49,14 +49,20 @@ const ImageContainer = ({ cubicsData }: any) => {
     const [w8, setW8] = useState(false);
     const dispatch: AppDispatch = useDispatch();
     const startGame = useSelector(getStartGame);
-    const onClickStartGame = () => {
+    const onClickStartGame = async () => {
+        if (w8) return;
+        setW8(true);
         const data = {
             start: true
         }
-        dispatch(postCubicStartGame(data));
+        await dispatch(postCubicStartGame(data));
+        setW8(false);
     }
-    const onClickThrowGame = () => {
-        dispatch(deleteThrowGame());
+    const onClickThrowGame = async () => {
+        if (w8) return;
+        setW8(true);
+        await dispatch(deleteThrowGame());
+        setW8(false);
     }
     const onClickCubic = async (id: string) => {
         if (w8) return;
