@@ -12,6 +12,7 @@ import {
 import { AppDispatch } from '../../redux/store';
 import { getToken } from '../../redux/auth/authSelectors';
 import { logout } from '../../redux/auth/authOperations';
+import { HOST } from '../../host';
 
 const Header = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -20,7 +21,6 @@ const Header = () => {
   const onClickLogout = () => {
     dispatch(logout());
   };
-
   return (
     <HeaderStyled>
       <Logo
@@ -36,6 +36,7 @@ const Header = () => {
         {token ? <AppBar /> : null}
         <NavLinkStyled to={'/slots'}>Слоти</NavLinkStyled>
         <NavLinkStyled to={'/cubics'}>КубікПокер</NavLinkStyled>
+        <a href={HOST + '/auth/google'}>google</a>
         {token ? <Button onClick={onClickLogout}>Вийти</Button> : null}
       </NavigationStyled>
     </HeaderStyled>
