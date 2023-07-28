@@ -71,19 +71,23 @@ const GameField: React.FC = () => {
   const cubicsData = useSelector(getCubics);
   const rolls = useSelector(getCubicsRolls);
   const cubicInStash = useSelector(getCubicInStashArr);
-  const onClickStartGame = () => {
+  const onClickStartGame = async () => {
+    if (w8) return;
     if (!startGame) return;
     if (rolls === 0) return;
+    setW8(true);
     if (rolls !== null && rolls > 0 && rolls < 3) {
-      return dispatch(getCubicsReroll());
+      await dispatch(getCubicsReroll());
+      return setW8(false);
     }
-    dispatch(getCubicsStartGame());
+    await dispatch(getCubicsStartGame());
+    setW8(false);
   }
-  const onClickCubic = (id: string | undefined) => {
+  const onClickCubic = async (id: string | undefined) => {
     if (!id) return;
     if (w8) return;
     setW8(true);
-    dispatch(getCubicOutStash(id as string));
+    await dispatch(getCubicOutStash(id as string));
     setW8(false);
   }
   return (

@@ -58,10 +58,10 @@ const ImageContainer = ({ cubicsData }: any) => {
     const onClickThrowGame = () => {
         dispatch(deleteThrowGame());
     }
-    const onClickCubic = (id: string) => {
+    const onClickCubic = async (id: string) => {
         if (w8) return;
         setW8(true);
-        dispatch(getCubicInStash(id));
+        await dispatch(getCubicInStash(id));
         setW8(false);
     }
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
@@ -27,6 +27,7 @@ const TableHeader = styled.th`
 `;
 
 const Table: React.FC = () => {
+    const [w8, setW8] = useState(false);
     const dispatch: AppDispatch = useDispatch();
     const refreshed = useSelector(getRefreshed);
     const cubicsResult = useSelector(getCubicsResultData);
@@ -106,16 +107,24 @@ const Table: React.FC = () => {
             });
         }
     };
-    const onClickTableSchool = () => {
+    const onClickTableSchool = async () => {
+        if (w8) return;
+        setW8(true);
         const results: string[] = ['schoolX', 'school'];
         const result = cubicsResult ? cubicsResult.filter((item: any) => results.includes(item.result.split(' ')[0])).flatMap((item: any) => item.result).join('') : null;
         const requestData = {
             data: result && result
         }
-        if (requestData.data === '' || requestData.data === null) return;
-        dispatch(postCubicResultSchool(requestData));
+        if (requestData.data === '' || requestData.data === null) {
+            setW8(false);
+            return
+        };
+        await dispatch(postCubicResultSchool(requestData));
+        setW8(false);
     }
-    const onClickTableOther = (id: string) => {
+    const onClickTableOther = async (id: string) => {
+        if (w8) return;
+        setW8(true);
         const result = cubicsResult ? cubicsResult.filter((item: any) => id === item.result.split(' ')[0]).flatMap((item: any) => item.result).join(' ') : null;
         const cross = cubicsResult ? cubicsResult.filter(item => item.result === 'cross') : null;
         if (cross?.length === 0) {
@@ -123,17 +132,24 @@ const Table: React.FC = () => {
                 const requestData = {
                     data: result && result
                 }
-                dispatch(postCubicResultOther(requestData));
+                await dispatch(postCubicResultOther(requestData));
             } else {
+                setW8(false);
                 return;
             }
         } else {
-            const el = document.getElementById(id + ' userOther');
-            const requestData = {
-                data: el && id + ' ' + el.textContent
+            if (cross?.length as number > 0) {
+                const el = document.getElementById(id + ' userOther');
+                const requestData = {
+                    data: el && id + ' ' + el.textContent
+                }
+                await dispatch(postCubicResultCherk(requestData));
+            } else {
+                setW8(false);
+                return;
             }
-            dispatch(postCubicResultCherk(requestData));
         }
+        setW8(false);
     }
     func();
     return (
