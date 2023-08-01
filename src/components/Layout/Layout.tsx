@@ -6,10 +6,12 @@ import Header from '../Header';
 
 const Layout: React.FC = ({ children }: any) => {
   return (
-    <Container>
+    <>
       <Header />
-      <Outlet />
-    </Container>
+      <Container>
+        <Outlet />
+      </Container>
+    </>
   );
 };
 

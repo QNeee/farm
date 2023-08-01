@@ -1,35 +1,31 @@
 import styled from 'styled-components';
+import { size } from '../../utils/breakpoint';
 
 export const Container = styled.div`
   display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  flex-direction: column;
+  justify-content: center;
   width: 320px;
+  min-height: calc(100% - 60px);
   margin: 0 auto;
-  padding: 20px;
-  overflow-x: hidden;
+  padding: 10px 0;
+  /* outline: 1px solid tomato; */
 
-  height: 100%;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 1);
 
-  background-color: white;
-
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-
-  @media (min-width: 481px) {
-    width: 481px;
-    padding: 10px;
+  @media (min-width: ${size.mobile}) {
+    width: 480px;
+    padding: 20px 20px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: ${size.tablet}) {
     width: 768px;
-    padding: 10px;
+    padding: 20px 10px;
   }
-  @media (min-width: 1025px) {
-    width: 1025px;
-    padding: 10px;
+  @media (min-width: ${size.desktop}) {
+    width: 1280px;
   }
-  @media (min-width: 1281px) {
-    width: 1281px;
+  @media (min-width: ${size.large}) {
+    width: 1440px;
   }
 `;

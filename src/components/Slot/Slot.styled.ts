@@ -43,7 +43,11 @@ const SlotAnimationOld = keyframes`
 
 export const AnimatedContainer = styled.div<{ animate: boolean; id: string }>`
   position: relative;
-  border: 2px solid green;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: #333;
+  box-shadow: 0px 0px 10px 1px #333 inset;
+  padding: 8px;
 
   border-radius: ${({ animate }) => (animate ? '50%' : 'none')};
   animation-name: ${({ animate, id }) => {
@@ -74,7 +78,8 @@ export const AnimatedContainer = styled.div<{ animate: boolean; id: string }>`
       }
     }
   }};
-  animation-timing-function: linear;
+  animation-timing-function: cubic-bezier(0.6, 1, 0.7, 0);
+  /* animation-timing-function:linear; */
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   overflow: hidden;

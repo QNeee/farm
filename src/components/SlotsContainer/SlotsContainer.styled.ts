@@ -1,62 +1,70 @@
 import styled from 'styled-components';
+import { size } from '../../utils/breakpoint';
 
-export const ListContainer = styled.ul`
-  padding: 0;
+export const List = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-export const ListItem = styled.li<{ isSmallScreen: boolean }>`
-  display: ${({ isSmallScreen }) => (isSmallScreen ? 'block' : 'flex')};
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
-  width: 200px;
+  width: 100%;
+
+  @media (min-width: ${size.tablet}) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+`;
+
+export const Item = styled.li`
+  display: flex;
+  position: relative;
+
+  width: 100%;
   height: 200px;
+  margin: 10px;
+  padding: 10px;
+
   border: 1px solid #333;
   border-radius: 5px;
-  padding: 10px;
-  margin-right: 10px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 2500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  background-color: rgba(255, 255, 0, 0.2);
   cursor: pointer;
-  &:hover {
-    border-color: tomato;
+
+  @media (min-width: ${size.mobile}) {
+    height: 250px;
   }
 
-  @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-    margin-right: 0;
+  @media (min-width: ${size.tablet}) {
+    align-items: center;
+    width: 230px;
+    height: 230px;
   }
 `;
 
 export const Bullet = styled.span`
-  display: inline-block;
+  /* display: inline-block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 10px; */
 `;
 
 export const Text = styled.span`
-  color: white;
-  background-color: blue;
-  font-size: 16px;
-  text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+
+  padding: 2px 10px;
+  color: white;
+  background-color: rgba(0, 0, 255, 0.5);
+  font-size: 16px;
+
+  border-radius: 20px;
   pointer-events: none;
+  z-index: 1;
 `;
 
 export const Image = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
+  border-radius: 5px;
 `;

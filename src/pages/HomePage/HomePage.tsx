@@ -1,20 +1,26 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { Container, Title, Description, Button } from './HomePage.styled';
+import { SubTitle, Title, Wrap, Wrapper, Button } from './HomePage.styled';
+import pic from '../../images/slot777.png';
 
 const HomePage: React.FC = () => {
-  const navigate = useNavigate();
   return (
-    <Container>
-      <Title>Welcome to the Game Slot Machine!</Title>
-      <Description>
-        Get ready for an exciting gaming experience. Spin the reels and win big!
-      </Description>
-      <Button type="button" onClick={() => navigate('/slots')}>
-        Play Now
-      </Button>
-    </Container>
+    <>
+      <Wrap>
+        <Wrapper>
+          <Title>Welcome to the Game Slot Machine!</Title>
+          <SubTitle>
+            Get ready for an exciting gaming experience. Spin the reels and win
+            big!
+          </SubTitle>
+        </Wrapper>
+        <img src={pic} alt="description" style={{ width: 400 }} />
+        <Link to="/slots" style={{ marginBottom: 20 }}>
+          <Button>Play</Button>
+        </Link>
+      </Wrap>
+    </>
   );
 };
 

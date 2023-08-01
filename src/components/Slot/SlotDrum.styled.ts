@@ -18,7 +18,7 @@ export const StyledImageSlot = styled.img`
 export const Wrapper = styled.div`
   width: 280px;
 
-  @media (min-width: 481px) {
+  @media (min-width: 480px) {
     width: 450px;
   }
 `;
@@ -33,11 +33,12 @@ export const SlotsContainer = styled.div`
   height: 260px;
 
   background-color: silver;
-  border: 10px ridge #60716c;
+  transition: background-color 3s ease-in 0s;
+
+  /* border: 10px ridge #60716c;
   border-radius: 20px;
   -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  transition: background-color 3s ease-in 0s;
+  -webkit-border-radius: 20px; */
 
   perspective: 4500px;
   overflow: hidden;
