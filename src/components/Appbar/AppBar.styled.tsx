@@ -1,11 +1,37 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
+const Test = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+`;
 export const UserContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 16px;
-  background-color: #f0f0f0;
-  padding: 16px;
+  margin-right: 5px;
+  /* gap: 16px; */
+  /* background-color: rgba(255, 0, 0, 0.1); */
+
+  background: linear-gradient(
+    -45deg,
+    rgba(238, 119, 82, 0.4),
+    rgba(255, 150, 34, 0.4),
+    rgba(111, 143, 18, 0.4),
+    rgba(35, 213, 171, 0.4)
+  );
+  background-size: 200% 200%;
+  animation: ${Test} 15s ease infinite;
+
+  padding: 5px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
