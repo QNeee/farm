@@ -50,19 +50,10 @@ const ShadowDropWebkit = keyframes`
 
 export const Wrap = styled.div`
   display: flex;
-  width: 360px;
-  justify-content: space-between;
+  width: 320px;
+  /* justify-content: space-between; */
   align-items: center;
   flex-direction: column;
-
-  padding: 15px;
-  gap: 40px;
-
-  /* backdrop-filter: blur(2px);
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 35px 35px 68px 0px rgba(145, 192, 255, 0.5),
-    inset -0px -0px 16px 0px rgba(145, 192, 255, 0.6),
-    inset 0px 11px 28px 0px rgb(255, 255, 255); */
 
   @media screen and (min-width: ${size.mobile}) {
     width: 480px;
@@ -85,15 +76,15 @@ export const Wrapper = styled.div`
   border-radius: 5% 5% 100% 100%;
 
   padding: 10px 10px 20px;
-  margin-top: 50px;
+  margin-bottom: 20px;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: ${size.mobile}) {
     padding: 10px 10px 50px;
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${size.tablet}) {
     padding: 10px 10px 60px;
   }
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${size.desktop}) {
     padding: 10px 10px 60px;
   }
 `;
@@ -121,6 +112,7 @@ export const SubTitle = styled.h2`
 `;
 
 export const Button = styled.button`
+  margin-top: 20px;
   padding: 1rem 2rem;
   font-size: 1rem;
   background-color: #007bff;
