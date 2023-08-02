@@ -228,11 +228,12 @@ export const SlotApp = () => {
       </HeaderStyled>
       <Container>
         {result > 0 && <NumberModal number={result} />}
-        <WrapSlots>
+
+        <WrapSlots win={confetti}>
           <Slots start={start} lines={lines} animate={animate} id={id} />
         </WrapSlots>
         {confetti ? <Confetti /> : null}
-        <ButtonsContainer>
+        <ButtonsContainer win={confetti}>
           {!showModal && (
             <SpinButton
               onClick={() => onClickLines('modalBet')}

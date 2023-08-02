@@ -23,11 +23,34 @@ export const Item = styled.li`
   margin: 10px;
   padding: 10px;
 
-  border: 1px solid #333;
+  /* border: 1px solid #333; */
   border-radius: 5px;
 
   background-color: rgba(255, 255, 0, 0.2);
   cursor: pointer;
+
+  overflow: visible;
+  z-index: 1;
+
+  &:before {
+    box-shadow: 0 0 15px 4px #0080e2, 0 0 120px 2px #004097,
+      inset 0 0 15px 4px #0080e2, inset 0 0 100px 2px #004097;
+    border-color: #bde1ff;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    transition: opacity 0.05s ease;
+    z-index: -1;
+  }
 
   @media (min-width: ${size.mobile}) {
     height: 250px;

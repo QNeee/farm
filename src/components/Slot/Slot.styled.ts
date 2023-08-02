@@ -78,8 +78,8 @@ export const AnimatedContainer = styled.div<{ animate: boolean; id: string }>`
       }
     }
   }};
-  animation-timing-function: cubic-bezier(0.6, 1, 0.7, 0);
-  /* animation-timing-function:linear; */
+  /* animation-timing-function: cubic-bezier(0.6, 1, 0.7, 0); */
+  animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   overflow: hidden;
