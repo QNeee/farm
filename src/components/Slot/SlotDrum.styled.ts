@@ -40,7 +40,7 @@ export const SlotsContainer = styled.div`
   transition: background-color 3s ease-in 0s;
 
   perspective: 5000px;
-  overflow: hidden;
+                                 overflow: hidden;
   &:hover {
     background-color: yellowgreen;
     transition: background-color 3s ease-in 0s;

@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import useSound from 'use-sound';
+import Lottie from 'lottie-react';
 
+import lampAnimation from '../../utils/lamp.json';
 import { Slots } from '../Slot';
 
 import spinSound from '../../audio/spin.mp3';
@@ -10,7 +12,7 @@ import winSound from '../../audio/money.mp3';
 import lineSound from '../../audio/line.mp3';
 import betSound from '../../audio/bet.mp3';
 import { IPostSlotLine } from '../../types';
-import NumberModal from '../Modal';
+import NumberModal, { TextModal } from '../Modal';
 import { Confetti } from '../Confetti';
 import {
   Span,
@@ -22,6 +24,7 @@ import {
   Container,
   MainContainer,
   WrapSlots,
+  LottieLamp,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
 import {
@@ -71,6 +74,7 @@ export const SlotApp = () => {
   const [playLine] = useSound(lineSound);
   const [playBet] = useSound(betSound);
   const [isWinSoundPlayed, setWinSoundPlayed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (result > 0) {
@@ -211,9 +215,23 @@ export const SlotApp = () => {
   //         setWinSoundPlayed(false);
   //     }
   // };
+  const toggleModal = () => setIsOpen((prev) => !prev);
+  // const toggleModal = () => setIsOpen(true);
   return (
     <MainContainer imgUrl={slotImg}>
       <HeaderStyled>
+        <LottieLamp>
+          {isOpen && (
+            <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+              <h1>HELLO WORLD!</h1>
+            </TextModal>
+          )}
+          <Lottie
+            animationData={lampAnimation}
+            onClick={toggleModal}
+            title="Інструкція"
+          />
+        </LottieLamp>
         <Balance>
           Balance: {balance}
           {expense ? (
