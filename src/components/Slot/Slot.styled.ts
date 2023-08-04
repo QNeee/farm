@@ -86,14 +86,14 @@ export const AnimatedContainer = styled.div<{ animate: boolean; id: string }>`
 `;
 
 const LineAnimation = keyframes`
-   0% {filter: blur(0);
+   /* 0% {filter: blur(0);
   background-color: blue;}
   10% {filter: blur(0);
   background-color: brown;}
   30% {filter: blur(6px);
     background-color: green;}
   60% {filter: blur(6px);
-  background-color: brown;}
+  background-color: brown;} */
   80% {filter: blur(0);
   background-color: green;
   }

@@ -48,7 +48,7 @@ const AppBar: React.FC = () => {
   return (
     <>
       <UserContainer onClick={handleContainerClick}>
-        <Lottie
+        {/* <Lottie
           style={{
             height: 24,
             width: 24,
@@ -56,7 +56,7 @@ const AppBar: React.FC = () => {
             marginRight: '3px',
           }}
           animationData={attentionArrow}
-        />
+        /> */}
         <UserInfo>
           <UserEmail>{userEmail}</UserEmail>
         </UserInfo>

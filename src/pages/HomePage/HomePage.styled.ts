@@ -27,71 +27,100 @@ const Animation = keyframes`
 		}
 `;
 
-const ShadowDrop = keyframes`
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-
-  100% {  
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-  }
-`;
-
-const ShadowDropWebkit = keyframes` 
-  0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-            box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-  }
-  `;
-
 export const Wrap = styled.div`
+  position: relative;
   display: flex;
   width: 320px;
-  /* justify-content: space-between; */
   align-items: center;
   flex-direction: column;
-
   @media screen and (min-width: ${size.mobile}) {
     width: 480px;
   }
   @media screen and (min-width: ${size.tablet}) {
     width: 768px;
   }
-  @media screen and (min-width: ${size.desktop}) {
-    width: 1280px;
+`;
+
+export const WrapTitle = styled.div`
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 320px;
+
+  padding: 30px 10px 41px;
+  border-radius: 20px;
+
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+  background-color: rgba(226, 52, 11, 0.7);
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%23daf12d' fill-opacity='0.33' fill-rule='evenodd'/%3E%3C/svg%3E");
+
+  @media screen and (min-width: ${size.mobile}) {
+    left: 0;
   }
-  @media screen and (min-width: ${size.large}) {
-    width: 1440px;
+  @media screen and (min-width: ${size.tablet}) {
+    top: 80px;
+    left: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 320px;
+    border-radius: 50%;
+  }
+  @media screen and (min-width: ${size.desktop}) {
+    top: 76px;
+    left: 215px;
+    height: 240px;
+    border-radius: 50% 50% 0 0;
+    border-width: 2px 2px 0 2px;
+    border-style: solid;
+    border-color: black;
   }
 `;
 
-export const Wrapper = styled.div`
-  animation: ${ShadowDropWebkit} 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: ${ShadowDrop} 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+export const WrapDesc = styled.div`
+  position: absolute;
+  top: 280px;
+  left: 0;
+  width: 320px;
+  padding: 40px 10px 20px;
 
-  border-radius: 5% 5% 100% 100%;
-
-  padding: 10px 10px 20px;
-  margin-bottom: 20px;
-
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  background-color: rgba(0, 0, 0, 0.7);
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%23daf12d' fill-opacity='0.33' fill-rule='evenodd'/%3E%3C/svg%3E");
   @media screen and (min-width: ${size.mobile}) {
-    padding: 10px 10px 50px;
+    left: 120px;
   }
   @media screen and (min-width: ${size.tablet}) {
-    padding: 10px 10px 60px;
+    top: 300px;
+    left: 383px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
   }
   @media screen and (min-width: ${size.desktop}) {
-    padding: 10px 10px 60px;
+    top: 316px;
+    left: 215px;
+    height: 200px;
+    width: 320px;
+    border-radius: 0 0 50% 50%;
+    border-width: 0 2px 2px 2px;
+    border-style: dotted;
+    border-color: black;
   }
 `;
 
 export const Title = styled.h1`
   text-align: center;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: 900;
   text-transform: uppercase;
 
@@ -102,24 +131,51 @@ export const Title = styled.h1`
   animation-iteration-count: 1;
   animation-direction: normal;
   animation-fill-mode: none;
+  color: white;
 `;
 
-export const SubTitle = styled.h2`
-  margin-top: 10px;
+export const Desc = styled.h2`
+  margin: 5px;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
+  color: white;
 `;
 
 export const Button = styled.button`
-  margin-top: 20px;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  position: absolute;
+  top: 243px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65px;
+  height: 65px;
+  padding: 10px;
+  text-transform: uppercase;
   cursor: pointer;
+  font-weight: bold;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  box-shadow: 0px 0px 68px 0px rgba(145, 192, 255, 0.5),
+    inset 0px -9px 16px 0px rgba(145, 192, 255, 0.6),
+    inset 0px 11px 28px 0px rgb(255, 255, 255);
+  &:hover {
+    border: 2px solid darkblue;
+  }
+  @media screen and (min-width: ${size.mobile}) {
+    top: 247px;
+  }
+  @media screen and (min-width: ${size.tablet}) {
+    top: 310px;
+    width: 100px;
+    height: 100px;
+    font-size: 26px;
+  }
+  @media screen and (min-width: ${size.desktop}) {
+    top: 265px;
+  }
+  @media screen and (min-width: ${size.large}) {
+  }
 `;
 
 // import styled from 'styled-components';

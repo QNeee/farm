@@ -4,9 +4,9 @@ import { size } from '../../utils/breakpoint';
 
 export const HeaderContainer = styled.div`
   width: 100vw;
-  background-color: rgba(255, 255, 0, 0.2);
-  /* background-color: #f2f2f2; */
-  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
 export const HeaderStyled = styled.header`
@@ -15,7 +15,8 @@ export const HeaderStyled = styled.header`
   align-items: center;
   width: 320px;
   margin: 0 auto;
-  padding: 2px 5px;
+  min-height: 70px;
+  padding: 0 5px;
 
   @media (min-width: ${size.mobile}) {
     width: 480px;
@@ -26,10 +27,10 @@ export const HeaderStyled = styled.header`
     padding: 4px 20px;
   }
   @media (min-width: ${size.desktop}) {
-    width: 1280px;
+    /* width: 1280px; */
   }
   @media (min-width: ${size.large}) {
-    width: 1440px;
+    /* width: 1440px; */
   }
 `;
 

@@ -154,16 +154,24 @@ export const ButtonsContainer = styled.div<{ win: boolean }>`
 `;
 export const SpinButton = styled.button<{ primary: boolean }>`
   background-color: ${(props) => (!props.primary ? '#ff4081' : 'grey')};
-  color: #fff;
-  font-size: 18px;
-  padding: 7px 12px;
-  border: none;
-  border-radius: 5px;
-  /* margin-bottom: 20px; */
+  padding: 10px 10px;
+  text-transform: uppercase;
   cursor: pointer;
+
+  /* backdrop-filter: blur(5px);
+  border-radius: 47px;
+  box-shadow: 0px 0px 68px 0px rgba(145, 192, 255, 0.5),
+    inset 0px -9px 16px 0px rgba(145, 192, 255, 0.6),
+    inset 0px 11px 28px 0px rgb(255, 255, 255); */
+  &:hover {
+    border: 2px solid darkblue;
+  }
 
   @media (min-width: 480px) {
     padding: 10px 20px;
+  }
+  @media (min-width: 768px) {
+    padding: 10px 30px;
   }
 `;
 export const HeaderStyled = styled.div`
@@ -218,10 +226,6 @@ export const LottieLamp = styled.div`
   position: absolute;
   top: -7px;
   right: -7px;
-  /* border-radius: 50%; */
   z-index: 1;
-  /* box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset; */
   cursor: pointer;
 `;

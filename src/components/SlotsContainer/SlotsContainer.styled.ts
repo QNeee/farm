@@ -32,7 +32,7 @@ export const Item = styled.li`
   overflow: visible;
   z-index: 1;
 
-  &:before {
+  /* &:before {
     box-shadow: 0 0 15px 4px #0080e2, 0 0 120px 2px #004097,
       inset 0 0 15px 4px #0080e2, inset 0 0 100px 2px #004097;
     border-color: #bde1ff;
@@ -50,7 +50,7 @@ export const Item = styled.li`
     border-radius: 8px;
     transition: opacity 0.05s ease;
     z-index: -1;
-  }
+  } */
 
   @media (min-width: ${size.mobile}) {
     height: 250px;

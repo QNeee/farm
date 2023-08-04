@@ -125,29 +125,37 @@ body {
   /* background: linear-gradient(-45deg, #ee7752, #ff9622, #6F8F12, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite; */
+  /* }
 
-  /*background-image: url("./images/bg.jpg");
-  background-size: cover;
+body::after { */
+  background-image: url(./images/bg.jpg);
   background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center -70px;
+  -webkit-background-attachment: fixed;
+  -moz-background-attachment: fixed;
+  -o-background-attachment: fixed;
+  background-color: #FFF;
+
 
   @media (min-width: 480px) {
-    background-image: url("./images/bg.jpg");
+    background-image: url(./images/bg768.jpg);
+    background-position: center 31px;
   }
 
   @media (min-width: 768px) {
-    background-image: url("./images/bg.jpg");
+    background-image: url(./images/bg1280.jpg);
+    background-position: center -100px;
   }
 
   @media (min-width: 1280px) {
-    background-image: url("./images/bg.jpg");
-
+    background-position: center -150px;
   }
 
-  @media (min-width: 1440px) {
-    background-image: url("./images/bg.jpg");
-  } */
+  @media (min-width: 1440px) {}
 
 }
+
 
 /* @keyframes gradient {
   0% {

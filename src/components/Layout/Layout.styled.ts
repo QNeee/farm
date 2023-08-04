@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 import { size } from '../../utils/breakpoint';
 
+export const Wrapper = styled.div`
+  position: fixed;
+`;
+
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 320px;
-  min-height: calc(100% - 60px);
+  min-height: calc(100vh - 60px);
   margin: 0 auto;
   padding: 10px 0;
-  /* outline: 1px solid tomato; */
-
-  border-width: 0 1px 0 1px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 1);
+  /* outline: 1px solid black; */
 
   @media (min-width: ${size.mobile}) {
     width: 480px;

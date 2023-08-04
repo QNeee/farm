@@ -220,7 +220,7 @@ export const SlotApp = () => {
   return (
     <MainContainer imgUrl={slotImg}>
       <HeaderStyled>
-        <LottieLamp>
+        {/* <LottieLamp>
           {isOpen && (
             <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
               <h1>HELLO WORLD!</h1>
@@ -231,7 +231,7 @@ export const SlotApp = () => {
             onClick={toggleModal}
             title="Інструкція"
           />
-        </LottieLamp>
+        </LottieLamp> */}
         <Balance>
           Balance: {balance}
           {expense ? (
@@ -250,7 +250,7 @@ export const SlotApp = () => {
         <WrapSlots win={confetti}>
           <Slots start={start} lines={lines} animate={animate} id={id} />
         </WrapSlots>
-        {confetti ? <Confetti /> : null}
+        {/* {confetti ? <Confetti /> : null} */}
         <ButtonsContainer win={confetti}>
           {!showModal && (
             <SpinButton
