@@ -60,7 +60,7 @@ export const WrapTitle = styled.div`
     left: 0;
   }
   @media screen and (min-width: ${size.tablet}) {
-    top: 80px;
+    top: 30px;
     left: 130px;
     display: flex;
     align-items: center;
@@ -70,9 +70,9 @@ export const WrapTitle = styled.div`
     border-radius: 50%;
   }
   @media screen and (min-width: ${size.desktop}) {
-    top: 76px;
+    top: 86px;
     left: 215px;
-    height: 240px;
+    height: 230px;
     border-radius: 50% 50% 0 0;
     border-width: 2px 2px 0 2px;
     border-style: solid;
@@ -96,7 +96,7 @@ export const WrapDesc = styled.div`
     left: 120px;
   }
   @media screen and (min-width: ${size.tablet}) {
-    top: 300px;
+    top: 250px;
     left: 383px;
     display: flex;
     align-items: center;
@@ -153,20 +153,22 @@ export const Button = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   font-weight: bold;
+  border-radius: 50%;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
   box-shadow: 0px 0px 68px 0px rgba(145, 192, 255, 0.5),
     inset 0px -9px 16px 0px rgba(145, 192, 255, 0.6),
     inset 0px 11px 28px 0px rgb(255, 255, 255);
   &:hover {
-    border: 2px solid darkblue;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
   @media screen and (min-width: ${size.mobile}) {
     top: 247px;
   }
   @media screen and (min-width: ${size.tablet}) {
-    top: 310px;
+    top: 260px;
     width: 100px;
     height: 100px;
     font-size: 26px;

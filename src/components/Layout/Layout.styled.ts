@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 import { size } from '../../utils/breakpoint';
 
-export const Wrapper = styled.div`
-  position: fixed;
-`;
-
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 320px;
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 0);
   margin: 0 auto;
   padding: 10px 0;
   /* outline: 1px solid black; */
@@ -20,7 +16,7 @@ export const Container = styled.div`
   }
   @media (min-width: ${size.tablet}) {
     width: 768px;
-    padding: 20px 10px;
+    padding: 20px 10px 0;
   }
   @media (min-width: ${size.desktop}) {
     width: 1280px;

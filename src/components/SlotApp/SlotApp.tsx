@@ -25,6 +25,7 @@ import {
   MainContainer,
   WrapSlots,
   LottieLamp,
+  Wrapper,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
 import {
@@ -218,9 +219,11 @@ export const SlotApp = () => {
   const toggleModal = () => setIsOpen((prev) => !prev);
   // const toggleModal = () => setIsOpen(true);
   return (
-    <MainContainer imgUrl={slotImg}>
-      <HeaderStyled>
-        {/* <LottieLamp>
+    <>
+      <Wrapper />
+      <MainContainer imgUrl={slotImg}>
+        <HeaderStyled>
+          {/* <LottieLamp>
           {isOpen && (
             <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
               <h1>HELLO WORLD!</h1>
@@ -232,82 +235,85 @@ export const SlotApp = () => {
             title="Інструкція"
           />
         </LottieLamp> */}
-        <Balance>
-          Balance: {balance}
-          {expense ? (
-            <Span primary={result === 0 ? true : false}>
-              {result > 0 ? `+(${result})` : `-(${bet * lines})`}
-            </Span>
-          ) : null}
-        </Balance>
-        <LineCount>Lines:{lines}</LineCount>
-        <LineCount>Bet:{bet}</LineCount>
-        <LineCount>TotalBet:{bet * lines}</LineCount>
-      </HeaderStyled>
-      <Container>
-        {result > 0 && <NumberModal number={result} />}
+          <Balance>
+            Balance: {balance}
+            {expense ? (
+              <Span primary={result === 0 ? true : false}>
+                {result > 0 ? `+(${result})` : `-(${bet * lines})`}
+              </Span>
+            ) : null}
+          </Balance>
+          <LineCount>Lines:{lines}</LineCount>
+          <LineCount>Bet:{bet}</LineCount>
+          <LineCount>TotalBet:{bet * lines}</LineCount>
+        </HeaderStyled>
+        <Container>
+          {result > 0 && <NumberModal number={result} />}
 
-        <WrapSlots win={confetti}>
-          <Slots start={start} lines={lines} animate={animate} id={id} />
-        </WrapSlots>
-        {/* {confetti ? <Confetti /> : null} */}
-        <ButtonsContainer win={confetti}>
-          {!showModal && (
-            <SpinButton
-              onClick={() => onClickLines('modalBet')}
-              primary={false}
-            >
-              Bet
-            </SpinButton>
-          )}
+          <WrapSlots win={confetti}>
+            <Slots start={start} lines={lines} animate={animate} id={id} />
+          </WrapSlots>
+          {/* {confetti ? <Confetti /> : null} */}
+          <ButtonsContainer win={confetti}>
+            {!showModal && (
+              <SpinButton
+                onClick={() => onClickLines('modalBet')}
+                primary={false}
+              >
+                Bet
+              </SpinButton>
+            )}
 
-          {!showModal && (
-            <SpinButton
-              primary={!auto ? false : true}
-              onClick={() => startAnimation()}
-            >
-              Spin
-            </SpinButton>
-          )}
-          {!showModal && (
-            <SpinButton
-              primary={false}
-              onClick={() => (!auto ? startAnimation('auto') : stopAnimation())}
-            >
-              {!auto ? 'Auto' : 'Stop'}
-            </SpinButton>
-          )}
-          {!showModal && (
-            <SpinButton
-              onClick={() => onClickLines('modalLine')}
-              primary={false}
-            >
-              Lines
-            </SpinButton>
-          )}
-          {showModal && (
-            <SpinButton
-              onClick={() => onClickLines(!showBet ? 'incLines' : 'incBets')}
-              primary={false}
-            >
-              +
-            </SpinButton>
-          )}
-          {showModal && (
-            <SpinButton
-              onClick={() => onClickLines(!showBet ? 'decLines' : 'decBets')}
-              primary={false}
-            >
-              -
-            </SpinButton>
-          )}
-          {showModal && (
-            <SpinButton onClick={onClickBack} primary={false}>
-              back
-            </SpinButton>
-          )}
-        </ButtonsContainer>
-      </Container>
-    </MainContainer>
+            {!showModal && (
+              <SpinButton
+                primary={!auto ? false : true}
+                onClick={() => startAnimation()}
+              >
+                Spin
+              </SpinButton>
+            )}
+            {!showModal && (
+              <SpinButton
+                primary={false}
+                onClick={() =>
+                  !auto ? startAnimation('auto') : stopAnimation()
+                }
+              >
+                {!auto ? 'Auto' : 'Stop'}
+              </SpinButton>
+            )}
+            {!showModal && (
+              <SpinButton
+                onClick={() => onClickLines('modalLine')}
+                primary={false}
+              >
+                Lines
+              </SpinButton>
+            )}
+            {showModal && (
+              <SpinButton
+                onClick={() => onClickLines(!showBet ? 'incLines' : 'incBets')}
+                primary={false}
+              >
+                +
+              </SpinButton>
+            )}
+            {showModal && (
+              <SpinButton
+                onClick={() => onClickLines(!showBet ? 'decLines' : 'decBets')}
+                primary={false}
+              >
+                -
+              </SpinButton>
+            )}
+            {showModal && (
+              <SpinButton onClick={onClickBack} primary={false}>
+                back
+              </SpinButton>
+            )}
+          </ButtonsContainer>
+        </Container>
+      </MainContainer>
+    </>
   );
 };

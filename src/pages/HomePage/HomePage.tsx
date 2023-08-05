@@ -32,6 +32,7 @@ const HomePage: React.FC = () => {
           </Desc>
         </WrapDesc>
         {/* <img src={pic} alt="description" style={{ width: 400 }} /> */}
+
         <Link to="/slots" style={{ marginTop: 20 }}>
           <Button>Play</Button>
         </Link>

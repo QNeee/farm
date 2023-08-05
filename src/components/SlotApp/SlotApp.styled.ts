@@ -12,21 +12,47 @@ const Position = keyframes`
     }
   `;
 
+export const Wrapper = styled.div`
+  /* position: relative;
+
+  border-radius: 5px;
+  border: 1px solid #c6c6;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  z-index: -2;
+  width: 320px;
+  height: 300px;
+
+  @media (min-width: 480px) {
+    width: 480px;
+    height: 400px;
+  }
+  @media (min-width: 768px) {
+    width: 600px;
+    padding: 50px;
+  } */
+`;
+
 export const MainContainer = styled.div<{ imgUrl: string }>`
   /* background-image: url(${(props) => props.imgUrl});
   background-size: cover; */
+  position: fixed;
+
+  border-radius: 5px;
+  border: 1px solid #c6c6;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 
   width: 320px;
   height: 100%;
 
   @media (min-width: 480px) {
-    padding: 10px;
-    background-color: rgba(255, 255, 0, 0.2);
     width: 480px;
+    padding: 10px;
   }
   @media (min-width: 768px) {
-    width: 600px;
-    padding: 50px;
+    width: 700px;
+    padding: 50px 70px;
   }
 `;
 export const Container = styled.div`
@@ -154,17 +180,15 @@ export const ButtonsContainer = styled.div<{ win: boolean }>`
 `;
 export const SpinButton = styled.button<{ primary: boolean }>`
   background-color: ${(props) => (!props.primary ? '#ff4081' : 'grey')};
-  padding: 10px 10px;
+  padding: 5px 10px;
   text-transform: uppercase;
   cursor: pointer;
+  border: none;
 
-  /* backdrop-filter: blur(5px);
-  border-radius: 47px;
-  box-shadow: 0px 0px 68px 0px rgba(145, 192, 255, 0.5),
-    inset 0px -9px 16px 0px rgba(145, 192, 255, 0.6),
-    inset 0px 11px 28px 0px rgb(255, 255, 255); */
   &:hover {
-    border: 2px solid darkblue;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+      rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+      rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
 
   @media (min-width: 480px) {

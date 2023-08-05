@@ -15,16 +15,16 @@ export const HeaderStyled = styled.header`
   align-items: center;
   width: 320px;
   margin: 0 auto;
-  min-height: 70px;
+  height: 60px;
   padding: 0 5px;
 
   @media (min-width: ${size.mobile}) {
     width: 480px;
-    padding: 4px 15px;
+    padding: 0 15px;
   }
   @media (min-width: ${size.tablet}) {
     width: 768px;
-    padding: 4px 20px;
+    padding: 0 20px;
   }
   @media (min-width: ${size.desktop}) {
     /* width: 1280px; */
