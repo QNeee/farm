@@ -1,33 +1,36 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { size } from '../../utils/breakpoint';
+
+export const HeaderContainer = styled.div`
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+`;
 
 export const HeaderStyled = styled.header`
   display: flex;
-  justify-content: space-evenly;
-
+  justify-content: space-between;
   align-items: center;
   width: 320px;
-  /* width: 100%; */
-  padding: 20px;
-  background-color: #f2f2f2;
-  margin-bottom: 20px;
-  /* outline: 2px solid tomato; */
-  @media (min-width: 481px) {
-    width: 481px;
-    flex-direction: column;
-    padding: 10px;
+  margin: 0 auto;
+  height: 60px;
+  padding: 0 5px;
+
+  @media (min-width: ${size.mobile}) {
+    width: 480px;
+    padding: 0 15px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: ${size.tablet}) {
     width: 768px;
-    flex-direction: row;
-    margin-bottom: 30px;
+    padding: 0 20px;
   }
-  @media (min-width: 1025px) {
-    width: 1025px;
-    margin-bottom: 40px;
+  @media (min-width: ${size.desktop}) {
+    /* width: 1280px; */
   }
-  @media (min-width: 1281px) {
-    width: 1281px;
+  @media (min-width: ${size.large}) {
+    /* width: 1440px; */
   }
 `;
 
@@ -41,11 +44,25 @@ export const NavigationStyled = styled.nav`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  flex-wrap: wrap;
-  margin-top: 10px;
+  /* flex-direction: column; */
+  /* flex-wrap: wrap; */
+  /* outline: 1px solid tomato; */
+
+  @media (min-width: 480px) {
+    flex-direction: row;
+  }
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+  @media (min-width: 1280px) {
+    flex-direction: row;
+  }
 `;
 
 export const NavLinkStyled = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 18px;
   color: #333;
   line-height: 2.5;
@@ -54,8 +71,7 @@ export const NavLinkStyled = styled(NavLink)`
     text-decoration: underline;
   }
 
-  @media (min-width: 481px) {
-    /* margin-right: 10px; */
+  @media (min-width: 480px) {
     margin-left: 10px;
   }
 
@@ -65,13 +81,38 @@ export const NavLinkStyled = styled(NavLink)`
 `;
 
 export const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
   background-color: red;
   color: white;
-  border-radius: 4px;
-  padding: 8px 16px;
+  border-radius: 50%;
+  padding: 2px;
   border: none;
   cursor: pointer;
-  @media (min-width: 481px) {
+  @media (min-width: 480px) {
     margin-left: 20px;
   }
+  @media (min-width: 768px) {
+    height: 100%;
+    width: 100%;
+    margin-left: 20px;
+    border-radius: 4px;
+    padding: 8px 16px;
+    border: none;
+  }
+`;
+
+export const Modal = styled.div`
+  z-index: 2;
+  position: fixed;
+  top: 5%;
+  right: 5%;
+  /* transform: translate(-50%, -50%); */
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;

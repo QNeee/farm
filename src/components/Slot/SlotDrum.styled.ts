@@ -18,8 +18,12 @@ export const StyledImageSlot = styled.img`
 export const Wrapper = styled.div`
   width: 280px;
 
-  @media (min-width: 481px) {
+  @media (min-width: 480px) {
     width: 450px;
+  }
+
+  @media (min-width: 768px) {
+    width: 500px;
   }
 `;
 
@@ -30,17 +34,13 @@ export const SlotsContainer = styled.div`
   transform: translate3d(-50%, 0, 0);
 
   width: 100%;
-  height: 260px;
+  height: 243px;
 
-  background-color: silver;
-  border: 10px ridge #60716c;
-  border-radius: 20px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
+  background-color: lightgrey;
   transition: background-color 3s ease-in 0s;
 
-  perspective: 4500px;
-  overflow: hidden;
+  perspective: 5000px;
+                                 overflow: hidden;
   &:hover {
     background-color: yellowgreen;
     transition: background-color 3s ease-in 0s;
