@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import useSound from 'use-sound';
-import Lottie from 'lottie-react';
-
-import lampAnimation from '../../utils/lamp.json';
+// import Lottie from 'lottie-react';
+import { FcIdea } from 'react-icons/fc';
+// import lampAnimation from '../../utils/lamp.json';
 import { Slots } from '../Slot';
 
 import spinSound from '../../audio/spin.mp3';
@@ -24,7 +24,7 @@ import {
   Container,
   MainContainer,
   WrapSlots,
-  LottieLamp,
+  Lamp,
   Wrapper,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
@@ -223,18 +223,18 @@ export const SlotApp = () => {
       <Wrapper />
       <MainContainer imgUrl={slotImg}>
         <HeaderStyled>
-          {/* <LottieLamp>
-          {isOpen && (
-            <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <h1>HELLO WORLD!</h1>
-            </TextModal>
-          )}
-          <Lottie
-            animationData={lampAnimation}
-            onClick={toggleModal}
-            title="Інструкція"
-          />
-        </LottieLamp> */}
+          <Lamp>
+            {isOpen && (
+              <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <h1>HELLO WORLD!</h1>
+              </TextModal>
+            )}
+            <FcIdea
+              onClick={toggleModal}
+              title="Інструкції"
+              style={{ height: 32, width: 32 }}
+            />
+          </Lamp>
           <Balance>
             Balance: {balance}
             {expense ? (

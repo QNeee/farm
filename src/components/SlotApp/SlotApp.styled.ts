@@ -244,12 +244,13 @@ export const Span = styled.span<{ primary: boolean }>`
   color: ${(props) => (props.primary ? 'red' : 'green')};
 `;
 
-export const LottieLamp = styled.div`
-  height: 48px;
-  width: 48px;
+export const Lamp = styled.div`
   position: absolute;
-  top: -7px;
-  right: -7px;
+  top: 17px;
+  right: 16px;
   z-index: 1;
   cursor: pointer;
+  &:hover {
+    padding: 1px;
+  }
 `;
