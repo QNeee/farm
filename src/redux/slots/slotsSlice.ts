@@ -119,6 +119,9 @@ export const slotSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             }).addCase(getInstructionSlot.pending, (state) => {
+                state.instrCombination = [];
+                state.instrLines = [];
+                state.instrValues = [];
                 state.loading = true;
                 state.error = null;
             })
