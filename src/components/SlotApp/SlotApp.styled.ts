@@ -247,7 +247,7 @@ export const Span = styled.span<{ primary: boolean }>`
 export const Lamp = styled.div`
   position: absolute;
   top: 17px;
-  right: 16px;
+  right: 5px;
   z-index: 1;
   cursor: pointer;
   &:hover {
