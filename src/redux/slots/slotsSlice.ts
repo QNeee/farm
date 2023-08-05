@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { INewVersion } from '../../types';
-import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot } from '../slots/slotsOperations';
+import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot, getInstructionSlot } from '../slots/slotsOperations';
 export interface ISlotState {
     lineRender: boolean;
     confetti: boolean;
     error: unknown;
     loading: boolean,
+    instrCombination: [],
+    instrValues: [],
+    instrLines: [],
     allSlots: [];
     slot: [];
     slotNew: INewVersion | null
@@ -19,6 +22,9 @@ const initialState: ISlotState = {
     lineRender: false,
     confetti: false,
     allSlots: [],
+    instrCombination: [],
+    instrValues: [],
+    instrLines: [],
     slot: [],
     slotNew: null,
     slotImg: '',
@@ -110,6 +116,19 @@ export const slotSlice = createSlice({
                 state.bet = payload.data;
             })
             .addCase(postBetSlot.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getInstructionSlot.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getInstructionSlot.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.instrCombination = payload.data.combination;
+                state.instrLines = payload.data.lines;
+                state.instrValues = payload.data.values;
+            })
+            .addCase(getInstructionSlot.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

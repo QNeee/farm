@@ -16,6 +16,17 @@ export const getSlots = createAsyncThunk(
         }
     }
 );
+export const getInstructionSlot = createAsyncThunk(
+    'slots/instruction',
+    async (id: string, { rejectWithValue }) => {
+        try {
+            const result = await axios.get(`instructions/${id}`);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 export const postStartGame = createAsyncThunk(
     'slots/postbet',
     async (data: { id: string }, { rejectWithValue, getState, dispatch }) => {

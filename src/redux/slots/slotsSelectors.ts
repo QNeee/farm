@@ -10,3 +10,7 @@ export const getSlot = (state: RootState) => state.slot.slot;
 export const getSlotLines = (state: RootState) => state.slot.lines;
 export const getUserBet = (state: RootState) => state.slot.bet;
 export const getUserResult = (state: RootState) => state.slot.result;
+export const getInstrCombination = (state: RootState) => state.slot.instrCombination;
+export const getInstrValues = (state: RootState) => state.slot.instrValues;
+export const getInstrLines = (state: RootState) => state.slot.instrLines;
+
