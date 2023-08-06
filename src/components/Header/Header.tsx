@@ -1,9 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
 import Lottie from 'lottie-react';
 import { useMediaQuery } from 'react-responsive';
+import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
+import { GiBandit, GiRollingDices } from 'react-icons/gi';
+import { Menu, MenuItem } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
 
 import AppBar from '../Appbar';
 import {
@@ -13,51 +17,21 @@ import {
   Logo,
   Button,
   HeaderContainer,
-  Modal,
+  ButtonBurgerStyle,
 } from './Header.styled';
 import { AppDispatch } from '../../redux/store';
 import { getToken } from '../../redux/auth/authSelectors';
 import { logout } from '../../redux/auth/authOperations';
-import { HOST } from '../../host';
 import burgerAnimation from '../../utils/burger.json';
-import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
-import { MdAppRegistration } from 'react-icons/md';
-import { FcGoogle } from 'react-icons/fc';
 
-const Header = () => {
+const Header: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector(getToken);
-  const [isOpen, setIsOpen] = useState(false);
 
   const onClickLogout = () => {
     dispatch(logout());
   };
-
-  const handleMenuClick = () => {
-    setIsOpen(false);
-  };
-
-  const handleMenuOpen = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (e: MouseEvent) => {
-    const target = e.target as Node;
-    if (modalRef.current && !modalRef.current.contains(target)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   const isWide = useMediaQuery({ minWidth: 768 });
   const isNarrow = useMediaQuery({ maxWidth: 767 });
@@ -72,65 +46,89 @@ const Header = () => {
         />
         {isWide && (
           <NavigationStyled>
-            {!token ? <NavLinkStyled to={'/login'}>Вхід</NavLinkStyled> : null}
-            {!token ? (
-              <NavLinkStyled to={'/register'}>Реєстрація</NavLinkStyled>
-            ) : null}
-            {token ? <AppBar /> : null}
-            <NavLinkStyled to={'/slots'}>Слоти</NavLinkStyled>
-            <NavLinkStyled to={'/cubics'}>КубікПокер</NavLinkStyled>
-            {!token ? (
-              <NavLinkStyled to={HOST + '/auth/google'}>google</NavLinkStyled>
-            ) : null}
-            {token ? <Button onClick={onClickLogout}>Вийти</Button> : null}
+            <NavigationStyled>{token ? <AppBar /> : null}</NavigationStyled>
+            <NavigationStyled>
+              <NavLinkStyled to={'/slots'}>
+                <GiBandit style={{ width: 24, height: 24, marginRight: 10 }} />
+                Слоти
+              </NavLinkStyled>
+            </NavigationStyled>
+            <NavigationStyled>
+              <NavLinkStyled to={'/cubics'}>
+                <GiRollingDices
+                  style={{ width: 24, height: 24, marginRight: 10 }}
+                />
+                Покер на кістках
+              </NavLinkStyled>
+            </NavigationStyled>
+            <NavigationStyled>
+              {token ? (
+                <Button onClick={onClickLogout} title="Вихід">
+                  <AiOutlineLogout
+                    style={{ width: 24, height: 24, marginRight: 10 }}
+                  />
+                  Вихід
+                </Button>
+              ) : null}
+            </NavigationStyled>
+            <NavigationStyled>
+              {!token ? (
+                <NavLinkStyled to={'/login'}>
+                  <AiOutlineLogin
+                    style={{ width: 24, height: 24, marginRight: 10 }}
+                  />
+                  Увійти
+                </NavLinkStyled>
+              ) : null}
+            </NavigationStyled>
           </NavigationStyled>
         )}
         {isNarrow && (
           <>
-            <NavigationStyled>
-              {!token ? (
-                <NavLinkStyled to={'/login'}>
-                  <AiOutlineLogin /> Вхід
+            {token ? <AppBar /> : null}
+            <Menu
+              menuButton={
+                <ButtonBurgerStyle>
+                  <Lottie
+                    style={{ height: 32, width: 32 }}
+                    animationData={burgerAnimation}
+                  />
+                </ButtonBurgerStyle>
+              }
+              arrow={true}
+              gap={12}
+              transition
+            >
+              <MenuItem>
+                <NavLinkStyled to={'/slots'}>
+                  <GiBandit style={{ marginRight: 5 }} />
+                  Слоти
                 </NavLinkStyled>
-              ) : null}
-              {!token ? (
-                <NavLinkStyled to={'/register'}>
-                  <MdAppRegistration />
-                  Реєстрація
+              </MenuItem>
+              <MenuItem>
+                <NavLinkStyled to={'/cubics'}>
+                  <GiRollingDices style={{ marginRight: 5 }} />
+                  Покер на кістках
                 </NavLinkStyled>
-              ) : null}
-              {token ? <AppBar /> : null}
-              {!token ? (
-                <NavLinkStyled
-                  to={HOST + '/auth/google'}
-                  title="Google авторизація"
-                >
-                  <FcGoogle />
-                </NavLinkStyled>
-              ) : null}
-              {token ? (
-                <Button title="Вийти" onClick={onClickLogout}>
-                  <AiOutlineLogout />
-                </Button>
-              ) : null}
-            </NavigationStyled>
-
-            <Lottie
-              style={{ height: 32, width: 32 }}
-              animationData={burgerAnimation}
-              onClick={handleMenuOpen}
-            />
+              </MenuItem>
+              <MenuItem>
+                {token ? (
+                  <Button title="Вийти" onClick={onClickLogout}>
+                    <AiOutlineLogout style={{ marginRight: 5 }} />
+                    Вийти
+                  </Button>
+                ) : null}
+              </MenuItem>
+            </Menu>
+            {!token ? (
+              <NavLinkStyled to={'/login'}>
+                {/* <AiOutlineLogin
+                  style={{ width: 24, height: 24, marginRight: 10 }}
+                /> */}
+                Увійти
+              </NavLinkStyled>
+            ) : null}
           </>
-        )}
-        {isOpen && (
-          <Modal>
-            <NavLinkStyled to={'/slots'} onClick={handleMenuClick}>
-              Слоти
-            </NavLinkStyled>
-            <NavLinkStyled to={'/cubics'} onClick={handleMenuClick}>
-              КубікПокер
-            </NavLinkStyled>
-          </Modal>
         )}
       </HeaderStyled>
     </HeaderContainer>

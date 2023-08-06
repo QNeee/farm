@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { MenuButton } from '@szhsin/react-menu';
+
 import { size } from '../../utils/breakpoint';
 
 export const HeaderContainer = styled.div`
@@ -27,7 +29,7 @@ export const HeaderStyled = styled.header`
     padding: 0 20px;
   }
   @media (min-width: ${size.desktop}) {
-    /* width: 1280px; */
+    width: 1280px;
   }
   @media (min-width: ${size.large}) {
     /* width: 1440px; */
@@ -42,8 +44,11 @@ export const Logo = styled.img`
 
 export const NavigationStyled = styled.nav`
   display: flex;
-  justify-content: space-evenly;
+  gap: 18px;
+  /* justify-content: space-evenly; */
+  /* justify-content: space-between; */
   align-items: center;
+  /* min-width: 100%; */
   /* flex-direction: column; */
   /* flex-wrap: wrap; */
   /* outline: 1px solid tomato; */
@@ -63,16 +68,29 @@ export const NavLinkStyled = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: 600;
   color: #333;
-  line-height: 2.5;
   text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(234, 194, 62, 0.8);
+
+  border-radius: 5px;
+  transition: 500ms ease background-color, 500ms ease color;
+
   &:hover {
-    text-decoration: underline;
+    color: white;
+    background-color: rgba(219, 26, 17, 0.8);
+  }
+  &.active {
+    color: white;
+    background-color: rgba(13, 110, 43, 0.8);
   }
 
   @media (min-width: 480px) {
-    margin-left: 10px;
+    font-size: 14px;
   }
 
   @media (min-width: 768px) {
@@ -84,35 +102,35 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 32px;
-  width: 32px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 2px;
-  border: none;
-  cursor: pointer;
-  @media (min-width: 480px) {
-    margin-left: 20px;
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  text-transform: uppercase;
+  /* border: 1px solid rgba(0, 0, 0, 0.2); */
+  /* background-color: rgba(234, 194, 62, 0.8); */
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: 500ms ease background-color, 500ms ease color;
+
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    background-color: rgba(219, 26, 17, 0.8);
   }
+
+  @media (min-width: 480px) {
+    font-size: 14px;
+  }
+
   @media (min-width: 768px) {
-    height: 100%;
-    width: 100%;
-    margin-left: 20px;
-    border-radius: 4px;
-    padding: 8px 16px;
-    border: none;
+    font-size: 16px;
   }
 `;
 
-export const Modal = styled.div`
-  z-index: 2;
-  position: fixed;
-  top: 5%;
-  right: 5%;
-  /* transform: translate(-50%, -50%); */
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+export const ButtonBurgerStyle = styled(MenuButton)`
+  border: 0;
+  background-color: transparent;
 `;
