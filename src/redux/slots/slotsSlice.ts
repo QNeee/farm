@@ -3,8 +3,10 @@ import { INewVersion } from '../../types';
 import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot, getInstructionSlot } from '../slots/slotsOperations';
 export interface ISlotState {
     lineRender: boolean;
+    aniamteHelper: boolean;
     confetti: boolean;
     error: unknown;
+    animate: boolean;
     loading: boolean,
     instrCombination: [],
     instrValues: [],
@@ -21,8 +23,10 @@ export interface ISlotState {
 const initialState: ISlotState = {
     lineRender: false,
     confetti: false,
+    animate: false,
     allSlots: [],
     instrCombination: [],
+    aniamteHelper: false,
     instrValues: [],
     instrLines: [],
     slot: [],
@@ -38,7 +42,12 @@ const initialState: ISlotState = {
 export const slotSlice = createSlice({
     name: 'slot',
     initialState,
-    reducers: {},
+    reducers: {
+        animateHelper: (state, { payload }) => {
+            state.aniamteHelper = payload;
+        },
+      
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getSlots.pending, (state) => {
@@ -77,6 +86,7 @@ export const slotSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(postStartGame.pending, (state) => {
+                state.animate = true;
                 state.confetti = false;
                 state.lineRender = false;
                 state.result = 0;
@@ -90,6 +100,7 @@ export const slotSlice = createSlice({
                 state.slot = payload.data.data;
                 state.slotNew = payload.data.data;
                 state.result = payload.data.result;
+                state.animate = false;
             })
             .addCase(postStartGame.rejected, (state, action) => {
                 state.loading = false;
@@ -137,3 +148,4 @@ export const slotSlice = createSlice({
             })
     },
 });
+export const { animateHelper } = slotSlice.actions;

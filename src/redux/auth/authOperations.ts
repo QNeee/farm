@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { HOST } from '../../host';
 import { IUserBalance } from '../../types';
 import { RootState } from '../store';
@@ -74,6 +74,7 @@ export const refresh = createAsyncThunk(
             const result = await axios.post('auth/refresh', { sid });
             return result;
         } catch (error) {
+            Notify.info('Sesion close login again please');
             return rejectWithValue(error);
         }
     }

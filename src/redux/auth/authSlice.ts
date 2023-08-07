@@ -118,6 +118,20 @@ export const authSlice = createSlice({
             })
             .addCase(refresh.rejected, (state, action) => {
                 state.loading = false;
+                state.auth.user.id = null;
+                state.auth.user.email = '';
+                state.auth.user.balance = 0;
+                state.accessToken = null;
+                state.refreshToken = null;
+                state.sid = null;
+                state.allSlots = [];
+                state.slot = [];
+                state.result = 0;
+                state.bet = 1;
+                state.lines = 1;
+                state.isLoggedIn = false;
+                state.startGame = false;
+                state.loading = false;
                 state.error = action.payload;
             })
             .addCase(getUserInfo.pending, (state) => {
