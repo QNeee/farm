@@ -45,13 +45,7 @@ export const Logo = styled.img`
 export const NavigationStyled = styled.nav`
   display: flex;
   gap: 18px;
-  /* justify-content: space-evenly; */
-  /* justify-content: space-between; */
   align-items: center;
-  /* min-width: 100%; */
-  /* flex-direction: column; */
-  /* flex-wrap: wrap; */
-  /* outline: 1px solid tomato; */
 
   @media (min-width: 480px) {
     flex-direction: row;
@@ -61,6 +55,13 @@ export const NavigationStyled = styled.nav`
   }
   @media (min-width: 1280px) {
     flex-direction: row;
+  }
+  //for old browser
+  & > * {
+    margin-right: 18px;
+  }
+  & > *:last-child {
+    margin-right: 0;
   }
 `;
 
@@ -111,7 +112,7 @@ export const Button = styled.button`
   /* border: 1px solid rgba(0, 0, 0, 0.2); */
   /* background-color: rgba(234, 194, 62, 0.8); */
   background-color: transparent;
-  border: 1px solid transparent;
+  border: 1px solid rgba(219, 26, 17, 0.8);
   border-radius: 5px;
   transition: 500ms ease background-color, 500ms ease color;
 
