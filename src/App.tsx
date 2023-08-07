@@ -10,8 +10,8 @@ import Layout from './components/Layout/Layout';
 import { Auth } from './components/Auth';
 import SlotsContainer from './components/SlotsContainer/SlotsContainer';
 import { SlotApp } from './components/SlotApp';
-import { NewSlotTest } from './components/Slot';
 import CubicsApp from './components/Cubics/CubicsApp';
+import { NewSlotTest } from './components/Slot';
 import TestPage from './template/TestPage';
 import { getIsLoggedIn, getToken } from './redux/auth/authSelectors';
 import { refresh } from './redux/auth/authOperations';
@@ -60,7 +60,7 @@ const App = () => {
           />
           <Route
             path="test"
-            element={token ? <TestPage /> : <Navigate to={'/login'} replace />}
+            element={!token ? <Auth /> : <Navigate to={'/slots'} replace />}
           />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

@@ -1,2 +1,1 @@
-export * from './Auth';
-export * from './AuthLogin';
+export { Auth } from './Auth';
