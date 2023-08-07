@@ -3,6 +3,7 @@ import { INewVersion } from '../../types';
 import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot, getInstructionSlot } from '../slots/slotsOperations';
 export interface ISlotState {
     lineRender: boolean;
+    aniamteHelper: boolean;
     confetti: boolean;
     error: unknown;
     animate: boolean;
@@ -25,6 +26,7 @@ const initialState: ISlotState = {
     animate: false,
     allSlots: [],
     instrCombination: [],
+    aniamteHelper: false,
     instrValues: [],
     instrLines: [],
     slot: [],
@@ -40,7 +42,12 @@ const initialState: ISlotState = {
 export const slotSlice = createSlice({
     name: 'slot',
     initialState,
-    reducers: {},
+    reducers: {
+        animateHelper: (state, { payload }) => {
+            state.aniamteHelper = payload;
+        },
+      
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getSlots.pending, (state) => {
@@ -141,3 +148,4 @@ export const slotSlice = createSlice({
             })
     },
 });
+export const { animateHelper } = slotSlice.actions;

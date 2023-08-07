@@ -30,6 +30,7 @@ import {
 import { AppDispatch } from '../../redux/store';
 import {
   getAnimate,
+  getAnimateHelper,
   getConfetti,
   getSlotImg,
   getSlotLines,
@@ -43,6 +44,7 @@ import {
   postSlotLine,
   postStartGame,
 } from '../../redux/slots/slotsOperations';
+import { animateHelper } from '../../redux/slots/slotsSlice';
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -54,7 +56,7 @@ export const SlotApp = () => {
   let result = useSelector(getUserResult);
   const bet = useSelector(getUserBet);
   const confetti = useSelector(getConfetti);
-
+  const helperAnimate = useSelector(getAnimateHelper);
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
 
@@ -78,7 +80,15 @@ export const SlotApp = () => {
   const [playBet] = useSound(betSound);
   const [isWinSoundPlayed, setWinSoundPlayed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  useEffect(() => {
+    if (!slotAnimate && helperAnimate) {
+      setTimeout(() => {
+        dispatch(animateHelper(false));
+        setAnimate(false);
+        setW8(false);
+      }, 1500);
+    }
+  }, [dispatch, slotAnimate, helperAnimate])
   useEffect(() => {
     if (result > 0) {
       if (!isWinSoundPlayed) {
@@ -124,8 +134,9 @@ export const SlotApp = () => {
       setIntervalId(interval);
     } else {
       playSpin();
+      setAnimate(true);
+      dispatch(animateHelper(true));
       await dispatch(postStartGame(reqData));
-      setW8(false);
     }
   };
 
@@ -248,7 +259,7 @@ export const SlotApp = () => {
           {result > 0 && <NumberModal number={result} />}
 
           <WrapSlots win={confetti}>
-            <Slots start={start} lines={lines} animate={slotAnimate} id={id} />
+            <Slots start={start} lines={lines} animate={animate} id={id} />
           </WrapSlots>
           {/* {confetti ? <Confetti /> : null} */}
           <ButtonsContainer win={confetti}>

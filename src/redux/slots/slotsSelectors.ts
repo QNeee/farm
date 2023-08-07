@@ -14,5 +14,7 @@ export const getInstrCombination = (state: RootState) => state.slot.instrCombina
 export const getInstrValues = (state: RootState) => state.slot.instrValues;
 export const getInstrLines = (state: RootState) => state.slot.instrLines;
 export const getAnimate = (state: RootState) => state.slot.animate;
+export const getAnimateHelper = (state: RootState) => state.slot.aniamteHelper;
+
 
 
