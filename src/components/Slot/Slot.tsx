@@ -29,7 +29,6 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
   const lineRender = useSelector(getLineRender);
   const data: IImg[] = useSelector(getSlot);
   const version = useSelector(getVersion);
-
   return (
     <>
       {!version && Array.isArray(data) ? (

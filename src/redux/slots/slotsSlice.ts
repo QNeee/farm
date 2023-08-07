@@ -5,6 +5,7 @@ export interface ISlotState {
     lineRender: boolean;
     confetti: boolean;
     error: unknown;
+    animate: boolean;
     loading: boolean,
     instrCombination: [],
     instrValues: [],
@@ -21,6 +22,7 @@ export interface ISlotState {
 const initialState: ISlotState = {
     lineRender: false,
     confetti: false,
+    animate: false,
     allSlots: [],
     instrCombination: [],
     instrValues: [],
@@ -77,6 +79,7 @@ export const slotSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(postStartGame.pending, (state) => {
+                state.animate = true;
                 state.confetti = false;
                 state.lineRender = false;
                 state.result = 0;
@@ -90,6 +93,7 @@ export const slotSlice = createSlice({
                 state.slot = payload.data.data;
                 state.slotNew = payload.data.data;
                 state.result = payload.data.result;
+                state.animate = false;
             })
             .addCase(postStartGame.rejected, (state, action) => {
                 state.loading = false;

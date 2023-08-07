@@ -29,6 +29,7 @@ import {
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
 import {
+  getAnimate,
   getConfetti,
   getSlotImg,
   getSlotLines,
@@ -49,6 +50,7 @@ export const SlotApp = () => {
   const balance = useSelector(getUserBalance);
   const lines = useSelector(getSlotLines);
   const refreshed = useSelector(getRefreshed);
+  const slotAnimate = useSelector(getAnimate);
   let result = useSelector(getUserResult);
   const bet = useSelector(getUserBet);
   const confetti = useSelector(getConfetti);
@@ -122,13 +124,8 @@ export const SlotApp = () => {
       setIntervalId(interval);
     } else {
       playSpin();
-      setAnimate(true);
-      dispatch(postStartGame(reqData));
-      setTimeout(() => {
-        setAnimate(false);
-        setStart(false);
-        setW8(false);
-      }, 800);
+      await dispatch(postStartGame(reqData));
+      setW8(false);
     }
   };
 
@@ -251,7 +248,7 @@ export const SlotApp = () => {
           {result > 0 && <NumberModal number={result} />}
 
           <WrapSlots win={confetti}>
-            <Slots start={start} lines={lines} animate={animate} id={id} />
+            <Slots start={start} lines={lines} animate={slotAnimate} id={id} />
           </WrapSlots>
           {/* {confetti ? <Confetti /> : null} */}
           <ButtonsContainer win={confetti}>
