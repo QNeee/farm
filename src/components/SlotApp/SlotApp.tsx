@@ -111,6 +111,7 @@ export const SlotApp = () => {
     };
     if (w8) return;
     if (balance < bet) return;
+    console.log('sadsa');
     setExpense(true);
     setW8(true);
     setStart(true);
@@ -284,6 +285,7 @@ export const SlotApp = () => {
               <SpinButton
                 primary={!auto ? false : true}
                 onClick={() => startAnimation()}
+                disabled={auto}
               >
                 {!auto ? 'Spin' : count}
               </SpinButton>
