@@ -12,6 +12,7 @@ export const commonValidationSchema = Yup.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
       'Пароль повинен містити мінімум одну цифру, одну маленьку літеру і одну велику літеру'
     ),
+  toggle: Yup.boolean().oneOf([true], "Погодження з правилами обов'язкове"),
 });
 
 export const loginValidationSchema = Yup.object({

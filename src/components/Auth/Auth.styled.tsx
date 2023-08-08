@@ -48,7 +48,7 @@ export const WrapError = styled.div<WrapErrorProps>`
   position: relative;
   background-color: white;
   margin-bottom: 18px;
-  z-index: 1;
+  /* z-index: 1; */
   ${(props) =>
     props.hasError &&
     css`
@@ -69,7 +69,7 @@ export const Error = styled(ErrorMessage)`
   top: -40%;
   left: 90px;
   transform: translate(0, 40%);
-  z-index: 20;
+  /* z-index: 20; */
   border: 1px solid rgba(219, 26, 17, 0.8);
   padding: 3px 10px;
   border-radius: 5px;
@@ -91,7 +91,7 @@ export const Label = styled.label`
   top: 50%;
   left: 10px;
   transform: translateY(-40%);
-  z-index: 1;
+  /* z-index: 1; */
   @media (min-width: 480px) {
     transform: translateY(-45%);
   }
@@ -165,4 +165,53 @@ export const StyledLink = styled(Link)`
     color: white;
     background-color: rgba(219, 26, 17, 0.8);
   }
+`;
+
+export const FieldCheck = styled(Field)`
+  margin: 1px 10px;
+
+  @media (min-width: 480px) {
+  }
+  @media (min-width: 768px) {
+  }
+`;
+
+export const LabelCheck = styled.label`
+  font-size: 12px;
+  @media (min-width: 480px) {
+  }
+  @media (min-width: 768px) {
+  }
+`;
+export const ErrorCheck = styled(ErrorMessage)`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  font-size: 12px;
+  color: rgba(219, 26, 17, 0.8);
+  background-color: transparent;
+  text-align: center;
+
+  @media (min-width: 480px) {
+  }
+  @media (min-width: 768px) {
+  }
+`;
+export const WrapErrorCheck = styled.div<WrapErrorProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 18px;
+  /* z-index: 1; */
+
+  ${(props) =>
+    props.hasError &&
+    css`
+      & input {
+        color: rgba(219, 26, 17, 1);
+      }
+    `}
 `;
