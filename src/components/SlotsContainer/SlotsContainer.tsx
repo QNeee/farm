@@ -14,9 +14,11 @@ const SlotsContainer: React.FC = () => {
   const slots: IData[] = useSelector(getAllSlots);
   const refreshed = useSelector(getRefreshed);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const namePath = pathname.split('/')[1];
   useEffect(() => {
-    if (refreshed) dispatch(getSlots());
-  }, [dispatch, refreshed]);
+    if (refreshed || namePath === 'demoSlots') dispatch(getSlots());
+  }, [dispatch, refreshed, namePath]);
 
   const onClickSlot = (id: string) => {
     navigate(`${id}`);

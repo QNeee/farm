@@ -7,6 +7,7 @@ import ResultRenderOther from './ResultRenderOther';
 import { getRefreshed } from '../../redux/auth/authSelectors';
 import { getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool } from '../../redux/cubics/cubicsSelectors';
 import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubics/cubicsOperations';
+import { useLocation } from 'react-router';
 
 const TableContainer = styled.table`
   width: 50%;
@@ -36,9 +37,10 @@ const Table: React.FC = () => {
     const cubicResultRenderUserOther = useSelector(getCubicsResultRenderUserOther) as any[];
     const cubicResultRenderPcOther = useSelector(getCubicsResultRenderPcOther) as any[];
     const ids: string[] = ['wl9pa', 'sum', 'pair', 'small', 'big', 'triangle', 'sqr', 'fx', 'poker'];
-
+    const { pathname } = useLocation();
+    const namePath = pathname.split('/')[1];
     useEffect(() => {
-        if (refreshed) {
+        if (refreshed || namePath === 'demoCubics') {
             dispatch(getCubicsTable());
             dispatch(getCubicsResult());
         }

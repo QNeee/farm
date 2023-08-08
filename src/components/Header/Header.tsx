@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'lottie-react';
 import { useMediaQuery } from 'react-responsive';
@@ -28,11 +28,11 @@ const Header: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector(getToken);
-
+  const { pathname } = useLocation();
   const onClickLogout = () => {
     dispatch(logout());
   };
-
+  const namePath = pathname.split('/')[1];
   const isWide = useMediaQuery({ minWidth: 768 });
   const isNarrow = useMediaQuery({ maxWidth: 767 });
 
@@ -47,9 +47,9 @@ const Header: React.FC = () => {
         {isWide && (
           <NavigationStyled>
             <NavigationStyled>{token ? <AppBar /> : null}</NavigationStyled>
-            {token ? (
+            {token || namePath === 'demoSlots' || namePath === 'demoCubics' ? (
               <NavigationStyled>
-                <NavLinkStyled to={'/slots'}>
+                <NavLinkStyled to={token ? '/slots' : 'demoSlots'}>
                   <GiBandit
                     style={{ width: 24, height: 24, marginRight: 10 }}
                   />
@@ -57,9 +57,9 @@ const Header: React.FC = () => {
                 </NavLinkStyled>
               </NavigationStyled>
             ) : null}
-            {token ? (
+            {token || namePath === 'demoSlots' || namePath === 'demoCubics' ? (
               <NavigationStyled>
-                <NavLinkStyled to={'/cubics'}>
+                <NavLinkStyled to={token ? '/cubics' : 'demoCubics'}>
                   <GiRollingDices
                     style={{ width: 24, height: 24, marginRight: 10 }}
                   />
@@ -92,7 +92,7 @@ const Header: React.FC = () => {
         {isNarrow && (
           <>
             {token ? <AppBar /> : null}
-            {token ? (
+            {token || namePath === 'demoSlots' || namePath === 'demoCubics' ? (
               <Menu
                 menuButton={
                   <ButtonBurgerStyle>
@@ -107,13 +107,13 @@ const Header: React.FC = () => {
                 transition
               >
                 <MenuItem>
-                  <NavLinkStyled to={'/slots'}>
+                  <NavLinkStyled to={token ? '/slots' : 'demoSlots'}>
                     <GiBandit style={{ marginRight: 5 }} />
                     Слоти
                   </NavLinkStyled>
                 </MenuItem>
                 <MenuItem>
-                  <NavLinkStyled to={'/cubics'}>
+                  <NavLinkStyled to={token ? '/cubics' : 'demoCubics'}>
                     <GiRollingDices style={{ marginRight: 5 }} />
                     Покер на кістках
                   </NavLinkStyled>

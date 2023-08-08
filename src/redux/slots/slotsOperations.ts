@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getUserInfo, setToken } from '../auth/authOperations';
 import { RootState } from '../store';
-import { IPostSlotLine } from '../../types';
+import { IPostSlotLine, ISlotDemo, ISlotStartGame } from '../../types';
 
 export const getSlots = createAsyncThunk(
     'slots',
@@ -28,14 +28,19 @@ export const getInstructionSlot = createAsyncThunk(
     }
 );
 export const postStartGame = createAsyncThunk(
-    'slots/postbet',
-    async (data: { id: string }, { rejectWithValue, getState, dispatch }) => {
+    'slots/startGame',
+    async (data: ISlotStartGame | ISlotDemo[], { rejectWithValue, getState, dispatch }) => {
         try {
+            if (Array.isArray(data)) {
+                const result = await axios.post('demoSlots', data[0]);
+                return result;
+            }
             const state: RootState = getState() as RootState;
             setToken(state?.auth?.accessToken as string);
             const result = await axios.post('slots', data);
             await dispatch(getUserInfo());
             return result;
+
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -43,12 +48,17 @@ export const postStartGame = createAsyncThunk(
 );
 export const getSlotsById = createAsyncThunk(
     'slots/id',
-    async (id: string, { rejectWithValue, getState }) => {
+    async (id: string | ISlotDemo[], { rejectWithValue, getState }) => {
         try {
-            const state: RootState = getState() as RootState;
-            setToken(state?.auth?.accessToken as string);
-            const result = await axios.get(`slots/id/${id}`);
-            return result;
+            if (typeof id === 'object') {
+                const result = await axios.get(`demoSlots/id/${id[0]['id']}?bet=${id[0]['bet']}&lines=${id[0]['lines']}`);
+                return result;
+            } else {
+                const state: RootState = getState() as RootState;
+                setToken(state?.auth?.accessToken as string);
+                const result = await axios.get(`slots/id/${id}`);
+                return result;
+            }
         } catch (error) {
             return rejectWithValue(error);
         }
