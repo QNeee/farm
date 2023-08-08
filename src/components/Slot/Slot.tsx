@@ -35,13 +35,13 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
         <Container>
           {data?.map((item, index) => (
             <AnimatedContainer key={index} animate={animate} id={id}>
-              {lineRender && item.line && typeof item.line === 'boolean' && (
+              {lineRender && !animate && item.line && typeof item.line === 'boolean' && (
                 <Line line={true} />
               )}
-              {lineRender && item.line && typeof item.line === 'string' && (
+              {lineRender && !animate && item.line && typeof item.line === 'string' && (
                 <Line line={'true'} />
               )}
-              {lineRender &&
+              {lineRender && !animate &&
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}

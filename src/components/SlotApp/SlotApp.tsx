@@ -71,9 +71,12 @@ export const SlotApp = () => {
   const [auto, setAuto] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [start, setStart] = useState(false);
+  const [count, setCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [showBet, setShowBet] = useState(false);
   const [expense, setExpense] = useState(false);
+  const [resultRender, setResultRender] = useState(false);
+  const [autoModal, setAutoModal] = useState(false);
   const [playSpin] = useSound(spinSound);
   const [playWin] = useSound(winSound);
   const [playLine] = useSound(lineSound);
@@ -90,46 +93,46 @@ export const SlotApp = () => {
     }
   }, [dispatch, slotAnimate, helperAnimate])
   useEffect(() => {
-    if (result > 0) {
+    if (result > 0 && !animate) {
       if (!isWinSoundPlayed) {
         playWin();
         setWinSoundPlayed(true);
+        setResultRender(true);
       }
     } else {
       setWinSoundPlayed(false);
+      setResultRender(false);
     }
-  }, [result, isWinSoundPlayed, playWin]);
+  }, [result, isWinSoundPlayed, playWin, animate]);
 
-  const startAnimation = async (flag?: string) => {
+  const startAnimation = async (flag?: string, countAuto?: number) => {
     const reqData = {
       id,
     };
     if (w8) return;
     if (balance < bet) return;
+    console.log('sadsa');
     setExpense(true);
     setW8(true);
     setStart(true);
     if (flag === 'auto') {
+      setAutoModal(false);
       setAuto(true);
+      setCount(countAuto as number);
       let count = 0;
-      const interval = setInterval(() => {
-        if (count === 20) {
+      const interval = setInterval(async () => {
+        if (count === countAuto) {
           clearInterval(interval);
-          setAnimate(false);
           setAuto(false);
-          setStart(false);
-          setW8(false);
           return;
         }
         playSpin();
         setAnimate(true);
-        dispatch(postStartGame(reqData));
-        setTimeout(() => {
-          setAnimate(false);
-        }, 1000);
-
+        dispatch(animateHelper(true));
+        await dispatch(postStartGame(reqData));
+        setCount(prev => prev - 1);
         count++;
-      }, 800);
+      }, 3000);
 
       setIntervalId(interval);
     } else {
@@ -204,11 +207,16 @@ export const SlotApp = () => {
         playBet();
         setW8(false);
         break;
+      case 'autoModal':
+        setAutoModal(true);
+        setW8(false);
+        break;
       default:
         break;
     }
   };
   const onClickBack = () => {
+    setAutoModal(false);
     setShowModal(false);
     setShowBet(false);
     setW8(false);
@@ -246,8 +254,8 @@ export const SlotApp = () => {
           <Balance>
             Balance: {balance}
             {expense ? (
-              <Span primary={result === 0 ? true : false}>
-                {result > 0 ? `+(${result})` : `-(${bet * lines})`}
+              <Span primary={!resultRender ? true : false}>
+                {result > 0 && resultRender ? `+(${result})` : `-(${bet * lines})`}
               </Span>
             ) : null}
           </Balance>
@@ -256,44 +264,47 @@ export const SlotApp = () => {
           <LineCount>TotalBet:{bet * lines}</LineCount>
         </HeaderStyled>
         <Container>
-          {result > 0 && <NumberModal number={result} />}
+          {result > 0 && resultRender && <NumberModal number={result} />}
 
           <WrapSlots win={confetti}>
             <Slots start={start} lines={lines} animate={animate} id={id} />
           </WrapSlots>
           {/* {confetti ? <Confetti /> : null} */}
           <ButtonsContainer win={confetti}>
-            {!showModal && (
+            {!showModal && !autoModal && (
               <SpinButton
                 onClick={() => onClickLines('modalBet')}
                 primary={false}
+                disabled={auto}
               >
                 Bet
               </SpinButton>
             )}
 
-            {!showModal && (
+            {!showModal && !autoModal && (
               <SpinButton
                 primary={!auto ? false : true}
                 onClick={() => startAnimation()}
+                disabled={auto}
               >
-                Spin
+                {!auto ? 'Spin' : count}
               </SpinButton>
             )}
-            {!showModal && (
+            {!showModal && !autoModal && (
               <SpinButton
                 primary={false}
                 onClick={() =>
-                  !auto ? startAnimation('auto') : stopAnimation()
+                  !auto ? onClickLines('autoModal') : stopAnimation()
                 }
               >
                 {!auto ? 'Auto' : 'Stop'}
               </SpinButton>
             )}
-            {!showModal && (
+            {!showModal && !autoModal && (
               <SpinButton
                 onClick={() => onClickLines('modalLine')}
                 primary={false}
+                disabled={auto}
               >
                 Lines
               </SpinButton>
@@ -317,6 +328,27 @@ export const SlotApp = () => {
             {showModal && (
               <SpinButton onClick={onClickBack} primary={false}>
                 back
+              </SpinButton>
+            )}
+            {autoModal && (
+              <SpinButton onClick={onClickBack} primary={false}>
+                back
+              </SpinButton>
+            )}
+            {autoModal && (
+              <SpinButton
+                onClick={() => startAnimation('auto', 5)}
+                primary={false}
+              >
+                5
+              </SpinButton>
+            )}
+            {autoModal && (
+              <SpinButton
+                onClick={() => startAnimation('auto', 10)}
+                primary={false}
+              >
+                10
               </SpinButton>
             )}
           </ButtonsContainer>

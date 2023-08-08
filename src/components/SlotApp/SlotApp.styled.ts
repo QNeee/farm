@@ -97,12 +97,12 @@ export const WrapSlots = styled.div<{ win: boolean }>`
     background-size: 500%;
 
     animation-name: ${(props) => {
-      if (props.win) {
-        return Position;
-      } else {
-        return 'none';
-      }
-    }};
+    if (props.win) {
+      return Position;
+    } else {
+      return 'none';
+    }
+  }};
     animation-duration: 12s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -159,12 +159,12 @@ export const ButtonsContainer = styled.div<{ win: boolean }>`
     background-size: 500%;
 
     animation-name: ${(props) => {
-      if (props.win) {
-        return Position;
-      } else {
-        return 'none';
-      }
-    }};
+    if (props.win) {
+      return Position;
+    } else {
+      return 'none';
+    }
+  }};
     animation-duration: 12s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -180,6 +180,7 @@ export const ButtonsContainer = styled.div<{ win: boolean }>`
 `;
 export const SpinButton = styled.button<{ primary: boolean }>`
   background-color: ${(props) => (!props.primary ? '#ff4081' : 'grey')};
+ color: ${(props) => (!props.primary ? 'black' : 'white')};
   padding: 5px 10px;
   text-transform: uppercase;
   cursor: pointer;
