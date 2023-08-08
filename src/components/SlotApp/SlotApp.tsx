@@ -223,8 +223,8 @@ export const SlotApp = () => {
       const reqData = {
         id,
         balance: renderBalance || 1000,
-        bet: demoBet,
-        lines: demoLines,
+        bet: demoBet || 1,
+        lines: demoLines || 1,
       };
       newArr.push(reqData as ISlotDemo);
       if (flag === 'auto') {
@@ -250,6 +250,7 @@ export const SlotApp = () => {
 
         setIntervalId(interval);
       } else {
+        console.log(newArr);
         playSpin();
         setRenderBalance(prev => prev - (demoBet || 1) * (demoLines || 1));
         localStorage.setItem(localBalance, '' + (getDemoBalanceNumber() - (demoBet || 1) * (demoLines || 1)));
