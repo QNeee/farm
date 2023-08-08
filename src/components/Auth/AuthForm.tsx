@@ -76,7 +76,7 @@ const AuthForm = () => {
         pathname === '/login' ? loginValidationSchema : commonValidationSchema
       }
     >
-      {({ isSubmitting, touched, errors, values }) => (
+      {({ isSubmitting, touched, errors }) => (
         <Form>
           <WrapError hasError={!!(touched.email && errors.email)}>
             <Label htmlFor="email">

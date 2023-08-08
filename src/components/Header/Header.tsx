@@ -47,20 +47,26 @@ const Header: React.FC = () => {
         {isWide && (
           <NavigationStyled>
             <NavigationStyled>{token ? <AppBar /> : null}</NavigationStyled>
-            <NavigationStyled>
-              <NavLinkStyled to={'/slots'}>
-                <GiBandit style={{ width: 24, height: 24, marginRight: 10 }} />
-                Слоти
-              </NavLinkStyled>
-            </NavigationStyled>
-            <NavigationStyled>
-              <NavLinkStyled to={'/cubics'}>
-                <GiRollingDices
-                  style={{ width: 24, height: 24, marginRight: 10 }}
-                />
-                Покер на кістках
-              </NavLinkStyled>
-            </NavigationStyled>
+            {token ? (
+              <NavigationStyled>
+                <NavLinkStyled to={'/slots'}>
+                  <GiBandit
+                    style={{ width: 24, height: 24, marginRight: 10 }}
+                  />
+                  Слоти
+                </NavLinkStyled>
+              </NavigationStyled>
+            ) : null}
+            {token ? (
+              <NavigationStyled>
+                <NavLinkStyled to={'/cubics'}>
+                  <GiRollingDices
+                    style={{ width: 24, height: 24, marginRight: 10 }}
+                  />
+                  Покер на кістках
+                </NavLinkStyled>
+              </NavigationStyled>
+            ) : null}
             <NavigationStyled>
               {token ? (
                 <Button onClick={onClickLogout} title="Вихід">
@@ -86,47 +92,44 @@ const Header: React.FC = () => {
         {isNarrow && (
           <>
             {token ? <AppBar /> : null}
-            <Menu
-              menuButton={
-                <ButtonBurgerStyle>
-                  <Lottie
-                    style={{ height: 32, width: 32 }}
-                    animationData={burgerAnimation}
-                  />
-                </ButtonBurgerStyle>
-              }
-              arrow={true}
-              gap={12}
-              transition
-            >
-              <MenuItem>
-                <NavLinkStyled to={'/slots'}>
-                  <GiBandit style={{ marginRight: 5 }} />
-                  Слоти
-                </NavLinkStyled>
-              </MenuItem>
-              <MenuItem>
-                <NavLinkStyled to={'/cubics'}>
-                  <GiRollingDices style={{ marginRight: 5 }} />
-                  Покер на кістках
-                </NavLinkStyled>
-              </MenuItem>
-              <MenuItem>
-                {token ? (
-                  <Button title="Вийти" onClick={onClickLogout}>
-                    <AiOutlineLogout style={{ marginRight: 5 }} />
-                    Вийти
-                  </Button>
-                ) : null}
-              </MenuItem>
-            </Menu>
+            {token ? (
+              <Menu
+                menuButton={
+                  <ButtonBurgerStyle>
+                    <Lottie
+                      style={{ height: 32, width: 32 }}
+                      animationData={burgerAnimation}
+                    />
+                  </ButtonBurgerStyle>
+                }
+                arrow={true}
+                gap={12}
+                transition
+              >
+                <MenuItem>
+                  <NavLinkStyled to={'/slots'}>
+                    <GiBandit style={{ marginRight: 5 }} />
+                    Слоти
+                  </NavLinkStyled>
+                </MenuItem>
+                <MenuItem>
+                  <NavLinkStyled to={'/cubics'}>
+                    <GiRollingDices style={{ marginRight: 5 }} />
+                    Покер на кістках
+                  </NavLinkStyled>
+                </MenuItem>
+                <MenuItem>
+                  {token ? (
+                    <Button title="Вийти" onClick={onClickLogout}>
+                      <AiOutlineLogout style={{ marginRight: 5 }} />
+                      Вийти
+                    </Button>
+                  ) : null}
+                </MenuItem>
+              </Menu>
+            ) : null}
             {!token ? (
-              <NavLinkStyled to={'/login'}>
-                {/* <AiOutlineLogin
-                  style={{ width: 24, height: 24, marginRight: 10 }}
-                /> */}
-                Увійти
-              </NavLinkStyled>
+              <NavLinkStyled to={'/login'}>Увійти</NavLinkStyled>
             ) : null}
           </>
         )}
