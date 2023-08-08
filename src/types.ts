@@ -23,6 +23,15 @@ export interface ISlotsData {
   img: string;
   line?: boolean | string | undefined;
 }
+export interface ISlotDemo {
+  lines: number,
+  bet: number,
+  id: string,
+  balance?: number,
+}
+export interface ISlotStartGame {
+  id: string
+}
 export interface INewVersion {
   uniqueArr: IImg[];
   uniqueArr1: IImg[];

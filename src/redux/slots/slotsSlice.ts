@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { INewVersion } from '../../types';
 import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot, getInstructionSlot } from '../slots/slotsOperations';
 export interface ISlotState {
+    demoBalance: number | null;
     lineRender: boolean;
     aniamteHelper: boolean;
     confetti: boolean;
@@ -24,6 +25,7 @@ const initialState: ISlotState = {
     lineRender: false,
     confetti: false,
     animate: false,
+    demoBalance: null,
     allSlots: [],
     instrCombination: [],
     aniamteHelper: false,
@@ -46,7 +48,6 @@ export const slotSlice = createSlice({
         animateHelper: (state, { payload }) => {
             state.aniamteHelper = payload;
         },
-      
     },
     extraReducers: (builder) => {
         builder
@@ -100,6 +101,7 @@ export const slotSlice = createSlice({
                 state.slot = payload.data.data;
                 state.slotNew = payload.data.data;
                 state.result = payload.data.result;
+                state.demoBalance = payload.data.updatedUser;
                 state.animate = false;
             })
             .addCase(postStartGame.rejected, (state, action) => {

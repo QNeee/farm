@@ -10,8 +10,11 @@ import {
   Button,
 } from './HomePage.styled';
 import pic from '../../images/slot777.png';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 
 const HomePage: React.FC = () => {
+  const loggedIn = useSelector(getIsLoggedIn);
   return (
     <>
       <Wrap>
@@ -33,7 +36,7 @@ const HomePage: React.FC = () => {
         </WrapDesc>
         {/* <img src={pic} alt="description" style={{ width: 400 }} /> */}
 
-        <Link to="/slots" style={{ marginTop: 20 }}>
+        <Link to={loggedIn ? "/slots" : "/demoSlots"} style={{ marginTop: 20 }}>
           <Button>Play</Button>
         </Link>
       </Wrap>
