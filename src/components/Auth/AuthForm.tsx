@@ -52,17 +52,15 @@ const AuthForm = () => {
   ) => {
     try {
       await sleep(500);
-      if (values.toggle) {
-        const { email, password } = values;
-        const newUser = { email, password };
+      const { email, password } = values;
+      const newUser = { email, password };
 
-        if (pathname === '/login') {
-          dispatch(login(newUser));
-        } else {
-          dispatch(register(newUser));
-        }
-        resetForm();
+      if (pathname === '/login') {
+        dispatch(login(newUser));
+      } else {
+        dispatch(register(newUser));
       }
+      resetForm();
     } catch (error) {
       console.error('Щось пішло не так!', error);
     }
