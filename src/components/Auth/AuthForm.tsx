@@ -13,12 +13,24 @@ import {
   commonValidationSchema,
   loginValidationSchema,
 } from './authValidationSchema';
-import { Label, Input, Button, Error, WrapError } from './Auth.styled';
+import {
+  Label,
+  Input,
+  Button,
+  Error,
+  WrapError,
+  LabelCheck,
+  WrapErrorCheck,
+  FieldCheck,
+  ErrorCheck,
+} from './Auth.styled';
 import { AppDispatch } from '../../redux/store';
+import { RulesModal } from '../Modal';
 
 interface IForm {
   email: string;
   password: string;
+  toggle: boolean;
 }
 
 const AuthForm = () => {
@@ -28,20 +40,30 @@ const AuthForm = () => {
   const initialValues: IForm = {
     email: '',
     password: '',
+    toggle: false,
   };
 
-  const onSubmit = (
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const onSubmit = async (
     values: IForm,
     { resetForm }: { resetForm: () => void }
   ) => {
-    const newUser = {
-      email: values.email,
-      password: values.password,
-    };
-    pathname === '/login'
-      ? dispatch(login(newUser))
-      : dispatch(register(newUser));
-    resetForm();
+    try {
+      await sleep(500);
+      const { email, password } = values;
+      const newUser = { email, password };
+
+      if (pathname === '/login') {
+        dispatch(login(newUser));
+      } else {
+        dispatch(register(newUser));
+      }
+      resetForm();
+    } catch (error) {
+      console.error('Щось пішло не так!', error);
+    }
   };
 
   return (
@@ -74,6 +96,16 @@ const AuthForm = () => {
             />
             <Error name="password" component={WrapError} />
           </WrapError>
+          {pathname === '/login' ? null : (
+            <WrapErrorCheck hasError={!!(touched.toggle && errors.toggle)}>
+              <FieldCheck type="checkbox" id="checkbox" name="toggle" />
+              <LabelCheck htmlFor="checkbox" style={{ display: 'flex' }}>
+                Погоджуюсь з
+                <RulesModal />
+              </LabelCheck>
+              <ErrorCheck name="toggle" component={WrapError} />
+            </WrapErrorCheck>
+          )}
 
           <Button type="submit" disabled={isSubmitting}>
             {pathname === '/login' ? (
@@ -97,5 +129,4 @@ const AuthForm = () => {
     </Formik>
   );
 };
-
 export { AuthForm };

@@ -44,17 +44,13 @@ export const Logo = styled.img`
 
 export const NavigationStyled = styled.nav`
   display: flex;
-  gap: 18px;
   align-items: center;
 
   @media (min-width: 480px) {
-    flex-direction: row;
   }
   @media (min-width: 768px) {
-    flex-direction: row;
   }
   @media (min-width: 1280px) {
-    flex-direction: row;
   }
   //for old browser
   & > * {
