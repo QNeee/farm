@@ -29,13 +29,13 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
         <RotaryContainer animate={animate}>
           {slotNew?.uniqueArr.map((item, index) => (
             <SlotLi key={index + 'bb'}>
-              {lineRender && item.line && typeof item.line === 'boolean' && (
+              {lineRender && !animate && item.line && typeof item.line === 'boolean' && (
                 <Line line={true} />
               )}
-              {lineRender && item.line && typeof item.line === 'string' && (
+              {lineRender && !animate && item.line && typeof item.line === 'string' && (
                 <Line line={'true'} />
               )}
-              {lineRender &&
+              {lineRender && !animate &&
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}
@@ -47,13 +47,13 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
         <RotaryContainer animate={animate}>
           {slotNew?.uniqueArr1?.map((item, index) => (
             <SlotLi key={index + 'bb'}>
-              {lineRender && item.line && typeof item.line === 'boolean' && (
+              {lineRender && !animate && item.line && typeof item.line === 'boolean' && (
                 <Line line={true} />
               )}
-              {lineRender && item.line && typeof item.line === 'string' && (
+              {lineRender && !animate && item.line && typeof item.line === 'string' && (
                 <Line line={'true'} />
               )}
-              {lineRender &&
+              {lineRender && !animate &&
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}
@@ -64,13 +64,13 @@ export const SlotDrum: React.FC<IProps> = ({ animate, id }) => {
         <RotaryContainer animate={animate}>
           {slotNew?.uniqueArr2?.map((item, index) => (
             <SlotLi key={index + 'bb'}>
-              {lineRender && item.line && typeof item.line === 'boolean' && (
+              {lineRender && !animate && item.line && typeof item.line === 'boolean' && (
                 <Line line={true} />
               )}
-              {lineRender && item.line && typeof item.line === 'string' && (
+              {lineRender && !animate && item.line && typeof item.line === 'string' && (
                 <Line line={'true'} />
               )}
-              {lineRender &&
+              {lineRender && !animate &&
                 item.line &&
                 typeof item.line === 'number' &&
                 (item.line === 1 || item.line === 2) && <Line line={1} />}

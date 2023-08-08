@@ -74,6 +74,7 @@ export const SlotApp = () => {
   const [showModal, setShowModal] = useState(false);
   const [showBet, setShowBet] = useState(false);
   const [expense, setExpense] = useState(false);
+  const [resultRender, setResultRender] = useState(false);
   const [playSpin] = useSound(spinSound);
   const [playWin] = useSound(winSound);
   const [playLine] = useSound(lineSound);
@@ -90,15 +91,17 @@ export const SlotApp = () => {
     }
   }, [dispatch, slotAnimate, helperAnimate])
   useEffect(() => {
-    if (result > 0) {
+    if (result > 0 && !animate) {
       if (!isWinSoundPlayed) {
         playWin();
         setWinSoundPlayed(true);
+        setResultRender(true);
       }
     } else {
       setWinSoundPlayed(false);
+      setResultRender(false);
     }
-  }, [result, isWinSoundPlayed, playWin]);
+  }, [result, isWinSoundPlayed, playWin, animate]);
 
   const startAnimation = async (flag?: string) => {
     const reqData = {
@@ -246,8 +249,8 @@ export const SlotApp = () => {
           <Balance>
             Balance: {balance}
             {expense ? (
-              <Span primary={result === 0 ? true : false}>
-                {result > 0 ? `+(${result})` : `-(${bet * lines})`}
+              <Span primary={!resultRender ? true : false}>
+                {result > 0 && resultRender ? `+(${result})` : `-(${bet * lines})`}
               </Span>
             ) : null}
           </Balance>
@@ -256,7 +259,7 @@ export const SlotApp = () => {
           <LineCount>TotalBet:{bet * lines}</LineCount>
         </HeaderStyled>
         <Container>
-          {result > 0 && <NumberModal number={result} />}
+          {result > 0 && resultRender && <NumberModal number={result} />}
 
           <WrapSlots win={confetti}>
             <Slots start={start} lines={lines} animate={animate} id={id} />
