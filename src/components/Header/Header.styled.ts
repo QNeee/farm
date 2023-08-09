@@ -45,19 +45,16 @@ export const Logo = styled.img`
 export const NavigationStyled = styled.nav`
   display: flex;
   align-items: center;
+  margin-right: 18px;
+  &:last-child {
+    margin-right: 0;
+  }
 
   @media (min-width: 480px) {
   }
   @media (min-width: 768px) {
   }
   @media (min-width: 1280px) {
-  }
-  //for old browser
-  & > * {
-    margin-right: 18px;
-  }
-  & > *:last-child {
-    margin-right: 0;
   }
 `;
 

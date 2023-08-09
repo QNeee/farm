@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Links, Quit, A, Burger } from './TestMenu.styled';
-import Header from '../components/Header/Header';
+import { Header } from '../components/Header';
 
 function TestMenu() {
   const [open, setOpen] = useState(false);
