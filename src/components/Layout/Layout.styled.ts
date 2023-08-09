@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { size } from '../../utils/breakpoint';
 
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 320px;
-  min-height: 100vh;
+  min-height: 100%;
   margin: 0 auto;
   padding: 10px 0;
   /* outline: 1px solid black; */
