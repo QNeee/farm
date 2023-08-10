@@ -148,14 +148,25 @@ export const cubicSlice = createSlice({
                 state.error = action.payload;
             }).addCase(getCubicsResult.pending, (state) => {
                 state.loading = true;
+                state.cubicResultRenderUserSchool = null;
+                state.cubicResultRenderPcSchool = null;
+                state.cubicResultRenderUserOther = null;
+                state.cubicResultRenderPcOther = null;
                 state.error = null;
             })
             .addCase(getCubicsResult.fulfilled, (state, { payload }) => {
                 state.loading = false;
-                state.cubicsResult = payload.data;
+                state.cubicResultRenderUserSchool = payload.data.school.player;
+                state.cubicResultRenderPcSchool = payload.data.school.pc;
+                state.cubicResultRenderUserOther = payload.data.other.player;
+                state.cubicResultRenderPcOther = payload.data.other.pc;
             })
             .addCase(getCubicsResult.rejected, (state, action) => {
                 state.loading = false;
+                state.cubicResultRenderUserSchool = null;
+                state.cubicResultRenderPcSchool = null;
+                state.cubicResultRenderUserOther = null;
+                state.cubicResultRenderPcOther = null;
                 state.error = action.payload;
             }).addCase(postCubicResultSchool.pending, (state) => {
                 state.loading = true;

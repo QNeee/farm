@@ -5,6 +5,8 @@ import { AppDispatch } from '../../redux/store';
 import { ICubicsData } from '../../types';
 import { getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { deleteThrowGame, getCubicInStash, postCubicStartGame } from '../../redux/cubics/cubicsOperations';
+import { useLocation } from 'react-router';
+import { nanoid } from '@reduxjs/toolkit';
 
 const Container = styled.div`
   position: relative;
@@ -46,28 +48,59 @@ margin-left: 10px;
 `;
 
 const ImageContainer = ({ cubicsData }: any) => {
+    const cubicKey = 'cubicId'
     const [w8, setW8] = useState(false);
     const dispatch: AppDispatch = useDispatch();
     const startGame = useSelector(getStartGame);
+    const { pathname } = useLocation();
+    const namePath = pathname.split('/')[1];
     const onClickStartGame = async () => {
         if (w8) return;
         setW8(true);
-        const data = {
-            start: true
+        if (namePath === 'demoCubics') {
+            const id = localStorage.getItem(cubicKey);
+            if (!id) {
+                localStorage.setItem(cubicKey, nanoid());
+            }
+            const newArr = [];
+            const data = {
+                start: true
+            }
+            newArr.push(data);
+            newArr.push(localStorage.getItem(cubicKey));
+            await dispatch(postCubicStartGame(newArr));
+            setW8(false);
+        } else {
+            const data = {
+                start: true
+            }
+            await dispatch(postCubicStartGame(data));
+            setW8(false);
         }
-        await dispatch(postCubicStartGame(data));
-        setW8(false);
     }
     const onClickThrowGame = async () => {
         if (w8) return;
         setW8(true);
-        await dispatch(deleteThrowGame());
+        if (namePath === 'demoCubics') {
+            const id = localStorage.getItem(cubicKey);
+            await dispatch(deleteThrowGame(id as string));
+            localStorage.removeItem(cubicKey);
+        } else {
+            await dispatch(deleteThrowGame(''));
+        }
         setW8(false);
     }
     const onClickCubic = async (id: string) => {
         if (w8) return;
         setW8(true);
-        await dispatch(getCubicInStash(id));
+        if (namePath === 'demoCubics') {
+            const newArr = [];
+            newArr.push(localStorage.getItem(cubicKey));
+            newArr.push(id);
+            await dispatch(getCubicInStash(newArr as []));
+        } else {
+            await dispatch(getCubicInStash(id));
+        }
         setW8(false);
     }
     return (
