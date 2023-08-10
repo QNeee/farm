@@ -36,15 +36,17 @@ export const Wrapper = styled.div`
 export const MainContainer = styled.div<{ imgUrl: string }>`
   /* background-image: url(${(props) => props.imgUrl});
   background-size: cover; */
-  position: fixed;
-
+  position: relative;
+  /* top: 80px;
+  bottom: 40px; */
+  /* outline: 1px solid tomato; */
   border-radius: 5px;
   border: 1px solid #c6c6;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 
   width: 320px;
-  height: 100%;
+  max-height: 100%;
 
   @media (min-width: 480px) {
     width: 480px;
@@ -97,12 +99,12 @@ export const WrapSlots = styled.div<{ win: boolean }>`
     background-size: 500%;
 
     animation-name: ${(props) => {
-    if (props.win) {
-      return Position;
-    } else {
-      return 'none';
-    }
-  }};
+      if (props.win) {
+        return Position;
+      } else {
+        return 'none';
+      }
+    }};
     animation-duration: 12s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -159,12 +161,12 @@ export const ButtonsContainer = styled.div<{ win: boolean }>`
     background-size: 500%;
 
     animation-name: ${(props) => {
-    if (props.win) {
-      return Position;
-    } else {
-      return 'none';
-    }
-  }};
+      if (props.win) {
+        return Position;
+      } else {
+        return 'none';
+      }
+    }};
     animation-duration: 12s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -180,7 +182,7 @@ export const ButtonsContainer = styled.div<{ win: boolean }>`
 `;
 export const SpinButton = styled.button<{ primary: boolean }>`
   background-color: ${(props) => (!props.primary ? '#ff4081' : 'grey')};
- color: ${(props) => (!props.primary ? 'black' : 'white')};
+  color: ${(props) => (!props.primary ? 'black' : 'white')};
   padding: 5px 10px;
   text-transform: uppercase;
   cursor: pointer;

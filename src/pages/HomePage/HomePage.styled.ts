@@ -31,6 +31,7 @@ export const Wrap = styled.div`
   position: relative;
   display: flex;
   width: 320px;
+  min-height: 100%;
   align-items: center;
   flex-direction: column;
   @media screen and (min-width: ${size.mobile}) {
