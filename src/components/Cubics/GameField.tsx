@@ -7,6 +7,7 @@ import { AppDispatch } from '../../redux/store';
 import { ICubicsData } from '../../types';
 import { getCubicInStashArr, getCubics, getCubicsRolls, getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { getCubicOutStash, getCubicsReroll, getCubicsStartGame } from '../../redux/cubics/cubicsOperations';
+import { useLocation } from 'react-router';
 const GameFieldContainer = styled.div`
 position: relative;
   grid-template-columns: repeat(3, 1fr);
@@ -66,28 +67,48 @@ background-color: white;
 `;
 const GameField: React.FC = () => {
   const [w8, setW8] = useState(false);
+  const cubicKey = 'cubicId'
   const startGame = useSelector(getStartGame);
   const dispatch: AppDispatch = useDispatch();
   const cubicsData = useSelector(getCubics);
   const rolls = useSelector(getCubicsRolls);
   const cubicInStash = useSelector(getCubicInStashArr);
+  const { pathname } = useLocation();
+  const namePath = pathname.split('/')[1];
   const onClickStartGame = async () => {
     if (w8) return;
     if (!startGame) return;
     if (rolls === 0) return;
     setW8(true);
     if (rolls !== null && rolls > 0 && rolls < 3) {
-      await dispatch(getCubicsReroll());
-      return setW8(false);
+      if (namePath === 'demoCubics') {
+        await dispatch(getCubicsReroll(localStorage.getItem(cubicKey) as string));
+        return setW8(false);
+      } else {
+        await dispatch(getCubicsReroll(''));
+        return setW8(false);
+      }
+
     }
-    await dispatch(getCubicsStartGame());
+    if (namePath === 'demoCubics') {
+      await dispatch(getCubicsStartGame(localStorage.getItem(cubicKey) as string));
+    } else {
+      await dispatch(getCubicsStartGame(''));
+    }
     setW8(false);
   }
   const onClickCubic = async (id: string | undefined) => {
     if (!id) return;
     if (w8) return;
     setW8(true);
-    await dispatch(getCubicOutStash(id as string));
+    if (namePath === 'demoCubics') {
+      const newArr = [];
+      newArr.push(localStorage.getItem(cubicKey));
+      newArr.push(id);
+      await dispatch(getCubicOutStash(newArr as []));
+    } else {
+      await dispatch(getCubicOutStash(id as string));
+    }
     setW8(false);
   }
   return (

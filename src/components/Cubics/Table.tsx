@@ -5,7 +5,7 @@ import { AppDispatch } from '../../redux/store';
 import ResultRenderSchool from './ResultRenderSchool';
 import ResultRenderOther from './ResultRenderOther';
 import { getRefreshed } from '../../redux/auth/authSelectors';
-import { getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool } from '../../redux/cubics/cubicsSelectors';
+import { getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool, getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
 
@@ -28,6 +28,8 @@ const TableHeader = styled.th`
 `;
 
 const Table: React.FC = () => {
+    const cubicKey = 'cubicId'
+    const startGame = useSelector(getStartGame);
     const [w8, setW8] = useState(false);
     const dispatch: AppDispatch = useDispatch();
     const refreshed = useSelector(getRefreshed);
@@ -39,12 +41,20 @@ const Table: React.FC = () => {
     const ids: string[] = ['wl9pa', 'sum', 'pair', 'small', 'big', 'triangle', 'sqr', 'fx', 'poker'];
     const { pathname } = useLocation();
     const namePath = pathname.split('/')[1];
+    const id = localStorage.getItem(cubicKey);
     useEffect(() => {
         if (refreshed || namePath === 'demoCubics') {
-            dispatch(getCubicsTable());
-            dispatch(getCubicsResult());
+            if (namePath === 'demoCubics') {
+                dispatch(getCubicsTable('demo'));
+                if (id) {
+                    dispatch(getCubicsResult(localStorage.getItem(cubicKey) as string));
+                }
+            } else {
+                dispatch(getCubicsTable(''));
+                dispatch(getCubicsResult(''));
+            }
         }
-    }, [dispatch, refreshed]);
+    }, [dispatch, refreshed, startGame]);
     const school: string[] | null = useSelector(getSchool);
     const others: string[] | null = useSelector(getOther);
     const func = () => {
@@ -121,7 +131,14 @@ const Table: React.FC = () => {
             setW8(false);
             return
         };
-        await dispatch(postCubicResultSchool(requestData));
+        if (namePath === 'demoCubics') {
+            const newArr = [];
+            newArr.push(localStorage.getItem(cubicKey) as string);
+            newArr.push(requestData)
+            await dispatch(postCubicResultSchool(newArr));
+        } else {
+            await dispatch(postCubicResultSchool(requestData));
+        }
         setW8(false);
     }
     const onClickTableOther = async (id: string) => {
@@ -134,7 +151,14 @@ const Table: React.FC = () => {
                 const requestData = {
                     data: result && result
                 }
-                await dispatch(postCubicResultOther(requestData));
+                if (namePath === 'demoCubics') {
+                    const newArr = [];
+                    newArr.push(localStorage.getItem(cubicKey) as string);
+                    newArr.push(requestData)
+                    await dispatch(postCubicResultOther(newArr));
+                } else {
+                    await dispatch(postCubicResultOther(requestData));
+                }
             } else {
                 setW8(false);
                 return;
@@ -145,7 +169,14 @@ const Table: React.FC = () => {
                 const requestData = {
                     data: el && id + ' ' + el.textContent
                 }
-                await dispatch(postCubicResultCherk(requestData));
+                if (namePath === 'demoCubics') {
+                    const newArr = [];
+                    newArr.push(localStorage.getItem(cubicKey) as string);
+                    newArr.push(requestData)
+                    await dispatch(postCubicResultCherk(newArr));
+                } else {
+                    await dispatch(postCubicResultCherk(requestData));
+                }
             } else {
                 setW8(false);
                 return;
