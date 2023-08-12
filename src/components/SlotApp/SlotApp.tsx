@@ -185,10 +185,10 @@ export const SlotApp = () => {
     if (w8) return;
     dispatch(updateBalance(false));
     if (token) {
+      if (balance < bet * lines) return;
       const reqData = {
         id,
       };
-      if (balance < bet) return;
       setExpense(true);
       setW8(true);
       setStart(true);
