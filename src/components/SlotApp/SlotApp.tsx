@@ -210,7 +210,7 @@ export const SlotApp = () => {
           await dispatch(postStartGame(reqData));
           setCount(prev => prev - 1);
           count++;
-        }, 3000);
+        }, 4000);
 
         setIntervalId(interval);
       } else {
@@ -252,7 +252,7 @@ export const SlotApp = () => {
           await dispatch(postStartGame(newArr as ISlotDemo[]));
           setCount(prev => prev - 1);
           count++;
-        }, 3000);
+        }, 4000);
 
         setIntervalId(interval);
       } else {
