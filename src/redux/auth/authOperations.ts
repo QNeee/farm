@@ -4,6 +4,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { HOST } from '../../host';
 import { IUserBalance } from '../../types';
 import { RootState } from '../store';
+import { updateBalance } from './authSlice';
 
 axios.defaults.baseURL = HOST;
 
@@ -94,11 +95,12 @@ export const getUserInfo = createAsyncThunk(
 );
 export const postUserBalance = createAsyncThunk(
     'user/balance',
-    async (data: IUserBalance, { rejectWithValue, getState }) => {
+    async (data: IUserBalance, { rejectWithValue, getState, dispatch }) => {
         try {
             const state: RootState = getState() as RootState;
             setToken(state?.auth.accessToken as string);
             const result = await axios.post('users/balance', data);
+            dispatch(updateBalance(true));
             return result;
         } catch (error) {
             return rejectWithValue(error);

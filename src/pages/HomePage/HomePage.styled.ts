@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { size } from '../../utils/breakpoint';
+import pic from '../../images/fishka1280.png';
+import picTablet from '../../images/fishka768.png';
 
 const Animation = keyframes`
 		0% {
@@ -28,9 +31,10 @@ const Animation = keyframes`
 `;
 
 export const Wrap = styled.div`
-  position: relative;
+  /* position: relative; */
   display: flex;
   width: 320px;
+  min-height: 100%;
   align-items: center;
   flex-direction: column;
   @media screen and (min-width: ${size.mobile}) {
@@ -43,10 +47,10 @@ export const Wrap = styled.div`
 
 export const WrapTitle = styled.div`
   position: absolute;
-  top: 80px;
+  top: 30px;
   left: 0;
   width: 320px;
-
+  height: 210px;
   padding: 30px 10px 41px;
   border-radius: 20px;
 
@@ -60,7 +64,7 @@ export const WrapTitle = styled.div`
     left: 0;
   }
   @media screen and (min-width: ${size.tablet}) {
-    top: 30px;
+    top: 10px;
     left: 130px;
     display: flex;
     align-items: center;
@@ -70,9 +74,10 @@ export const WrapTitle = styled.div`
     border-radius: 50%;
   }
   @media screen and (min-width: ${size.desktop}) {
-    top: 86px;
-    left: 215px;
-    height: 230px;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 253px;
     border-radius: 50% 50% 0 0;
     border-width: 2px 2px 0 2px;
     border-style: solid;
@@ -82,11 +87,11 @@ export const WrapTitle = styled.div`
 
 export const WrapDesc = styled.div`
   position: absolute;
-  top: 280px;
+  top: 237px;
   left: 0;
   width: 320px;
   padding: 40px 10px 20px;
-
+  height: 210px;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
@@ -96,8 +101,8 @@ export const WrapDesc = styled.div`
     left: 120px;
   }
   @media screen and (min-width: ${size.tablet}) {
-    top: 250px;
-    left: 383px;
+    top: 270px;
+    left: 360px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,9 +112,11 @@ export const WrapDesc = styled.div`
     border-radius: 50%;
   }
   @media screen and (min-width: ${size.desktop}) {
-    top: 316px;
-    left: 215px;
-    height: 200px;
+    top: 290px;
+    /* left: 215px; */
+    left: 50%;
+    transform: translateX(-50%);
+    height: 253px;
     width: 320px;
     border-radius: 0 0 50% 50%;
     border-width: 0 2px 2px 2px;
@@ -119,6 +126,7 @@ export const WrapDesc = styled.div`
 `;
 
 export const Title = styled.h1`
+  /* margin-top: 10px; */
   text-align: center;
   font-size: 36px;
   font-weight: 900;
@@ -132,19 +140,32 @@ export const Title = styled.h1`
   animation-direction: normal;
   animation-fill-mode: none;
   color: white;
+  @media screen and (min-width: ${size.mobile}) {
+  }
+  @media screen and (min-width: ${size.tablet}) {
+    margin-top: -10px;
+  }
+  @media screen and (min-width: ${size.desktop}) {
+    margin-top: -20px;
+  }
 `;
 
 export const Desc = styled.h2`
-  margin: 5px;
+  /* margin-bottom: -20px; */
+  margin-top: 10px;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   color: white;
+  @media screen and (min-width: ${size.mobile}) {
+  }
+  @media screen and (min-width: ${size.tablet}) {
+  }
 `;
 
 export const Button = styled.button`
   position: absolute;
-  top: 243px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
   width: 65px;
@@ -159,22 +180,47 @@ export const Button = styled.button`
   box-shadow: 0px 0px 68px 0px rgba(145, 192, 255, 0.5),
     inset 0px -9px 16px 0px rgba(145, 192, 255, 0.6),
     inset 0px 11px 28px 0px rgb(255, 255, 255);
+  z-index: 10;
   &:hover {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
       rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
   @media screen and (min-width: ${size.mobile}) {
-    top: 247px;
+    top: 16px;
   }
   @media screen and (min-width: ${size.tablet}) {
-    top: 260px;
+    top: 20px;
     width: 100px;
     height: 100px;
     font-size: 26px;
   }
   @media screen and (min-width: ${size.desktop}) {
-    top: 265px;
+  }
+  @media screen and (min-width: ${size.large}) {
+  }
+`;
+
+export const LinkStyle = styled(Link)`
+  position: absolute;
+
+  top: 190px;
+  width: 95px;
+  height: 95px;
+  background-image: url(${picTablet});
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+
+  @media screen and (min-width: ${size.mobile}) {
+  }
+  @media screen and (min-width: ${size.tablet}) {
+    width: 140px;
+    height: 140px;
+    top: 220px;
+    background-image: url(${pic});
+  }
+  @media screen and (min-width: ${size.desktop}) {
   }
   @media screen and (min-width: ${size.large}) {
   }

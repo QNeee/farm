@@ -108,7 +108,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
       case 'string':
         return '0';
       case 'number':
-        return '45%';
+        return '45%'
       default:
         break;
     }
@@ -116,11 +116,11 @@ export const Line = styled.div<{ line: boolean | string | number }>`
   width: ${({ line }) => {
     switch (typeof line) {
       case 'boolean':
-        return '12px';
+        return '6px';
       case 'string':
         return '100%';
       case 'number':
-        return '12px';
+        return '6px';
       default:
         break;
     }
@@ -130,7 +130,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
       case 'boolean':
         return '100%';
       case 'string':
-        return '12px';
+        return '6px';
       case 'number':
         return '100%';
       default:
@@ -145,7 +145,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
       case 'string':
         return 'none';
       case 'number':
-        return 'rotate(-45deg)';
+        return line === 1 ? 'rotate(-45deg)' : 'rotate(45deg)';
       default:
         break;
     }

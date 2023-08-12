@@ -1,19 +1,19 @@
 import styled from 'styled-components';
-import { size } from '../../utils/breakpoint';
+import { size } from '../utils/breakpoint';
 
 export const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  /* min-height: 100%; */
 `;
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   width: 320px;
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 10px 0;
-  /* outline: 1px solid black; */
 
   @media (min-width: ${size.mobile}) {
     width: 480px;

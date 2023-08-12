@@ -44,8 +44,11 @@ export const Slots: React.FC<IProps> = ({ animate, id }) => {
               {lineRender && !animate &&
                 item.line &&
                 typeof item.line === 'number' &&
-                (item.line === 1 || item.line === 2) && <Line line={1} />}
-
+                item.line === 1 && <Line line={1} />}
+              {lineRender && !animate &&
+                item.line &&
+                typeof item.line === 'number' &&
+                item.line === 2 && <Line line={2} />}
               <ImageSlot src={item.img} alt={`item ${index}`} />
             </AnimatedContainer>
           ))}
