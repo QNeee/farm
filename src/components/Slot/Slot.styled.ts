@@ -108,7 +108,7 @@ export const Line = styled.div<{ line: boolean | string | number }>`
       case 'string':
         return '0';
       case 'number':
-        return '45%'
+        return '50%'
       default:
         break;
     }
