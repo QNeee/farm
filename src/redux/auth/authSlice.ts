@@ -30,7 +30,7 @@ const initialState: IAuthState = {
     isLoggedIn: false,
     loading: false,
     error: null,
-    updateBalance:false,
+    updateBalance: false,
     allSlots: [],
     slot: [],
     result: 0,
@@ -104,6 +104,7 @@ export const authSlice = createSlice({
                 state.lines = 1;
                 state.isLoggedIn = false;
                 state.startGame = false;
+                state.refreshed = false;
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
