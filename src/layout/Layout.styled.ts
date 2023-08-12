@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { size } from '../../utils/breakpoint';
+import { size } from '../utils/breakpoint';
 
 export const Wrapper = styled.div`
   min-width: 100%;
