@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import {
   Desc,
@@ -8,8 +7,9 @@ import {
   WrapDesc,
   WrapTitle,
   Button,
+  LinkStyle,
 } from './HomePage.styled';
-import pic from '../../images/slot777.png';
+
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 
@@ -27,18 +27,21 @@ const HomePage: React.FC = () => {
           <Desc>
             Get ready
             <br /> for an exciting <br />
-            gaming experience.
-          </Desc>
-          <Desc>
+            gaming experience
+            <br />
+            <br />
             Spin the reels <br />
             and win big!
           </Desc>
         </WrapDesc>
-        {/* <img src={pic} alt="description" style={{ width: 400 }} /> */}
+        {/* <img src={pic} alt="description" style={{ width: 140 }} /> */}
 
-        <Link to={loggedIn ? "/slots" : "/demoSlots"} style={{ marginTop: 20 }}>
+        <LinkStyle
+          to={loggedIn ? '/slots' : '/demoSlots'}
+          // style={{ marginTop: 20 }}
+        >
           <Button>Play</Button>
-        </Link>
+        </LinkStyle>
       </Wrap>
     </>
   );

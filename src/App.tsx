@@ -6,7 +6,7 @@ import { AppDispatch } from './redux/store';
 
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
-import Layout from './components/Layout/Layout';
+import Layout from './layout';
 import { Auth } from './components/Auth';
 import SlotsContainer from './components/SlotsContainer/SlotsContainer';
 import { SlotApp } from './components/SlotApp';
