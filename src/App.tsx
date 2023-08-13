@@ -50,22 +50,9 @@ const App = () => {
               token ? <SlotsContainer /> : <Navigate to={'/login'} replace />
             }
           />
-          <Route
-            path="demoSlots"
-            element={
-              <SlotsContainer />
-            }
-          />
-          <Route
-            path="demoSlots/:id"
-            element={
-              <SlotApp />
-            }
-          />
-          <Route
-            path="demoCubics"
-            element={<CubicsApp />}
-          />
+          <Route path="demoSlots" element={<SlotsContainer />} />
+          <Route path="demoSlots/:id" element={<SlotApp />} />
+          <Route path="demoCubics" element={<CubicsApp />} />
           <Route
             path="slots/:id"
             element={token ? <SlotApp /> : <Navigate to={'/login'} replace />}

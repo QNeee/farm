@@ -3,7 +3,11 @@ import { size } from '../utils/breakpoint';
 
 export const Wrapper = styled.div`
   min-width: 100%;
-  /* min-height: 100%; */
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 export const Container = styled.div`
@@ -27,6 +31,6 @@ export const Container = styled.div`
     width: 1280px;
   }
   @media (min-width: ${size.large}) {
-    width: 1440px;
+    /* width: 1440px; */
   }
 `;
