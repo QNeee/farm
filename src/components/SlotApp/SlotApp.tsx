@@ -32,7 +32,6 @@ import {
   getAnimate,
   getAnimateHelper,
   getConfetti,
-  getDemoBalance,
   getSlotImg,
   getSlotLines,
   getUserBet,
@@ -126,6 +125,7 @@ export const SlotApp = () => {
   const [resultRender, setResultRender] = useState(false);
   const [autoModal, setAutoModal] = useState(false);
   const [renderBalance, setRenderBalance] = useState(token ? balance : getDemoBalanceNumber() || 1000);
+  const [play, setPlay] = useState(false);
   const [playSpin] = useSound(spinSound);
   const [playWin] = useSound(winSound);
   const [playLine] = useSound(lineSound);
@@ -174,13 +174,13 @@ export const SlotApp = () => {
 
           localStorage.setItem(localBalance, (parseInt(balanceData as string) + result).toString());
         }
-        setRenderBalance(prev => prev + result);
+        setRenderBalance(balance);
       }
     } else {
       setWinSoundPlayed(false);
       setResultRender(false);
     }
-  }, [result, isWinSoundPlayed, playWin, animate, token]);
+  }, [result, isWinSoundPlayed, playWin, animate, token, balance]);
   const startAnimation = async (flag?: string, countAuto?: number) => {
     if (w8) return;
     dispatch(updateBalance(false));
