@@ -169,12 +169,7 @@ export const SlotApp = () => {
         playWin();
         setWinSoundPlayed(true);
         setResultRender(true);
-        if (!token) {
-          const balanceData = localStorage.getItem(localBalance);
-
-          localStorage.setItem(localBalance, (parseInt(balanceData as string) + result).toString());
-        }
-        setRenderBalance(balance);
+        setRenderBalance(token ? balance : parseInt(localStorage.getItem(localBalance) as string));
       }
     } else {
       setWinSoundPlayed(false);
