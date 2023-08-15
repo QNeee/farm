@@ -130,6 +130,7 @@ export const patchUserPassword = createAsyncThunk(
             if (result) Notify.success('password changed');
             return result;
         } catch (error) {
+            console.log(error);
             Notify.failure('wrong pasword');
             return rejectWithValue(error);
         }
