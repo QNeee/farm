@@ -1,8 +1,48 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { MenuButton } from '@szhsin/react-menu';
+import { ControlledMenu, MenuButton } from '@szhsin/react-menu';
+import {
+  menuSelector,
+  menuItemSelector,
+  menuDividerSelector,
+} from '@szhsin/react-menu/style-utils';
 
 import { size } from '../../utils/breakpoint';
+
+export const ControlledMenuStyle = styled(ControlledMenu)`
+  ${menuSelector.name} {
+    box-sizing: border-box;
+    z-index: 100;
+    list-style: none;
+    user-select: none;
+    padding: 15px 12px 5px;
+    font-size: 0.925rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+      rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    border-radius: 5px;
+    background-color: white;
+    min-width: 50px;
+  }
+
+  ${menuSelector.name}:focus,${menuItemSelector.name}:focus {
+    outline: none;
+  }
+  ${menuItemSelector.name} {
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 0 10px;
+    padding: 8px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(234, 194, 62, 0.8);
+  }
+
+  ${menuItemSelector.hover} {
+    color: #fff;
+    background-color: rgba(219, 26, 17, 0.8);
+  }
+`;
 
 export const HeaderContainer = styled.div`
   width: 100vw;
