@@ -18,6 +18,7 @@ export interface IAuthState {
     bet: number;
     refreshed: boolean;
     startGame: boolean;
+    updateBalance: boolean;
 }
 const initialState: IAuthState = {
     auth: {
@@ -29,6 +30,7 @@ const initialState: IAuthState = {
     isLoggedIn: false,
     loading: false,
     error: null,
+    updateBalance: false,
     allSlots: [],
     slot: [],
     result: 0,
@@ -49,6 +51,9 @@ export const authSlice = createSlice({
             state.auth.user.email = payload.email;
             state.auth.user.id = payload.id;
             state.isLoggedIn = true;
+        },
+        updateBalance: (state, { payload }) => {
+            state.updateBalance = payload;
         },
     },
     extraReducers: (builder) => {
@@ -99,6 +104,7 @@ export const authSlice = createSlice({
                 state.lines = 1;
                 state.isLoggedIn = false;
                 state.startGame = false;
+                state.refreshed = false;
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
@@ -154,6 +160,7 @@ export const authSlice = createSlice({
             .addCase(postUserBalance.fulfilled, (state, { payload }) => {
                 state.loading = false;
                 state.auth.user.balance = payload.data.balance;
+                state.updateBalance = true;
             })
             .addCase(postUserBalance.rejected, (state, action) => {
                 state.loading = false;
@@ -161,4 +168,4 @@ export const authSlice = createSlice({
             })
     },
 });
-export const { googleAuth } = authSlice.actions;
+export const { googleAuth, updateBalance } = authSlice.actions;

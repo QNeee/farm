@@ -84,7 +84,7 @@ export const deleteThrowGame = createAsyncThunk(
     async (demo: string, { rejectWithValue, getState }) => {
         try {
             if (demo) {
-                const result = await axios.delete(`demoSlots/${demo}`);
+                const result = await axios.delete(`demoSlots/cubics/${demo}`);
                 return result;
             } else {
                 const state: RootState = getState() as RootState;

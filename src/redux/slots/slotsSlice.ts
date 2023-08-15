@@ -64,11 +64,11 @@ export const slotSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(getSlotsById.pending, (state) => {
+                state.result = 0;
                 state.confetti = false;
                 state.lineRender = false;
                 state.slot = [];
                 state.slotImg = '';
-                state.result = 0;
                 state.loading = true;
                 state.error = null;
                 state.version = null;
@@ -103,6 +103,7 @@ export const slotSlice = createSlice({
                 state.result = payload.data.result;
                 state.demoBalance = payload.data.updatedUser;
                 state.animate = false;
+
             })
             .addCase(postStartGame.rejected, (state, action) => {
                 state.loading = false;

@@ -33,6 +33,7 @@ export const postStartGame = createAsyncThunk(
         try {
             if (Array.isArray(data)) {
                 const result = await axios.post('demoSlots', data[0]);
+                localStorage.setItem('demoBalance', (parseInt(localStorage.getItem('demoBalance') as string) + result.data.result).toString());
                 return result;
             }
             const state: RootState = getState() as RootState;

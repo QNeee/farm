@@ -31,7 +31,6 @@ const AppBar: React.FC = () => {
   const onClickExit = () => {
     setShowModal(false);
   };
-
   useEffect(() => {
     if (refreshed) dispatch(getUserInfo());
   }, [dispatch, refreshed]);

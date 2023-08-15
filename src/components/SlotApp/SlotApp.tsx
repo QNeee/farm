@@ -32,13 +32,12 @@ import {
   getAnimate,
   getAnimateHelper,
   getConfetti,
-  getDemoBalance,
   getSlotImg,
   getSlotLines,
   getUserBet,
   getUserResult,
 } from '../../redux/slots/slotsSelectors';
-import { getRefreshed, getToken, getUserBalance } from '../../redux/auth/authSelectors';
+import { getRefreshed, getToken, getUpdateBalance, getUserBalance } from '../../redux/auth/authSelectors';
 import {
   getSlotsById,
   postBetSlot,
@@ -46,6 +45,7 @@ import {
   postStartGame,
 } from '../../redux/slots/slotsOperations';
 import { animateHelper } from '../../redux/slots/slotsSlice';
+import { updateBalance } from '../../redux/auth/authSlice';
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -54,6 +54,7 @@ export const SlotApp = () => {
   const slotImg = useSelector(getSlotImg);
   const token = useSelector(getToken);
   const balance = useSelector(getUserBalance);
+  const updatedBalance = useSelector(getUpdateBalance);
   const lines = useSelector(getSlotLines);
   const refreshed = useSelector(getRefreshed);
   const slotAnimate = useSelector(getAnimate);
@@ -107,7 +108,11 @@ export const SlotApp = () => {
       }
     }
   }, [id, dispatch, refreshed, namePath]);
-
+  useEffect(() => {
+    if (updatedBalance) {
+      setRenderBalance(balance);
+    }
+  }, [updateBalance, balance])
   const [animate, setAnimate] = useState(false);
   const [w8, setW8] = useState(false);
   const [auto, setAuto] = useState(false);
@@ -120,6 +125,7 @@ export const SlotApp = () => {
   const [resultRender, setResultRender] = useState(false);
   const [autoModal, setAutoModal] = useState(false);
   const [renderBalance, setRenderBalance] = useState(token ? balance : getDemoBalanceNumber() || 1000);
+  const [play, setPlay] = useState(false);
   const [playSpin] = useSound(spinSound);
   const [playWin] = useSound(winSound);
   const [playLine] = useSound(lineSound);
@@ -163,26 +169,21 @@ export const SlotApp = () => {
         playWin();
         setWinSoundPlayed(true);
         setResultRender(true);
-        if (!token) {
-          const balanceData = localStorage.getItem(localBalance);
-
-          localStorage.setItem(localBalance, (parseInt(balanceData as string) + result).toString());
-        }
-        setRenderBalance(prev => prev + result);
+        setRenderBalance(token ? balance : parseInt(localStorage.getItem(localBalance) as string));
       }
     } else {
       setWinSoundPlayed(false);
       setResultRender(false);
     }
-  }, [result, isWinSoundPlayed, playWin, animate, token]);
-
+  }, [result, isWinSoundPlayed, playWin, animate, token, balance]);
   const startAnimation = async (flag?: string, countAuto?: number) => {
     if (w8) return;
+    dispatch(updateBalance(false));
     if (token) {
+      if (balance < bet * lines) return;
       const reqData = {
         id,
       };
-      if (balance < bet) return;
       setExpense(true);
       setW8(true);
       setStart(true);
@@ -204,7 +205,7 @@ export const SlotApp = () => {
           await dispatch(postStartGame(reqData));
           setCount(prev => prev - 1);
           count++;
-        }, 3000);
+        }, 4000);
 
         setIntervalId(interval);
       } else {
@@ -246,7 +247,7 @@ export const SlotApp = () => {
           await dispatch(postStartGame(newArr as ISlotDemo[]));
           setCount(prev => prev - 1);
           count++;
-        }, 3000);
+        }, 4000);
 
         setIntervalId(interval);
       } else {
@@ -393,9 +394,6 @@ export const SlotApp = () => {
   //         setWinSoundPlayed(false);
   //     }
   // };
-  const balanceFunc = async () => {
-    return 1000;
-  }
   const toggleModal = () => setIsOpen((prev) => !prev);
   // const toggleModal = () => setIsOpen(true);
   return (
