@@ -184,6 +184,7 @@ export const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(patchUserPassword.fulfilled, (state, { payload }) => {
+                state.auth.user.google = false;
                 state.loading = false;
             })
             .addCase(patchUserPassword.rejected, (state, action) => {

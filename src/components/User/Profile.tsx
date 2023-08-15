@@ -53,6 +53,8 @@ const Profile = () => {
         await dispatch(patchUserPassword(form));
         setForm({ oldPass: '', newPass: '', newPass1: '' });
     }
+
+
     return <Container>
         <h2>Ваш профіль</h2>
         <Ul>
@@ -65,8 +67,10 @@ const Profile = () => {
         </Ul>
         <h2>Ваш пароль</h2>
         <Form onSubmit={onSubmitForm}>
-            Ваш старий пароль
-            {!google && <input type="password" id="oldPass" onChange={onChange} value={form.oldPass} />}
+            {!google && <>
+                Ваш старий пароль
+                <input type="password" id="oldPass" onChange={onChange} value={form.oldPass} />
+            </>}
             Ваш новий пароль
             <input type="password" id="newPass" onChange={onChange} value={form.newPass} />
             Ваш новий пароль ще раз
