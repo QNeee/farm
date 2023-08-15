@@ -46,7 +46,9 @@ const Header: React.FC = () => {
   const namePath = pathname.split('/')[1];
   const isWide = useMediaQuery({ minWidth: 768 });
   const isNarrow = useMediaQuery({ maxWidth: 767 });
-
+  const onClickMenuItem = (flag: string) => {
+    navigate(flag);
+  }
   return (
     <HeaderContainer>
       <HeaderStyled>
@@ -71,9 +73,10 @@ const Header: React.FC = () => {
                     anchorRef={ref}
                     onClose={() => toggle(false)}
                   >
-                    <MenuItem>Поповнити</MenuItem>
-                    <MenuItem>Слоти</MenuItem>
-                    <MenuItem>Кубіки</MenuItem>
+                    <MenuItem onClick={() => onClickMenuItem('user/balance')}>Баланс</MenuItem>
+                    <MenuItem onClick={() => onClickMenuItem('user/profile')}>Профиль</MenuItem>
+                    <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>Бонуси</MenuItem>
+
                   </ControlledMenuStyle>
                 </>
               ) : null}
@@ -135,9 +138,10 @@ const Header: React.FC = () => {
                   anchorRef={ref}
                   onClose={() => toggle(false)}
                 >
-                  <MenuItem>Поповнити</MenuItem>
-                  <MenuItem>Слоти</MenuItem>
-                  <MenuItem>Кубіки</MenuItem>
+                  <MenuItem onClick={() => onClickMenuItem('user/balance')}>Баланс</MenuItem>
+                  <MenuItem onClick={() => onClickMenuItem('user/profile')}>Профиль</MenuItem>
+                  <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>Бонуси</MenuItem>
+
                 </ControlledMenuStyle>
               </>
             ) : null}

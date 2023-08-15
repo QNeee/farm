@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, refresh, logout, getUserInfo, postUserBalance } from './authOperations';
+import { register, login, refresh, logout, getUserInfo, postUserBalance, postUserPhone, patchUserPassword } from './authOperations';
 interface IUserState {
-    user: { email: string; id: number | null; balance: number | 0 };
+    user: { email: string; id: number | null; balance: number | 0, phone: string | null, google: boolean | null };
 }
 export interface IAuthState {
     auth: IUserState;
@@ -22,7 +22,7 @@ export interface IAuthState {
 }
 const initialState: IAuthState = {
     auth: {
-        user: { email: '', id: null, balance: 0 },
+        user: { email: '', id: null, balance: 0, phone: null, google: null },
     },
     accessToken: null,
     refreshToken: null,
@@ -50,6 +50,7 @@ export const authSlice = createSlice({
             state.sid = payload.sid;
             state.auth.user.email = payload.email;
             state.auth.user.id = payload.id;
+            state.auth.user.google = payload.google;
             state.isLoggedIn = true;
         },
         updateBalance: (state, { payload }) => {
@@ -148,6 +149,7 @@ export const authSlice = createSlice({
                 state.loading = false;
                 state.auth.user.balance = payload.data.balance;
                 state.auth.user.email = payload.data.email;
+                state.auth.user.phone = payload.data.phone;
             })
             .addCase(getUserInfo.rejected, (state, action) => {
                 state.loading = false;
@@ -163,6 +165,28 @@ export const authSlice = createSlice({
                 state.updateBalance = true;
             })
             .addCase(postUserBalance.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(postUserPhone.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(postUserPhone.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.auth.user.phone = payload.data;
+                state.updateBalance = true;
+            })
+            .addCase(postUserPhone.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(patchUserPassword.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(patchUserPassword.fulfilled, (state, { payload }) => {
+                state.loading = false;
+            })
+            .addCase(patchUserPassword.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

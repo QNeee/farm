@@ -16,6 +16,10 @@ import TestPage from './template/TestPage';
 import { getIsLoggedIn, getToken } from './redux/auth/authSelectors';
 import { refresh } from './redux/auth/authOperations';
 import Google from './components/Google/Google';
+import User from './components/User/User';
+import Profile from './components/User/Profile';
+import Bonuses from './components/User/Bonuses';
+import Balance from './components/User/Balance';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -32,6 +36,11 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path='user' element={token ? <User /> : <Navigate to={'/'} replace />}>
+            <Route path='balance' element={<Balance />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='bonuses' element={<Bonuses />} />
+          </Route>
           <Route
             path="login"
             element={!token ? <Auth /> : <Navigate to={'/slots'} replace />}

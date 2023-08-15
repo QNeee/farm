@@ -107,3 +107,31 @@ export const postUserBalance = createAsyncThunk(
         }
     }
 );
+export const postUserPhone = createAsyncThunk(
+    'user/phone',
+    async (data: { phone: number }, { rejectWithValue, getState, dispatch }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.auth.accessToken as string);
+            const result = await axios.post('users/phone', data);
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+export const patchUserPassword = createAsyncThunk(
+    'user/password',
+    async (data: { oldPass: string, newPass: string, newPass1: string }, { rejectWithValue, getState, dispatch }) => {
+        try {
+            const state: RootState = getState() as RootState;
+            setToken(state?.auth.accessToken as string);
+            const result = await axios.patch('users/password', data);
+            if (result) Notify.success('password changed');
+            return result;
+        } catch (error) {
+            Notify.failure('wrong pasword');
+            return rejectWithValue(error);
+        }
+    }
+);

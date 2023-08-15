@@ -16,6 +16,7 @@ const Google = () => {
         sid: search.split('&')[2].split('=')[1],
         email: search.split('&')[3].split('=')[1],
         id: search.split('&')[4].split('=')[1],
+        google:true,
       };
       dispatch(googleAuth(obj));
     }
