@@ -1,11 +1,17 @@
-import React from 'react';
+import { useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'lottie-react';
 import { useMediaQuery } from 'react-responsive';
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
 import { GiBandit, GiRollingDices } from 'react-icons/gi';
-import { Menu, MenuItem } from '@szhsin/react-menu';
+import {
+  ControlledMenu,
+  Menu,
+  MenuItem,
+  useHover,
+  useMenuState,
+} from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
@@ -18,6 +24,7 @@ import {
   Button,
   HeaderContainer,
   ButtonBurgerStyle,
+  ControlledMenuStyle,
 } from './Header.styled';
 import { AppDispatch } from '../../redux/store';
 import { getToken } from '../../redux/auth/authSelectors';
@@ -32,6 +39,10 @@ const Header: React.FC = () => {
   const onClickLogout = () => {
     dispatch(logout());
   };
+  const ref = useRef(null);
+  const [menuState, toggle] = useMenuState({ transition: true });
+  const { anchorProps, hoverProps } = useHover(menuState.state, toggle);
+
   const namePath = pathname.split('/')[1];
   const isWide = useMediaQuery({ minWidth: 768 });
   const isNarrow = useMediaQuery({ maxWidth: 767 });
@@ -46,7 +57,27 @@ const Header: React.FC = () => {
         />
         {isWide && (
           <NavigationStyled>
-            <NavigationStyled>{token ? <AppBar /> : null}</NavigationStyled>
+            <NavigationStyled>
+              {token ? (
+                <>
+                  <div ref={ref} {...anchorProps}>
+                    <AppBar />
+                  </div>
+                  <ControlledMenuStyle
+                    arrow={true}
+                    gap={14}
+                    {...hoverProps}
+                    {...menuState}
+                    anchorRef={ref}
+                    onClose={() => toggle(false)}
+                  >
+                    <MenuItem>Поповнити</MenuItem>
+                    <MenuItem>Слоти</MenuItem>
+                    <MenuItem>Кубіки</MenuItem>
+                  </ControlledMenuStyle>
+                </>
+              ) : null}
+            </NavigationStyled>
             {token || namePath === 'demoSlots' || namePath === 'demoCubics' ? (
               <NavigationStyled>
                 <NavLinkStyled to={token ? '/slots' : 'demoSlots'}>
@@ -91,7 +122,25 @@ const Header: React.FC = () => {
         )}
         {isNarrow && (
           <>
-            {token ? <AppBar /> : null}
+            {token ? (
+              <>
+                <div ref={ref} {...anchorProps}>
+                  <AppBar />
+                </div>
+                <ControlledMenuStyle
+                  arrow={true}
+                  gap={14}
+                  {...hoverProps}
+                  {...menuState}
+                  anchorRef={ref}
+                  onClose={() => toggle(false)}
+                >
+                  <MenuItem>Поповнити</MenuItem>
+                  <MenuItem>Слоти</MenuItem>
+                  <MenuItem>Кубіки</MenuItem>
+                </ControlledMenuStyle>
+              </>
+            ) : null}
             {token || namePath === 'demoSlots' || namePath === 'demoCubics' ? (
               <Menu
                 menuButton={
