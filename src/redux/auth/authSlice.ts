@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, login, refresh, logout, getUserInfo, postUserBalance, postUserPhone, patchUserPassword } from './authOperations';
 interface IUserState {
-    user: { email: string; id: number | null; balance: number | 0, phone: string | null, google: boolean | null };
+    user: { email: string; id: number | null; balance: number | 0, phone: string | null, google: boolean | string };
 }
 export interface IAuthState {
     auth: IUserState;
@@ -22,7 +22,7 @@ export interface IAuthState {
 }
 const initialState: IAuthState = {
     auth: {
-        user: { email: '', id: null, balance: 0, phone: null, google: null },
+        user: { email: '', id: null, balance: 0, phone: null, google: false },
     },
     accessToken: null,
     refreshToken: null,
@@ -106,6 +106,7 @@ export const authSlice = createSlice({
                 state.isLoggedIn = false;
                 state.startGame = false;
                 state.refreshed = false;
+                state.auth.user.google = 'false';
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
@@ -122,6 +123,7 @@ export const authSlice = createSlice({
                 state.refreshToken = payload.data.newRefreshToken;
                 state.sid = payload.data.newSid;
                 state.refreshed = true;
+
             })
             .addCase(refresh.rejected, (state, action) => {
                 state.loading = false;
@@ -139,7 +141,9 @@ export const authSlice = createSlice({
                 state.isLoggedIn = false;
                 state.startGame = false;
                 state.loading = false;
+                state.auth.user.google = 'false';
                 state.error = action.payload;
+
             })
             .addCase(getUserInfo.pending, (state) => {
                 state.loading = true;
@@ -184,7 +188,7 @@ export const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(patchUserPassword.fulfilled, (state, { payload }) => {
-                state.auth.user.google = false;
+                state.auth.user.google = 'false';
                 state.loading = false;
             })
             .addCase(patchUserPassword.rejected, (state, action) => {
