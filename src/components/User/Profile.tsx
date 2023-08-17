@@ -17,13 +17,12 @@ const Container = styled.div`
   width: 320px;
   margin: 0 auto;
   margin-top: 20px;
-
+  padding: 15px 20px;
   border-radius: 5px;
   color: white;
 
   /* outline: 10px solid tomato; */
   @media (min-width: 480px) {
-    padding: 15px 20px;
     width: 400px;
   }
   @media (min-width: 768px) {
