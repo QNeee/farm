@@ -45,7 +45,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!phoneNumber) return;
-    const phone = countryCode + phoneNumber;
+    const phone = phoneNumber;
     const objToRequest = {
       phone: parseInt(phone),
     };
@@ -63,7 +63,6 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
           onChange={handlePhoneNumberChange}
           onlyCountries={['ua']}
           masks={{ ua: '(..) ...-..-..' }}
-          areaCodes={{ ua: ['38'] }}
           localization={{ Ukraine: 'Україна' }}
           inputProps={{
             name: 'phone',

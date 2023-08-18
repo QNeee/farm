@@ -26,6 +26,7 @@ const Container = styled.div`
     width: 400px;
   }
   @media (min-width: 768px) {
+    padding: 25px 20px 30px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     background-color: rgba(0, 0, 0, 0.5);
   }
