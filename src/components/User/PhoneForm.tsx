@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import { postUserPhone } from '../../redux/auth/authOperations';
 import { AppDispatch } from '../../redux/store';
 import { Button } from '../Appbar/AppBar.styled';
@@ -21,13 +22,13 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
   const [countryCode, setCountryCode] = useState(initialCountryCode);
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
   const dispatch: AppDispatch = useDispatch();
-  const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCountryCode(e.target.value);
+
+  const handleCountryCodeChange = (value: string) => {
+    setCountryCode(value);
   };
 
-  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPhoneNumber = e.target.value;
-    setPhoneNumber(newPhoneNumber);
+  const handlePhoneNumberChange = (value: string) => {
+    setPhoneNumber(value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,15 +46,20 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div style={{ display: 'flex', marginBottom: 10 }}>
-        <select value={countryCode} onChange={handleCountryCodeChange}>
-          <option value="+380">+380 (UA)</option>
-        </select>
-        <input
-          style={{ width: '100%' }}
-          type="text"
+        <PhoneInput
+          country={'ua'}
           value={phoneNumber}
           onChange={handlePhoneNumberChange}
-          placeholder="Phone Number"
+          onlyCountries={['ua']}
+          masks={{ ua: '(...) ...-..-..' }}
+          areaCodes={{ ua: ['380'] }}
+          localization={{ Ukraine: 'Україна' }}
+          inputProps={{
+            name: 'phone',
+            required: true,
+            autoFocus: false,
+            style: { width: '100%' },
+          }}
         />
       </div>
       <Button style={{ width: '100%' }} type="submit">

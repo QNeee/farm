@@ -4,7 +4,7 @@ import { NavLinkStyled } from '../Header/Header.styled';
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Montserrat';
   padding: 0 0 30px;
   background-color: rgba(0, 0, 0, 0.7);
