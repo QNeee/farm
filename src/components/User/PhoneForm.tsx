@@ -84,7 +84,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
           onClick={() => changeFunc(false)}
           type="button"
         >
-          назад
+          Назад
         </Button>
       )}
     </form>

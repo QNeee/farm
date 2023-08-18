@@ -105,9 +105,13 @@ const Profile = () => {
             />
           ) : (
             <>
-              {userPhone}{' '}
-              <Button onClick={() => setChange(true)} type="button">
-                змінити{' '}
+              {userPhone}
+              <Button
+                style={{ width: '100%', marginTop: 10 }}
+                onClick={() => setChange(true)}
+                type="button"
+              >
+                Змінити
               </Button>
             </>
           )}
