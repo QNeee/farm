@@ -9,19 +9,19 @@ import { AppDispatch } from '../../redux/store';
 import { Button } from '../Appbar/AppBar.styled';
 
 interface PhoneFormProps {
-  initialCountryCode: string;
+  // initialCountryCode: string;
   initialPhoneNumber: string;
   change: boolean;
   changeFunc: Function;
 }
 
 const PhoneForm: React.FC<PhoneFormProps> = ({
-  initialCountryCode,
+  // initialCountryCode,
   initialPhoneNumber,
   change,
   changeFunc,
 }) => {
-  const [countryCode, setCountryCode] = useState(initialCountryCode);
+  // const [countryCode, setCountryCode] = useState(initialCountryCode);
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
   const dispatch: AppDispatch = useDispatch();
 
