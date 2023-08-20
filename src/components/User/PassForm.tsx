@@ -24,20 +24,12 @@ interface Values {
 const PassForm = () => {
   const google = useSelector(getGoogle);
   const dispatch: AppDispatch = useDispatch();
-  const [form, setForm] = useState({ oldPass: '', newPass: '', newPass1: '' });
   const [showPassword, setShowPassword] = useState({
     oldPass: false,
     newPass: false,
     newPass1: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
 
   const initialValues: Values = {
     oldPass: '',
@@ -53,8 +45,12 @@ const PassForm = () => {
     { resetForm }: { resetForm: () => void }
   ) => {
     try {
-      const { oldPass, newPass, newPass1 } = form;
-
+      const { oldPass, newPass, newPass1 } = values;
+      const objRequest = {
+        oldPass,
+        newPass,
+        newPass1
+      }
       if (newPass !== newPass1)
         return Notify.failure(
           'новий пароль і новий пароль ще раз введені невірно'
@@ -62,14 +58,7 @@ const PassForm = () => {
       if (!google) {
         if (oldPass === '' || newPass === '' || newPass1 === '') return;
       }
-      if (newPass !== newPass1)
-        return Notify.failure(
-          'новий пароль і новий пароль ще раз введені невірно'
-        );
-
-      await dispatch(patchUserPassword(form));
-      setForm({ oldPass: '', newPass: '', newPass1: '' });
-
+      await dispatch(patchUserPassword(objRequest));
       resetForm();
     } catch (error) {
       console.error('Щось пішло не так!', error);
