@@ -110,7 +110,6 @@ export const NavLinkStyled = styled(NavLink)`
   text-transform: uppercase;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: rgba(234, 194, 62, 0.8);
-
   border-radius: 5px;
   transition: 500ms ease background-color, 500ms ease color;
 

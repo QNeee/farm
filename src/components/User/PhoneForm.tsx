@@ -56,7 +56,8 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex', marginBottom: 10 }}>
+      <h2 style={{ margin: '40px 0 20px' }}>Ваш номер Телефону</h2>
+      <div style={{ display: 'flex', margin: '8px 0 18px' }}>
         <PhoneInput
           country={'ua'}
           value={phoneNumber}
@@ -74,7 +75,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
           // onChangeCountry={handleCountryCodeChange}
         />
       </div>
-      <Button style={{ width: '100%', marginBottom: 10 }} type="submit">
+      <Button style={{ width: '100%', marginBottom: 18 }} type="submit">
         {change ? 'Змінити' : 'Встановити'}
       </Button>
       {change && (

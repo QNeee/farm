@@ -120,27 +120,11 @@ export const postUserPhone = createAsyncThunk(
     }
   }
 );
-// export const patchUserPassword = createAsyncThunk(
-//     'user/password',
-//     async (data: { oldPass: string, newPass: string, newPass1: string }, { rejectWithValue, getState, dispatch }) => {
-//         try {
-//             const state: RootState = getState() as RootState;
-//             setToken(state?.auth.accessToken as string);
-//             const result = await axios.patch('users/password', data);
-//             if (result) Notify.success('password changed');
-//             return result;
-//         } catch (error) {
-//             console.log(error);
-//             Notify.failure('wrong pasword');
-//             return rejectWithValue(error);
-//         }
-//     }
-// );
 
 export const patchUserPassword = createAsyncThunk(
   'user/password',
   async (
-    data: { oldPass: string; newPass: string; newPass1: string },
+    data: { oldPass: string; newPass: string; newPassRepeat: string },
     { rejectWithValue, getState }
   ) => {
     try {
@@ -151,11 +135,11 @@ export const patchUserPassword = createAsyncThunk(
       const response = await axios.patch('users/password', data);
       const result = response.data;
 
-      Notify.success('Password changed');
+      Notify.success('Пароль змінений');
       return result;
     } catch (error) {
       console.error(error);
-      Notify.failure('Failed to change password');
+      Notify.failure('Не вдалося змінити пароль');
       return rejectWithValue(error);
     }
   }
