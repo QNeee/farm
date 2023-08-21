@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'lottie-react';
 import { useMediaQuery } from 'react-responsive';
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
-import { GiBandit, GiRollingDices } from 'react-icons/gi';
+import {
+  GiBandit,
+  GiBrightExplosion,
+  GiDualityMask,
+  GiMoneyStack,
+  GiRollingDices,
+} from 'react-icons/gi';
 import {
   ControlledMenu,
   Menu,
@@ -20,6 +26,7 @@ import {
   HeaderStyled,
   NavLinkStyled,
   NavigationStyled,
+  NavStyled,
   Logo,
   Button,
   HeaderContainer,
@@ -30,6 +37,7 @@ import { AppDispatch } from '../../redux/store';
 import { getToken } from '../../redux/auth/authSelectors';
 import { logout } from '../../redux/auth/authOperations';
 import burgerAnimation from '../../utils/burger.json';
+import { ImProfile } from 'react-icons/im';
 
 const Header: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -48,7 +56,7 @@ const Header: React.FC = () => {
   const isNarrow = useMediaQuery({ maxWidth: 767 });
   const onClickMenuItem = (flag: string) => {
     navigate(flag);
-  }
+  };
   return (
     <HeaderContainer>
       <HeaderStyled>
@@ -62,9 +70,12 @@ const Header: React.FC = () => {
             <NavigationStyled>
               {token ? (
                 <>
-                  <div ref={ref} {...anchorProps}>
+                  <NavStyled ref={ref} {...anchorProps}>
+                    <GiDualityMask
+                      style={{ width: 24, height: 24, marginRight: 10 }}
+                    />
                     <AppBar />
-                  </div>
+                  </NavStyled>
                   <ControlledMenuStyle
                     arrow={true}
                     gap={14}
@@ -73,10 +84,24 @@ const Header: React.FC = () => {
                     anchorRef={ref}
                     onClose={() => toggle(false)}
                   >
-                    <MenuItem onClick={() => onClickMenuItem('user/balance')}>Баланс</MenuItem>
-                    <MenuItem onClick={() => onClickMenuItem('user/profile')}>Профиль</MenuItem>
-                    <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>Бонуси</MenuItem>
-
+                    <MenuItem onClick={() => onClickMenuItem('user/balance')}>
+                      <GiMoneyStack
+                        style={{ width: 24, height: 24, marginRight: 10 }}
+                      />
+                      Баланс
+                    </MenuItem>
+                    <MenuItem onClick={() => onClickMenuItem('user/profile')}>
+                      <GiDualityMask
+                        style={{ width: 24, height: 24, marginRight: 10 }}
+                      />
+                      Профиль
+                    </MenuItem>
+                    <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>
+                      <GiBrightExplosion
+                        style={{ width: 24, height: 24, marginRight: 10 }}
+                      />
+                      Бонуси
+                    </MenuItem>
                   </ControlledMenuStyle>
                 </>
               ) : null}
@@ -127,9 +152,10 @@ const Header: React.FC = () => {
           <>
             {token ? (
               <>
-                <div ref={ref} {...anchorProps}>
+                <NavStyled ref={ref} {...anchorProps}>
+                  <GiDualityMask style={{ marginRight: 5 }} />
                   <AppBar />
-                </div>
+                </NavStyled>
                 <ControlledMenuStyle
                   arrow={true}
                   gap={14}
@@ -138,10 +164,17 @@ const Header: React.FC = () => {
                   anchorRef={ref}
                   onClose={() => toggle(false)}
                 >
-                  <MenuItem onClick={() => onClickMenuItem('user/balance')}>Баланс</MenuItem>
-                  <MenuItem onClick={() => onClickMenuItem('user/profile')}>Профиль</MenuItem>
-                  <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>Бонуси</MenuItem>
-
+                  <MenuItem onClick={() => onClickMenuItem('user/balance')}>
+                    <GiMoneyStack style={{ marginRight: 5 }} /> Баланс
+                  </MenuItem>
+                  <MenuItem onClick={() => onClickMenuItem('user/profile')}>
+                    <GiDualityMask style={{ marginRight: 5 }} />
+                    Профиль
+                  </MenuItem>
+                  <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>
+                    <GiBrightExplosion style={{ marginRight: 5 }} />
+                    Бонуси
+                  </MenuItem>
                 </ControlledMenuStyle>
               </>
             ) : null}

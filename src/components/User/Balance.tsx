@@ -9,17 +9,24 @@ import { postUserBalance } from '../../redux/auth/authOperations';
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  color: white;
+
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
 `;
 const BalanceContainer = styled.div`
+  width: 200px;
+  height: 150px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.9);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
   padding-top: 50px;
   padding-bottom: 30px;
   /* outline: 1px solid tomato; */
@@ -48,7 +55,7 @@ const Balance = () => {
   return (
     <Container>
       <BalanceContainer>
-        Ваш Баланс
+        <h2>Ваш Баланс:</h2>
         <div>{useBalance}</div>
       </BalanceContainer>
       <Button type="button" onClick={() => setShowModal(true)}>

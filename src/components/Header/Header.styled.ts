@@ -80,6 +80,7 @@ export const Logo = styled.img`
   width: 50px;
   height: 50px;
   cursor: pointer;
+  /* margin-right: 18px; */
 `;
 
 export const NavigationStyled = styled.nav`
@@ -98,11 +99,42 @@ export const NavigationStyled = styled.nav`
   }
 `;
 
+export const NavStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(234, 194, 62, 0.8);
+  border-radius: 5px;
+  transition: 500ms ease background-color, 500ms ease color;
+
+  &:hover {
+    color: white;
+    background-color: rgba(219, 26, 17, 0.8);
+  }
+  &.active {
+    color: white;
+    background-color: rgba(13, 110, 43, 0.8);
+  }
+
+  @media (min-width: 480px) {
+    font-size: 14px;
+  }
+`;
+
 export const NavLinkStyled = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px 15px;
+  height: 40px;
+  padding: 0 10px;
   font-size: 12px;
   font-weight: 600;
   color: #333;
@@ -126,7 +158,7 @@ export const NavLinkStyled = styled(NavLink)`
     font-size: 14px;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 768) {
     font-size: 16px;
   }
 `;
