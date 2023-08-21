@@ -29,6 +29,7 @@ export interface ISlotDemo {
   id: string,
   balance?: number,
 }
+
 export interface ICubicStartGame {
   start: boolean,
   id?: string

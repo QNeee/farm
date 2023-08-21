@@ -9,6 +9,8 @@ export interface ICubicState {
     other: string[] | null;
     cubicsResult: IResultCubicsSchool[] | null,
     resultNumber: number | null,
+    endGame: boolean;
+    endGameResult: string;
     startGame: boolean;
     cubicResultRenderUserSchool: [] | null;
     cubicResultRenderPcSchool: [] | null;
@@ -21,6 +23,8 @@ export interface ICubicState {
 const initialState: ICubicState = {
     cubicsResult: null,
     school: [],
+    endGame: false,
+    endGameResult: '',
     rolls: null,
     other: [],
     cubics: null,
@@ -93,6 +97,8 @@ export const cubicSlice = createSlice({
                 state.cubicResultRenderPcSchool = null;
                 state.cubicResultRenderUserOther = null;
                 state.cubicResultRenderPcOther = null;
+                state.endGame = false;
+                state.endGameResult = '';
             })
             .addCase(deleteThrowGame.rejected, (state, action) => {
                 state.loading = false;
@@ -177,9 +183,12 @@ export const cubicSlice = createSlice({
                 state.cubicResultRenderUserSchool = payload.data.resultCombinationUserSchool;
                 state.cubicsResult = null;
                 state.cubicResultRenderPcSchool = payload.data.resultCombinationPcSchool;
+                state.cubicResultRenderPcOther = payload.data.resultCombinationPcOther;
                 state.cubics = null;
                 state.cubicInStash = [];
                 state.rolls = payload.data.rolls;
+                state.endGame = payload.data.endGame;
+                state.endGameResult = payload.data.endGameResult;
             })
             .addCase(postCubicResultSchool.rejected, (state, action) => {
                 state.loading = false;
@@ -193,9 +202,12 @@ export const cubicSlice = createSlice({
                 state.cubicResultRenderUserOther = payload.data.resultCombinationUserOther;
                 state.cubicsResult = null;
                 state.cubicResultRenderPcOther = payload.data.resultCombinationPcOther;
+                state.cubicResultRenderPcSchool = payload.data.resultCombinationPcSchool;
                 state.cubics = null;
                 state.cubicInStash = [];
                 state.rolls = payload.data.rolls;
+                state.endGame = payload.data.endGame;
+                state.endGameResult = payload.data.endGameResult;
             })
             .addCase(postCubicResultOther.rejected, (state, action) => {
                 state.loading = false;
@@ -209,9 +221,12 @@ export const cubicSlice = createSlice({
                 state.cubicResultRenderUserOther = payload.data.resultCombinationUserOther;
                 state.cubicsResult = null;
                 state.cubicResultRenderPcSchool = payload.data.resultCombinationPcSchool;
+                state.cubicResultRenderPcOther = payload.data.resultCombinationPcOther;
                 state.cubics = null;
                 state.cubicInStash = [];
                 state.rolls = payload.data.rolls;
+                state.endGame = payload.data.endGame;
+                state.endGameResult = payload.data.endGameResult;
             })
             .addCase(postCubicResultCherk.rejected, (state, action) => {
                 state.loading = false;

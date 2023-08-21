@@ -6,6 +6,8 @@ import { getRefreshed } from "../../redux/auth/authSelectors";
 import { getCubicsStart } from "../../redux/cubics/cubicsOperations";
 import { useLocation } from "react-router";
 import { nanoid } from "@reduxjs/toolkit";
+import { getCubicsEndGame } from "../../redux/cubics/cubicsSelectors";
+import CubicsWinner from "../Modal/CubicsWinner";
 
 
 const CubicsApp = () => {
@@ -14,6 +16,7 @@ const CubicsApp = () => {
     const refreshed = useSelector(getRefreshed);
     const { pathname } = useLocation();
     const namePath = pathname.split('/')[1];
+    const endGame = useSelector(getCubicsEndGame);
     useEffect(() => {
         if (refreshed || namePath === 'demoCubics')
             if (namePath === 'demoCubics') {
@@ -26,7 +29,7 @@ const CubicsApp = () => {
                 dispatch(getCubicsStart(''));
             }
     }, [dispatch, refreshed, namePath])
-    return <div><GameField /></div>
+    return <div>{!endGame ? <GameField /> : <CubicsWinner />}</div>
 }
 
 export default CubicsApp;

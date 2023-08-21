@@ -20,6 +20,7 @@ const cubicsPersistConfig = {
   key: 'cubic',
   storage,
   whitelist: [
+    'endGame',
     'startGame',
     'cubics',
     'rolls',
