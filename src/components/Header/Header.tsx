@@ -32,6 +32,7 @@ import {
   HeaderContainer,
   ButtonBurgerStyle,
   ControlledMenuStyle,
+  NewNavStyled,
 } from './Header.styled';
 import { AppDispatch } from '../../redux/store';
 import { getToken } from '../../redux/auth/authSelectors';
@@ -70,12 +71,12 @@ const Header: React.FC = () => {
             <NavigationStyled>
               {token ? (
                 <>
-                  <NavStyled ref={ref} {...anchorProps}>
+                  <NewNavStyled path={namePath} ref={ref} {...anchorProps}>
                     <GiDualityMask
                       style={{ width: 24, height: 24, marginRight: 10 }}
                     />
                     <AppBar />
-                  </NavStyled>
+                  </NewNavStyled>
                   <ControlledMenuStyle
                     arrow={true}
                     gap={14}
@@ -152,10 +153,10 @@ const Header: React.FC = () => {
           <>
             {token ? (
               <>
-                <NavStyled ref={ref} {...anchorProps}>
+                <NewNavStyled path={namePath} ref={ref} {...anchorProps}>
                   <GiDualityMask style={{ marginRight: 5 }} />
                   <AppBar />
-                </NavStyled>
+                </NewNavStyled>
                 <ControlledMenuStyle
                   arrow={true}
                   gap={14}
