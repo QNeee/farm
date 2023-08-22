@@ -80,7 +80,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
       </Button>
       {change && (
         <Button
-          style={{ width: '100%' }}
+          style={{ width: '100%', marginBottom: 18 }}
           onClick={() => changeFunc(false)}
           type="button"
         >

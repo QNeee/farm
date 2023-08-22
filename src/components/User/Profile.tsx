@@ -167,9 +167,13 @@ const Profile = () => {
             </div>
           </div>
         </Li>
+
+        <PhoneChange />
+
+        <Li>
+          <PassForm />
+        </Li>
       </ul>
-      <PhoneChange />
-      <PassForm />
     </Container>
   );
 };

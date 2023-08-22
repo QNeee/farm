@@ -16,7 +16,7 @@ const Container = styled.div`
   align-items: center;
 `;
 const BalanceContainer = styled.div`
-  width: 200px;
+  width: 300px;
   height: 150px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -28,7 +28,7 @@ const BalanceContainer = styled.div`
   align-items: center;
   gap: 30px;
   padding-top: 50px;
-  padding-bottom: 30px;
+  padding-bottom: 50px;
   /* outline: 1px solid tomato; */
   margin-top: 30px;
   margin-bottom: 100px;

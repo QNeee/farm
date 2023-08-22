@@ -26,9 +26,6 @@ export const ControlledMenuStyle = styled(ControlledMenu)`
     min-width: 50px;
   }
 
-  ${menuSelector.name}:focus,${menuItemSelector.name}:focus {
-    outline: none;
-  }
   ${menuItemSelector.name} {
     cursor: pointer;
     border-radius: 5px;
@@ -41,6 +38,14 @@ export const ControlledMenuStyle = styled(ControlledMenu)`
   ${menuItemSelector.hover} {
     color: #fff;
     background-color: rgba(219, 26, 17, 0.8);
+  }
+
+  /* ${menuItemSelector.name}.active {
+    color: #fff;
+    background-color: green;
+  } */
+  ${menuSelector.name}:focus,${menuItemSelector.name}:focus {
+    outline: none;
   }
 `;
 
