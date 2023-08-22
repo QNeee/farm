@@ -3,7 +3,7 @@ import { getUserPhone } from '../../redux/auth/authSelectors';
 import { Button } from '../Appbar/AppBar.styled';
 import { useState } from 'react';
 import PhoneForm from './PhoneForm';
-import { MdAccessibilityNew } from 'react-icons/md';
+import { GiSmartphone } from 'react-icons/gi';
 
 const PhoneChange = () => {
   const userPhone = useSelector(getUserPhone);
@@ -32,7 +32,7 @@ const PhoneChange = () => {
               borderRadius: 5,
             }}
           >
-            <MdAccessibilityNew
+            <GiSmartphone
               style={{
                 position: 'absolute',
                 top: '50%',
