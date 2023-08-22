@@ -6,7 +6,6 @@ import PassForm from './PassForm';
 import PhoneChange from './PhoneChange';
 import {
   MdAccessibilityNew,
-  MdLockOutline,
   MdOutlineMailOutline,
   MdOutlinePersonPin,
 } from 'react-icons/md';
@@ -40,6 +39,10 @@ const Profile = () => {
   const userEmail = useSelector(getUserEmail);
   const userNickName = userEmail?.split('@')[0];
 
+  const handleCopyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <Container>
       <h2 style={{ marginBottom: 20, textAlign: 'center' }}>Ваш профіль</h2>
@@ -59,6 +62,9 @@ const Profile = () => {
             }}
           >
             <MdOutlinePersonPin
+              onClick={() =>
+                userId !== null && handleCopyToClipboard(userId.toString())
+              }
               style={{
                 position: 'absolute',
                 top: '50%',
@@ -67,6 +73,7 @@ const Profile = () => {
                 color: 'rgba(0,0,0,0.75)',
                 width: 18,
                 height: 18,
+                cursor: 'pointer',
               }}
             />
             <div
@@ -100,6 +107,10 @@ const Profile = () => {
             }}
           >
             <MdOutlineMailOutline
+              onClick={() =>
+                userEmail !== null &&
+                handleCopyToClipboard(userEmail.toString())
+              }
               style={{
                 position: 'absolute',
                 top: '50%',
@@ -108,6 +119,7 @@ const Profile = () => {
                 color: 'rgba(0,0,0,0.75)',
                 width: 18,
                 height: 18,
+                cursor: 'pointer',
               }}
             />
             <div
@@ -141,6 +153,10 @@ const Profile = () => {
             }}
           >
             <MdAccessibilityNew
+              onClick={() =>
+                userNickName !== null &&
+                handleCopyToClipboard(userNickName.toString())
+              }
               style={{
                 position: 'absolute',
                 top: '50%',
@@ -149,6 +165,7 @@ const Profile = () => {
                 color: 'rgba(0,0,0,0.75)',
                 width: 18,
                 height: 18,
+                cursor: 'pointer',
               }}
             />
             <div

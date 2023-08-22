@@ -9,6 +9,10 @@ const PhoneChange = () => {
   const userPhone = useSelector(getUserPhone);
   const [change, setChange] = useState(false);
 
+  const handleCopyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <>
       {!userPhone || change ? (
@@ -33,6 +37,10 @@ const PhoneChange = () => {
             }}
           >
             <GiSmartphone
+              onClick={() =>
+                userPhone !== null &&
+                handleCopyToClipboard(userPhone.toString())
+              }
               style={{
                 position: 'absolute',
                 top: '50%',
@@ -41,6 +49,7 @@ const PhoneChange = () => {
                 color: 'rgba(0,0,0,0.75)',
                 width: 18,
                 height: 18,
+                cursor: 'pointer',
               }}
             />
             <div
