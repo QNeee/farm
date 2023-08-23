@@ -83,7 +83,7 @@ const Header: React.FC = () => {
                     />
                     <AppBar />
                   </NewNavStyled>
-                  <ControlledMenuStyle
+                  {/* <ControlledMenuStyle
                     arrow={true}
                     gap={14}
                     {...hoverProps}
@@ -109,7 +109,7 @@ const Header: React.FC = () => {
                       />
                       {language === 'en' ? 'Bonuses' : language === 'ru' ? 'Бонусы' : 'Бонуси'}
                     </MenuItem>
-                  </ControlledMenuStyle>
+                  </ControlledMenuStyle> */}
                 </>
               ) : null}
             </NavigationStyled>
@@ -165,7 +165,7 @@ const Header: React.FC = () => {
                   <GiDualityMask style={{ marginRight: 5 }} />
                   <AppBar />
                 </NewNavStyled>
-                <ControlledMenuStyle
+                {/* <ControlledMenuStyle
                   arrow={true}
                   gap={14}
                   {...hoverProps}
@@ -188,7 +188,7 @@ const Header: React.FC = () => {
                     {language === 'en' ? 'Bonuses' : language === 'ru' ? 'Бонусы' : 'Бонуси'}
 
                   </MenuItem>
-                </ControlledMenuStyle>
+                </ControlledMenuStyle> */}
               </>
             ) : null}
             {token || namePath === 'demoSlots' || namePath === 'demoCubics' ? (
