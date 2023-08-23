@@ -103,7 +103,30 @@ export const NavigationStyled = styled.nav`
   @media (min-width: 1280px) {
   }
 `;
+export const NewNavStyled = styled.div<{ path?: string }>`
+display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color:${({ path }) => path === 'user' ? 'white' : '#333'};
+  background-color:${({ path }) => path === 'user' ? 'rgba(13, 110, 43, 0.8)' : 'rgba(234, 194, 62, 0.8)'};
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  transition: 500ms ease background-color, 500ms ease color;
 
+  &:hover {
+    color: white;
+    background-color: rgba(219, 26, 17, 0.8);
+  }
+  @media (min-width: 480px) {
+    font-size: 14px;
+  }
+`;
 export const NavStyled = styled.div`
   display: flex;
   justify-content: center;
