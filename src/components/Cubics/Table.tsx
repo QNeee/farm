@@ -5,7 +5,7 @@ import { AppDispatch } from '../../redux/store';
 import ResultRenderSchool from './ResultRenderSchool';
 import ResultRenderOther from './ResultRenderOther';
 import { getRefreshed } from '../../redux/auth/authSelectors';
-import { getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool, getStartGame } from '../../redux/cubics/cubicsSelectors';
+import {  getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool, getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
 

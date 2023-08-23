@@ -12,3 +12,5 @@ export const getCubicsResultRenderUserSchool = (state: RootState) => state.cubic
 export const getCubicsResultRenderPcSchool = (state: RootState) => state.cubic.cubicResultRenderPcSchool;
 export const getCubicsResultRenderUserOther = (state: RootState) => state.cubic.cubicResultRenderUserOther;
 export const getCubicsResultRenderPcOther = (state: RootState) => state.cubic.cubicResultRenderPcOther;
+export const getCubicsEndGame = (state: RootState) => state.cubic.endGame;
+export const getCubicsEndGameResult = (state: RootState) => state.cubic.endGameResult;
