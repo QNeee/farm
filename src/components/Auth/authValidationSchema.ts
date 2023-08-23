@@ -22,4 +22,18 @@ export const loginValidationSchema = Yup.object({
     .min(6, 'Пароль повинен містити принаймні 6 символів'),
 });
 
+export const passChangeValidationSchema = Yup.object().shape({
+  oldPass: Yup.string().required('Введіть ваш старий пароль'),
+  newPass: Yup.string()
+    .required('Введіть ваш новий пароль')
+    .min(6, 'Мінімум 6 символів')
+    .max(20, 'Не довше 20 символів')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+      'Мінімум 1 цифра, 1 маленька і 1 велика літера'
+    ),
+  newPassRepeat: Yup.string()
+    .oneOf([Yup.ref('newPass'), undefined], 'Паролі не співпадають')
+    .required('Підтвердіть ваш новий пароль'),
+});
 export const registrationValidationSchema = commonValidationSchema;

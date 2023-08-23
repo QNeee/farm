@@ -211,7 +211,7 @@ export const HeaderStyled = styled.div`
   padding: 20px;
   color: #fff;
   background-color: #333;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Montserrat Variable';
   /* font-size: 10px; */
 
   /* @media (min-width: 480px) {

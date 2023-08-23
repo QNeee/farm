@@ -38,7 +38,7 @@ const strokeAnimation = keyframes`
 `;
 
 export const StyledSvg = styled.svg`
-  font-family: "Sono", sans-serif;
+  font-family: 'Montserrat Variable', sans-serif;
   width: 100%;
   height: 80px;
 `;
@@ -46,6 +46,6 @@ export const StyledSvg = styled.svg`
 export const StyledText = styled.text`
   animation: ${strokeAnimation} 2s infinite alternate;
   stroke-width: 5;
-  stroke: #A01235;
+  stroke: #a01235;
   font-size: 4.6em;
 `;

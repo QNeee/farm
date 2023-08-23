@@ -1,65 +1,99 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
 import { postUserPhone } from '../../redux/auth/authOperations';
 import { AppDispatch } from '../../redux/store';
 import { Button } from '../Appbar/AppBar.styled';
 
 interface PhoneFormProps {
-    initialCountryCode: string;
-    initialPhoneNumber: string;
-    change: boolean,
-    changeFunc: Function
+  // initialCountryCode: string;
+  initialPhoneNumber: string;
+  change: boolean;
+  changeFunc: Function;
 }
 
 const PhoneForm: React.FC<PhoneFormProps> = ({
-    initialCountryCode,
-    initialPhoneNumber,
-    change,
-    changeFunc
+  // initialCountryCode,
+  initialPhoneNumber,
+  change,
+  changeFunc,
 }) => {
-    const [countryCode, setCountryCode] = useState(initialCountryCode);
-    const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
-    const dispatch: AppDispatch = useDispatch();
-    const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCountryCode(e.target.value);
-    };
+  // const [countryCode, setCountryCode] = useState(initialCountryCode);
+  const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
+  const dispatch: AppDispatch = useDispatch();
 
-    const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newPhoneNumber = e.target.value;
-        setPhoneNumber(newPhoneNumber);
-    };
+  // const handleCountryCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setCountryCode(e.target.value);
+  // };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!phoneNumber) return;
-        const phone = countryCode + phoneNumber;
-        const objToRequest = {
-            phone: parseInt(phone)
-        }
-        await dispatch(postUserPhone(objToRequest));
-        changeFunc(false);
-        setPhoneNumber(initialPhoneNumber);
-    };
+  // const handleCountryCodeChange = (value: string) => {
+  //   setCountryCode(value);
+  // };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <select value={countryCode} onChange={handleCountryCodeChange}>
-                    <option value="+380">+380 (UA)</option>
-                </select>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    value={phoneNumber}
-                    onChange={handlePhoneNumberChange}
-                    placeholder="Phone Number"
-                />
-            </div>
-            <Button type="submit">{change ? 'Змінити' : 'Встановити'}</Button>
-            {change && <Button onClick={() => changeFunc(false)} type="button">назад</Button>}
-        </form>
-    );
+  const handlePhoneNumberChange = (value: string) => {
+    setPhoneNumber(value);
+  };
+
+  // const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newPhoneNumber = e.target.value;
+  //   setPhoneNumber(newPhoneNumber);
+  // };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!phoneNumber) return;
+    const phone = phoneNumber;
+    const objToRequest = {
+      phone: parseInt(phone),
+    };
+    await dispatch(postUserPhone(objToRequest));
+    changeFunc(false);
+    setPhoneNumber(initialPhoneNumber);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2 style={{ margin: '40px 0 20px' }}>Ваш номер Телефону</h2>
+      <div style={{ display: 'flex', margin: '8px 0 18px' }}>
+        <PhoneInput
+          country={'ua'}
+          value={phoneNumber}
+          onChange={handlePhoneNumberChange}
+          onlyCountries={['ua']}
+          masks={{ ua: '(..) ...-..-..' }}
+          localization={{ Ukraine: 'Україна' }}
+          inputProps={{
+            name: 'phone',
+            required: true,
+            autoFocus: false,
+            style: {
+              width: '100%',
+              padding: '20px 0 20px 45px',
+              fontSize: 16,
+              fontFamily: 'Roboto Mono Variable',
+            },
+          }}
+          // countryCodeEditable={false}
+          // onChangeCountry={handleCountryCodeChange}
+        />
+      </div>
+      <Button style={{ width: '100%', marginBottom: 18 }} type="submit">
+        {change ? 'Змінити' : 'Встановити'}
+      </Button>
+      {change && (
+        <Button
+          style={{ width: '100%', marginBottom: 18 }}
+          onClick={() => changeFunc(false)}
+          type="button"
+        >
+          Назад
+        </Button>
+      )}
+    </form>
+  );
 };
 
 export default PhoneForm;
