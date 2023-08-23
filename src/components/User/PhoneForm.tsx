@@ -69,7 +69,12 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
             name: 'phone',
             required: true,
             autoFocus: false,
-            style: { width: '100%' },
+            style: {
+              width: '100%',
+              padding: '20px 0 20px 45px',
+              fontSize: 16,
+              fontFamily: 'Roboto Mono Variable',
+            },
           }}
           // countryCodeEditable={false}
           // onChangeCountry={handleCountryCodeChange}

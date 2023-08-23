@@ -1,192 +1,130 @@
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { getUserEmail, getUserId } from '../../redux/auth/authSelectors';
 
 import PassForm from './PassForm';
 import PhoneChange from './PhoneChange';
+
+import { useState } from 'react';
 import {
-  MdAccessibilityNew,
-  MdOutlineMailOutline,
-  MdOutlinePersonPin,
-} from 'react-icons/md';
-
-const Container = styled.div`
-  width: 320px;
-  margin: 0 auto;
-  margin-top: 20px;
-  padding: 15px 20px;
-  border-radius: 5px;
-  color: white;
-
-  @media (min-width: 480px) {
-    width: 400px;
-  }
-  @media (min-width: 768px) {
-    padding: 25px 20px 30px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-`;
-
-const Li = styled.li`
-  &:not(:last-child) {
-    margin-bottom: 15px;
-  }
-`;
+  Box,
+  BoxIcon,
+  BoxInput,
+  Container,
+  CopiedText,
+  IconEmail,
+  IconId,
+  IconName,
+  Li,
+  Subtitle,
+  Title,
+} from './Profile.styled';
 
 const Profile = () => {
   const userId = useSelector(getUserId);
   const userEmail = useSelector(getUserEmail);
   const userNickName = userEmail?.split('@')[0];
+  const [copiedId, setCopiedId] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedName, setCopiedName] = useState(false);
 
-  const handleCopyToClipboard = (text: string) => {
+  const handleCopyToClipboard = (text: string, iconName: string) => {
     navigator.clipboard.writeText(text);
+
+    if (iconName === 'id') {
+      setCopiedId(true);
+      setTimeout(() => {
+        setCopiedId(false);
+      }, 2000);
+    } else if (iconName === 'email') {
+      setCopiedEmail(true);
+      setTimeout(() => {
+        setCopiedEmail(false);
+      }, 2000);
+    } else if (iconName === 'name') {
+      setCopiedName(true);
+      setTimeout(() => {
+        setCopiedName(false);
+      }, 2000);
+    }
   };
 
   return (
     <Container>
-      <h2 style={{ marginBottom: 20, textAlign: 'center' }}>Ваш профіль</h2>
+      <Title>Ваш профіль</Title>
       <ul>
         <Li>
-          <p style={{ fontWeight: 500, marginBottom: 8 }}>Ваш ID</p>
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              paddingLeft: '45px',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              borderRadius: 5,
-            }}
-          >
-            <MdOutlinePersonPin
+          <Subtitle>Ваш ID</Subtitle>
+          <Box>
+            <BoxIcon
               onClick={() =>
-                userId !== null && handleCopyToClipboard(userId.toString())
+                userId !== null &&
+                handleCopyToClipboard(userId.toString(), 'id')
               }
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: 14,
-                transform: 'translateY(-50%)',
-                color: 'rgba(0,0,0,0.75)',
-                width: 18,
-                height: 18,
-                cursor: 'pointer',
-              }}
-            />
-            <div
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '0 5px 5px 0',
-                outline: 'none',
-                border: 'none',
-                borderLeft: '1px solid rgba(0,0,0,0.35)',
-                backgroundColor: 'white',
-                color: 'black',
-              }}
             >
-              {userId}
-            </div>
-          </div>
+              <IconId />
+            </BoxIcon>
+            <BoxInput>
+              {copiedId ? (
+                <CopiedText>
+                  Copied
+                  <span> &#x2713;</span>
+                </CopiedText>
+              ) : (
+                userId
+              )}
+            </BoxInput>
+          </Box>
         </Li>
         <Li>
-          <p style={{ fontWeight: 500, marginBottom: 8 }}>Ваш Email</p>
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              paddingLeft: '45px',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              borderRadius: 5,
-            }}
-          >
-            <MdOutlineMailOutline
+          <Subtitle>Ваш Email</Subtitle>
+          <Box>
+            <BoxIcon
               onClick={() =>
                 userEmail !== null &&
-                handleCopyToClipboard(userEmail.toString())
+                handleCopyToClipboard(userEmail.toString(), 'email')
               }
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: 14,
-                transform: 'translateY(-50%)',
-                color: 'rgba(0,0,0,0.75)',
-                width: 18,
-                height: 18,
-                cursor: 'pointer',
-              }}
-            />
-            <div
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '0 5px 5px 0',
-                outline: 'none',
-                border: 'none',
-                borderLeft: '1px solid rgba(0,0,0,0.35)',
-                backgroundColor: 'white',
-                color: 'black',
-              }}
             >
-              {userEmail}
-            </div>
-          </div>
+              <IconEmail />
+            </BoxIcon>
+            <BoxInput>
+              {copiedEmail ? (
+                <CopiedText>
+                  Copied
+                  <span> &#x2713;</span>
+                </CopiedText>
+              ) : (
+                userEmail
+              )}
+            </BoxInput>
+          </Box>
         </Li>
         <Li>
-          <p style={{ fontWeight: 500, marginBottom: 8 }}>Ваше Ім'я на сайті</p>
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              paddingLeft: '45px',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              borderRadius: 5,
-            }}
-          >
-            <MdAccessibilityNew
+          <Subtitle>Ваше Ім'я на сайті</Subtitle>
+          <Box>
+            <BoxIcon
               onClick={() =>
                 userNickName !== null &&
-                handleCopyToClipboard(userNickName.toString())
+                handleCopyToClipboard(userNickName.toString(), 'name')
               }
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: 14,
-                transform: 'translateY(-50%)',
-                color: 'rgba(0,0,0,0.75)',
-                width: 18,
-                height: 18,
-                cursor: 'pointer',
-              }}
-            />
-            <div
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '0 5px 5px 0',
-                outline: 'none',
-                border: 'none',
-                borderLeft: '1px solid rgba(0,0,0,0.35)',
-                backgroundColor: 'white',
-                color: 'black',
-              }}
             >
-              {userNickName}
-            </div>
-          </div>
+              <IconName />
+            </BoxIcon>
+            <BoxInput>
+              {copiedName ? (
+                <CopiedText>
+                  Copied
+                  <span> &#x2713;</span>
+                </CopiedText>
+              ) : (
+                userNickName
+              )}
+            </BoxInput>
+          </Box>
         </Li>
 
-        <PhoneChange />
-
+        <Li>
+          <PhoneChange />
+        </Li>
         <Li>
           <PassForm />
         </Li>
