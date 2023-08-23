@@ -172,7 +172,8 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px 15px;
+  height: 40px;
+  padding: 0 10px;
   font-size: 12px;
   font-weight: 600;
   color: #333;
