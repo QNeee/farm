@@ -37,7 +37,7 @@ import {
   getUserBet,
   getUserResult,
 } from '../../redux/slots/slotsSelectors';
-import { getRefreshed, getToken, getUpdateBalance, getUserBalance } from '../../redux/auth/authSelectors';
+import { getLanguage, getRefreshed, getToken, getUpdateBalance, getUserBalance } from '../../redux/auth/authSelectors';
 import {
   getSlotsById,
   postBetSlot,
@@ -49,6 +49,7 @@ import { updateBalance } from '../../redux/auth/authSlice';
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();
+  const language = useSelector(getLanguage);
   const localItem = 'demoSlots';
   const localBalance = 'demoBalance';
   const slotImg = useSelector(getSlotImg);
@@ -404,7 +405,6 @@ export const SlotApp = () => {
           <Lamp>
             {isOpen && (
               <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <h1>HELLO WORLD!</h1>
               </TextModal>
             )}
             <FcIdea
@@ -414,16 +414,19 @@ export const SlotApp = () => {
             />
           </Lamp>
           <Balance>
-            Balance: {renderBalance}
+            {language === 'en' ? 'Balance' : language === 'ru' ? 'Баланс' : 'Баланс'}: {renderBalance}
             {expense ? (
               <Span primary={!resultRender ? true : false}>
                 {result > 0 && resultRender ? `+(${result})` : `-(${token ? bet * lines : (demoLines || 1) * (demoBet || 1)})`}
               </Span>
             ) : null}
           </Balance>
-          <LineCount>Lines:{token ? lines : demoLines || 1}</LineCount>
-          <LineCount>Bet:{token ? bet : demoBet || 1}</LineCount>
-          <LineCount>TotalBet:{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}</LineCount>
+          <LineCount>{language === 'en' ? 'Lines' : language === 'ru' ? 'Линии' : 'Лінії'}
+            :{token ? lines : demoLines || 1}</LineCount>
+          <LineCount>{language === 'en' ? 'Bet' : language === 'ru' ? 'Ставка' : 'Ставка'}
+            :{token ? bet : demoBet || 1}</LineCount>
+          <LineCount>{language === 'en' ? 'Total bet' : language === 'ru' ? 'Общая ставка' : 'Загальна ставка'}
+            :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}</LineCount>
         </HeaderStyled>
         <Container>
           {result > 0 && resultRender && <NumberModal number={result} />}
@@ -439,7 +442,7 @@ export const SlotApp = () => {
                 primary={false}
                 disabled={auto}
               >
-                Bet
+                {language === 'en' ? 'Bet' : language === 'ru' ? 'Ставка' : 'Ставка'}
               </SpinButton>
             )}
 
@@ -449,7 +452,7 @@ export const SlotApp = () => {
                 onClick={() => startAnimation()}
                 disabled={auto}
               >
-                {!auto ? 'Spin' : count}
+                {!auto ? language === 'en' ? 'Spin' : language === 'ru' ? 'Крутить' : 'Крутити' : count}
               </SpinButton>
             )}
             {!showModal && !autoModal && (
@@ -459,7 +462,9 @@ export const SlotApp = () => {
                   !auto ? onClickLines('autoModal') : stopAnimation()
                 }
               >
-                {!auto ? 'Auto' : 'Stop'}
+                {!auto ? language === 'en' ? 'Auto' : language === 'ru' ? 'Авто' : 'Авто'
+                  : language === 'en' ? 'Stop' : language === 'ru' ? 'Стоп' : 'Стоп'
+                }
               </SpinButton>
             )}
             {!showModal && !autoModal && (
@@ -468,7 +473,7 @@ export const SlotApp = () => {
                 primary={false}
                 disabled={auto}
               >
-                Lines
+                {language === 'en' ? 'Lines' : language === 'ru' ? 'Линии' : 'Лінії'}
               </SpinButton>
             )}
             {showModal && (
@@ -489,12 +494,12 @@ export const SlotApp = () => {
             )}
             {showModal && (
               <SpinButton onClick={onClickBack} primary={false}>
-                back
+                {language === 'en' ? 'Back' : language === 'ru' ? 'назад' : 'назад'}
               </SpinButton>
             )}
             {autoModal && (
               <SpinButton onClick={onClickBack} primary={false}>
-                back
+                {language === 'en' ? 'Back' : language === 'ru' ? 'назад' : 'назад'}
               </SpinButton>
             )}
             {autoModal && (

@@ -13,6 +13,7 @@ interface PhoneFormProps {
   initialPhoneNumber: string;
   change: boolean;
   changeFunc: Function;
+  language: string;
 }
 
 const PhoneForm: React.FC<PhoneFormProps> = ({
@@ -20,6 +21,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
   initialPhoneNumber,
   change,
   changeFunc,
+  language
 }) => {
   // const [countryCode, setCountryCode] = useState(initialCountryCode);
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
@@ -56,7 +58,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 style={{ margin: '40px 0 20px' }}>Ваш номер Телефону</h2>
+      <h2 style={{ margin: '40px 0 20px' }}>{language === 'en' ? 'Your phone number' : language === 'ru' ? 'Ваш номер телефона' : 'Ваш номер Телефону'}</h2>
       <div style={{ display: 'flex', margin: '8px 0 18px' }}>
         <PhoneInput
           country={'ua'}
@@ -76,12 +78,12 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
               fontFamily: 'Roboto Mono Variable',
             },
           }}
-          // countryCodeEditable={false}
-          // onChangeCountry={handleCountryCodeChange}
+        // countryCodeEditable={false}
+        // onChangeCountry={handleCountryCodeChange}
         />
       </div>
       <Button style={{ width: '100%', marginBottom: 18 }} type="submit">
-        {change ? 'Змінити' : 'Встановити'}
+        {change ? language === 'en' ? 'Change' : language === 'ru' ? 'Сменить' : 'Змінити' : language === 'en' ? 'Install' : language === 'ru' ? 'Установить' : 'Встановити'}
       </Button>
       {change && (
         <Button
@@ -89,7 +91,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
           onClick={() => changeFunc(false)}
           type="button"
         >
-          Назад
+          {language === 'en' ? 'Back' : language === 'ru' ? 'Назад' : 'Назад'}
         </Button>
       )}
     </form>

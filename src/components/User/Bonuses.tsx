@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getLanguage } from '../../redux/auth/authSelectors';
 
 const Container = styled.div`
   width: 100%;
@@ -28,9 +30,10 @@ const BonusesContainer = styled.div`
 `;
 
 const Bonuses = () => {
+  const language = useSelector(getLanguage);
   return (
     <Container>
-      <BonusesContainer>Бонуси не доступні</BonusesContainer>
+      <BonusesContainer>{language === 'en' ? 'No bonuses available' : language === 'ru' ? 'Бонусы не доступны' : 'Бонуси не доступні'}</BonusesContainer>
     </Container>
   );
 };

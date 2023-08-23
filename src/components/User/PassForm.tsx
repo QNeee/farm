@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getGoogle } from '../../redux/auth/authSelectors';
+import { getGoogle, getLanguage } from '../../redux/auth/authSelectors';
 import { Button } from '../Appbar/AppBar.styled';
 import { useState } from 'react';
 import { AppDispatch } from '../../redux/store';
 import { patchUserPassword } from '../../redux/auth/authOperations';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { passChangeValidationSchema } from '../Auth/authValidationSchema';
 import { ErrorMessage, Field, FieldProps, Form, Formik } from 'formik';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { Checkbox, TextField } from '@mui/material';
 import { MdLockOutline } from 'react-icons/md';
 import { Error, WrapError } from './PassForm.styled';
+import { getValidationSchema } from '../Auth/authValidationSchema';
 
 const FormProfile = styled(Form)`
   display: flex;
@@ -25,7 +25,7 @@ interface Values {
   showPassword: string;
 }
 
-const PassForm = () => {
+const PassForm = ({ language }: any) => {
   const google = useSelector(getGoogle);
   const dispatch: AppDispatch = useDispatch();
   const [showPassword, setShowPassword] = useState({
@@ -41,7 +41,7 @@ const PassForm = () => {
     showPassword: '',
   };
 
-  const validationSchema = passChangeValidationSchema;
+  const validationSchema = getValidationSchema(language, 'passChangeValidationSchema');
 
   const onSubmitForm = async (
     values: Values,
@@ -85,12 +85,13 @@ const PassForm = () => {
     >
       {({ values, handleChange, isSubmitting, touched, errors }) => (
         <FormProfile>
-          <h2 style={{ margin: '20px 0' }}>Ваш пароль</h2>
+          <h2 style={{ margin: '20px 0' }}>{language === 'en' ? 'Your password' : language === 'ru' ? 'Ваш пароль' : 'Ваш пароль'}
+          </h2>
 
           {google === 'false' && (
             <>
               <label style={{ fontWeight: 500, marginBottom: 8 }}>
-                Ваш старий пароль
+                {language === 'en' ? 'Your old password' : language === 'ru' ? 'Ваш старый пароль' : 'Ваш старий пароль'}
               </label>
               <WrapError hasError={!!(touched.oldPass && errors.oldPass)}>
                 <div
@@ -153,7 +154,8 @@ const PassForm = () => {
           )}
           <>
             <label style={{ fontWeight: 500, marginBottom: 8 }}>
-              Ваш новий пароль
+              {language === 'en' ? 'Your new password' : language === 'ru' ? 'Ваш новый пароль' : 'Ваш новий пароль'}
+
             </label>
             <WrapError hasError={!!(touched.newPass && errors.newPass)}>
               <div
@@ -216,7 +218,7 @@ const PassForm = () => {
 
           <>
             <label style={{ fontWeight: 500, marginBottom: 8 }}>
-              Ваш новий пароль ще раз
+              {language === 'en' ? 'Your new password again' : language === 'ru' ? 'Ваш новый пароль опять' : 'Ваш новий пароль знову'}
             </label>
 
             <WrapError
@@ -280,7 +282,7 @@ const PassForm = () => {
             </WrapError>
           </>
           <Button type="submit" disabled={isSubmitting}>
-            Змінити пароль
+            {language === 'en' ? 'Change password' : language === 'ru' ? 'Сменить пароль' : 'Змінити пароль'}
           </Button>
         </FormProfile>
       )}

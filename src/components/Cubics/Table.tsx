@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
 import ResultRenderSchool from './ResultRenderSchool';
 import ResultRenderOther from './ResultRenderOther';
-import { getRefreshed } from '../../redux/auth/authSelectors';
-import {  getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool, getStartGame } from '../../redux/cubics/cubicsSelectors';
+import { getLanguage, getRefreshed } from '../../redux/auth/authSelectors';
+import { getCubicsResultData, getCubicsResultRenderPcOther, getCubicsResultRenderPcSchool, getCubicsResultRenderUserOther, getCubicsResultRenderUserSchool, getOther, getSchool, getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { getCubicsResult, getCubicsTable, postCubicResultCherk, postCubicResultOther, postCubicResultSchool } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
 
@@ -28,6 +28,7 @@ const TableHeader = styled.th`
 `;
 
 const Table: React.FC = () => {
+    const language = useSelector(getLanguage);
     const cubicKey = 'cubicId'
     const startGame = useSelector(getStartGame);
     const [w8, setW8] = useState(false);
@@ -185,19 +186,98 @@ const Table: React.FC = () => {
         setW8(false);
     }
     func();
+    const translateTable = (name: string, flag: string) => {
+        let text = '';
+        switch (flag) {
+            case 'school':
+                switch (name) {
+                    case 'Одиниці':
+                        language === 'en' ? text = 'Ones' : language === 'ru' ? text = 'Единицы' : text = 'Одиниці'
+                        break;
+                    case 'Двійки':
+                        language === 'en' ? text = 'Twos' : language === 'ru' ? text = 'Двойки' : text = 'Двійки'
+
+                        break;
+                    case 'Трійки':
+                        language === 'en' ? text = 'Threes' : language === 'ru' ? text = 'Тройки' : text = 'Трійки'
+
+                        break;
+                    case 'Четвірки':
+                        language === 'en' ? text = 'Fours' : language === 'ru' ? text = 'Четверки' : text = 'Четвірки'
+
+                        break;
+                    case 'Пятірки':
+                        language === 'en' ? text = 'Fives' : language === 'ru' ? text = 'Пятьорки' : text = 'П\'ятірки'
+
+                        break;
+                    case 'Шестірки':
+                        language === 'en' ? text = 'Sixs' : language === 'ru' ? text = 'Шестерки' : text = 'Шестірки'
+
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 'other':
+                switch (name) {
+                    case 'Шляпа':
+                        language === 'en' ? text = 'Hat' : language === 'ru' ? text = 'Шляпа' : text = 'Шляпа'
+                        break;
+                    case 'Сума':
+                        language === 'en' ? text = 'Sum' : language === 'ru' ? text = 'Сума' : text = 'Сума'
+
+                        break;
+                    case 'Пара':
+                        language === 'en' ? text = 'Pairs' : language === 'ru' ? text = 'Пара' : text = 'Пара'
+
+                        break;
+                    case 'Мала':
+                        language === 'en' ? text = 'Small' : language === 'ru' ? text = 'Малая' : text = 'Мала'
+
+                        break;
+                    case 'Велика':
+                        language === 'en' ? text = 'Large' : language === 'ru' ? text = 'Большая' : text = 'Велика'
+
+                        break;
+                    case 'Трикутник':
+                        language === 'en' ? text = 'Triangle' : language === 'ru' ? text = 'Триугольник' : text = 'Трикутник'
+
+                        break;
+                    case 'Квадрат':
+                        language === 'en' ? text = 'square' : language === 'ru' ? text = 'Квадрат' : text = 'Квадрат'
+
+                        break;
+                    case 'ФХ':
+                        language === 'en' ? text = 'FH' : language === 'ru' ? text = 'ФХ' : text = 'ФХ'
+
+                        break;
+                    case 'Покер':
+                        language === 'en' ? text = 'Poker' : language === 'ru' ? text = 'Покер' : text = 'Покер'
+
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+
+                break;
+        }
+        return text;
+    }
     return (
         <TableContainer>
             <thead>
                 <tr>
-                    <TableHeader>Школа</TableHeader>
-                    <TableHeader>User</TableHeader>
-                    <TableHeader>Pc</TableHeader>
+                    <TableHeader>{language === 'en' ? 'School' : language === 'ru' ? 'Школа' : 'Школа'}</TableHeader>
+                    <TableHeader>{language === 'en' ? 'User' : language === 'ru' ? 'Игрок' : 'Гравець'}</TableHeader>
+                    <TableHeader>{language === 'en' ? 'Pc' : language === 'ru' ? 'Компьютер' : 'Компьютер'}</TableHeader>
                 </tr>
             </thead>
             <tbody>
                 {school?.map((item, index) => (
                     <TableRow key={index}>
-                        <TableCell >{item}</TableCell>
+                        <TableCell >{translateTable(item, 'school')}</TableCell>
                         <TableCell onClick={() => onClickTableSchool()} key={index + ' user'} id={index + ' user'}><ResultRenderSchool cubicsResult={cubicsResult} /></TableCell>
                         <TableCell key={index + ' pc'} id={index + ' pc'}></TableCell>
                     </TableRow>
@@ -205,13 +285,13 @@ const Table: React.FC = () => {
             </tbody>
             <thead>
                 <tr>
-                    <TableHeader>Остальне</TableHeader>
+                    <TableHeader>{language === 'en' ? 'Others' : language === 'ru' ? 'Остальное' : 'Інше'}</TableHeader>
                 </tr>
             </thead>
             <tbody>
                 {others?.map((item, index) => (
                     <TableRow key={index}>
-                        <TableCell key={index}>{item}</TableCell>
+                        <TableCell key={index}>{translateTable(item, 'other')}</TableCell>
                         <TableCell onClick={() => onClickTableOther(ids[index])} key={index + ' userOther'} id={ids[index] + ' userOther'}><ResultRenderOther cubicsResult={cubicsResult} /></TableCell>
                         <TableCell key={ids[index] + ' pcOther'} id={ids[index] + ' pcOther'}></TableCell>
                     </TableRow>

@@ -15,6 +15,7 @@ export interface IAuthState {
     slot: [];
     result: number;
     lines: number;
+    language: string;
     bet: number;
     refreshed: boolean;
     startGame: boolean;
@@ -36,6 +37,7 @@ const initialState: IAuthState = {
     result: 0,
     lines: 1,
     bet: 1,
+    language: 'en',
     startGame: false,
     refreshed: false
 };
@@ -56,6 +58,9 @@ export const authSlice = createSlice({
         updateBalance: (state, { payload }) => {
             state.updateBalance = payload;
         },
+        setLanguage: (state, { payload }) => {
+            state.language = payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -197,4 +202,4 @@ export const authSlice = createSlice({
             })
     },
 });
-export const { googleAuth, updateBalance } = authSlice.actions;
+export const { googleAuth, updateBalance, setLanguage } = authSlice.actions;

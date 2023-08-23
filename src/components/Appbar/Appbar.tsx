@@ -5,7 +5,7 @@ import Lottie from 'lottie-react';
 
 import { UserContainer, UserInfo, UserEmail } from './AppBar.styled';
 import { AppDispatch } from '../../redux/store';
-import { getRefreshed, getUserEmail } from '../../redux/auth/authSelectors';
+import { getLanguage, getRefreshed, getUserEmail } from '../../redux/auth/authSelectors';
 import { getUserInfo } from '../../redux/auth/authOperations';
 import attentionArrow from '../../utils/attention.json';
 import { useNavigate } from 'react-router';
@@ -16,7 +16,7 @@ const AppBar: React.FC = () => {
   // const userEmail = useSelector(getUserEmail);
   const refreshed = useSelector(getRefreshed);
   const navigate = useNavigate();
-
+  const language = useSelector(getLanguage);
   const handleContainerClick = () => {
     navigate('user/profile');
   };
@@ -39,7 +39,7 @@ const AppBar: React.FC = () => {
         /> */}
         {/* <UserInfo> */}
         {/* <UserEmail> */}
-        Профіль
+        {language === 'en' ? 'Profile' : language === 'ru' ? 'Профиль' : 'Профіль'}
         {/* </UserEmail> */}
         {/* </UserInfo> */}
       </UserContainer>

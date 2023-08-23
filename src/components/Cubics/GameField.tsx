@@ -8,6 +8,7 @@ import { ICubicsData } from '../../types';
 import { getCubicInStashArr, getCubics, getCubicsRolls, getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { getCubicOutStash, getCubicsReroll, getCubicsStartGame } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
+import { getLanguage } from '../../redux/auth/authSelectors';
 const GameFieldContainer = styled.div`
 position: relative;
   grid-template-columns: repeat(3, 1fr);
@@ -67,6 +68,7 @@ background-color: white;
 `;
 const GameField: React.FC = () => {
   const [w8, setW8] = useState(false);
+  const language = useSelector(getLanguage);
   const cubicKey = 'cubicId'
   const startGame = useSelector(getStartGame);
   const dispatch: AppDispatch = useDispatch();
@@ -111,6 +113,16 @@ const GameField: React.FC = () => {
     }
     setW8(false);
   }
+  const rollsNumber = () => {
+    switch (language) {
+      case 'ukr':
+        return ' залишилось'
+      case 'ru':
+        return ' осталось'
+      default:
+        return ' left'
+    }
+  }
   return (
     <MainContainer>
       <GameFieldContainer>
@@ -127,7 +139,7 @@ const GameField: React.FC = () => {
           <Square onClick={() => onClickCubic(cubicInStash && cubicInStash[4]?._id ? cubicInStash[4]?._id as string : undefined)}><img src={cubicInStash && cubicInStash[4]?.img && cubicInStash[4]?.img as string} width='40'></img></Square>
         </BottomContainer>
         <UrnContainer>
-          <P>Roll {rolls !== null && rolls >= 0 ? rolls + ' left' : null}</P>
+          <P>{language === 'en' ? 'Rolls' : language === 'ru' ? 'Крутить' : 'Розкочувати'} {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}</P>
           <UrnImage onClick={onClickStartGame} src="https://www.sab.kh.ua/wp-content/uploads/2020/06/435346456456.jpg" alt="" width='50' />
         </UrnContainer>
       </GameFieldContainer>

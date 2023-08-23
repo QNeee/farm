@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { getInstructionSlot } from '../../redux/slots/slotsOperations';
 import { getInstrCombination, getInstrLines, getInstrValues } from '../../redux/slots/slotsSelectors';
+import { getLanguage } from '../../redux/auth/authSelectors';
 
 interface ModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ interface IData {
 }
 const TextModal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
+  const language = useSelector(getLanguage);
   const dispatch: AppDispatch = useDispatch();
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
@@ -57,12 +59,16 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
             style={{ height: 32, width: 32 }}
           />
         </CloseButton>
-        <button type='button' disabled={lines} onClick={onClickLines}>Lines</button>
-        <button type='button' disabled={values} onClick={onClickValues}>Values</button>
-        <button type='button' disabled={combination} onClick={onClickCombinations}>Combination</button>
+        <button type='button' disabled={lines} onClick={onClickLines}>{language === 'en' ? 'Lines' : language === 'ru' ? 'Линии' : 'Лінії'}
+        </button>
+        <button type='button' disabled={values} onClick={onClickValues}>{language === 'en' ? 'Values' : language === 'ru' ? 'Значения' : 'Знаяення'}
+        </button>
+        <button type='button' disabled={combination} onClick={onClickCombinations}>{language === 'en' ? 'Combination' : language === 'ru' ? 'Комбинации' : 'Комбінації'}
+        </button>
         {lines ? <div>
           {instrLines.length > 0 && instrLines.map((item, index) => <ul key={index}>
-            <li>Lines {item.lines}:<img src={item.img} alt={index.toString()} width='200' /></li>
+            <li>{language === 'en' ? 'Line' : language === 'ru' ? 'Линия' : 'Лінія'}
+              {item.lines}:<img src={item.img} alt={index.toString()} width='200' /></li>
           </ul>)}
         </div> : null}
         {values ? <div>
@@ -72,7 +78,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
         </div> : null}
         {combination ? <div>
           {instrCombination.length > 0 && instrCombination.map((item, index) => <ul key={index}>
-            <li>Lines {item.lines}:<img src={item.img} alt={index.toString()} width='200' /></li>
+            <li>{language === 'en' ? 'Line' : language === 'ru' ? 'Линия' : 'Лінія'}
+              {item.lines}:<img src={item.img} alt={index.toString()} width='200' /></li>
           </ul>)}
         </div> : null}
       </Content>

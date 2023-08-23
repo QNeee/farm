@@ -7,6 +7,7 @@ import { getStartGame } from '../../redux/cubics/cubicsSelectors';
 import { deleteThrowGame, getCubicInStash, postCubicStartGame } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
 import { nanoid } from '@reduxjs/toolkit';
+import { getLanguage } from '../../redux/auth/authSelectors';
 
 const Container = styled.div`
   position: relative;
@@ -49,6 +50,7 @@ margin-left: 10px;
 
 const ImageContainer = ({ cubicsData }: any) => {
     const cubicKey = 'cubicId'
+    const language = useSelector(getLanguage);
     const [w8, setW8] = useState(false);
     const dispatch: AppDispatch = useDispatch();
     const startGame = useSelector(getStartGame);
@@ -105,7 +107,7 @@ const ImageContainer = ({ cubicsData }: any) => {
     }
     return (
         <Container>
-            {!startGame ? <Button onClick={onClickStartGame} type='button'>start</Button> : <ThrowButton onClick={onClickThrowGame} type='button'>throw</ThrowButton>}
+            {!startGame ? <Button onClick={onClickStartGame} type='button'>{language === 'en' ? 'Start' : language === 'ru' ? 'Старт' : 'Старт'}</Button> : <ThrowButton onClick={onClickThrowGame} type='button'>{language === 'en' ? 'Throw' : language === 'ru' ? 'Здатся' : 'Здатися'}</ThrowButton>}
             {cubicsData?.map((item: ICubicsData, index: number) => <CubicsContainer key={index}>
                 <Image onClick={() => onClickCubic(item._id as string)} src={item.img} alt={index.toString()} width='40' />
             </CubicsContainer >)}

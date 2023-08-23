@@ -11,3 +11,4 @@ export const getUpdateBalance = (state: RootState) => state.auth.updateBalance;
 export const getUserId = (state: RootState) => state.auth.auth.user.id;
 export const getUserPhone = (state: RootState) => state.auth.auth.user.phone;
 export const getGoogle = (state: RootState) => state.auth.auth.user.google;
+export const getLanguage = (state: RootState) => state.auth.language;

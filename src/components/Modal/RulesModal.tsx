@@ -57,9 +57,8 @@ const rulesText = `
   <p>Будь ласка, натисніть кнопку "Погоджуюся", якщо ви ознайомилися з цими правилами та приймаєте їх умови.</p>
 `;
 
-const RulesModal = () => {
+const RulesModal = ({ language }: any) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -83,7 +82,7 @@ const RulesModal = () => {
         }}
         onClick={openModal}
       >
-        правилами
+        {language === 'en' ? 'rules' : language === 'ru' ? 'правилами' : 'правилами'}
       </button>
       <Modal
         isOpen={modalIsOpen}
@@ -91,7 +90,7 @@ const RulesModal = () => {
         contentLabel="Правила користування"
       >
         <div dangerouslySetInnerHTML={{ __html: rulesText }} />
-        <button onClick={closeModal}>Закрити</button>
+        <button onClick={closeModal}>{language === 'en' ? 'close' : language === 'ru' ? 'закрыть' : 'закрити'}</button>
       </Modal>
     </div>
   );

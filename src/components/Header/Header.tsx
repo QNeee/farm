@@ -35,23 +35,24 @@ import {
   NewNavStyled,
 } from './Header.styled';
 import { AppDispatch } from '../../redux/store';
-import { getToken } from '../../redux/auth/authSelectors';
+import { getLanguage, getToken } from '../../redux/auth/authSelectors';
 import { logout } from '../../redux/auth/authOperations';
 import burgerAnimation from '../../utils/burger.json';
 import { ImProfile } from 'react-icons/im';
+import { setLanguage } from '../../redux/auth/authSlice';
 
 const Header: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector(getToken);
   const { pathname } = useLocation();
+  const language = useSelector(getLanguage);
   const onClickLogout = () => {
     dispatch(logout());
   };
   const ref = useRef(null);
   const [menuState, toggle] = useMenuState({ transition: true });
   const { anchorProps, hoverProps } = useHover(menuState.state, toggle);
-
   const namePath = pathname.split('/')[1];
   const isWide = useMediaQuery({ minWidth: 768 });
   const isNarrow = useMediaQuery({ maxWidth: 767 });
@@ -66,6 +67,11 @@ const Header: React.FC = () => {
           src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png"
           alt="Logo"
         />
+        <select style={{ position: 'relative', zIndex: 2323 }} defaultValue={language} onChange={(e) => dispatch(setLanguage(e.target.value))}>
+          <option value="en">en</option>
+          <option value="ru">ru</option>
+          <option value="ukr">ukr</option>
+        </select>
         {isWide && (
           <NavigationStyled>
             <NavigationStyled>
@@ -89,19 +95,19 @@ const Header: React.FC = () => {
                       <GiMoneyStack
                         style={{ width: 24, height: 24, marginRight: 10 }}
                       />
-                      Баланс
+                      {language === 'en' ? 'Balance' : language === 'ru' ? 'Баланс' : 'Баланс'}
                     </MenuItem>
                     <MenuItem onClick={() => onClickMenuItem('user/profile')}>
                       <GiDualityMask
                         style={{ width: 24, height: 24, marginRight: 10 }}
                       />
-                      Профиль
+                      {language === 'en' ? 'Profile' : language === 'ru' ? 'Профиль' : 'Профіль'}
                     </MenuItem>
                     <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>
                       <GiBrightExplosion
                         style={{ width: 24, height: 24, marginRight: 10 }}
                       />
-                      Бонуси
+                      {language === 'en' ? 'Bonuses' : language === 'ru' ? 'Бонусы' : 'Бонуси'}
                     </MenuItem>
                   </ControlledMenuStyle>
                 </>
@@ -113,7 +119,7 @@ const Header: React.FC = () => {
                   <GiBandit
                     style={{ width: 24, height: 24, marginRight: 10 }}
                   />
-                  Слоти
+                  {language === 'en' ? 'Slots' : language === 'ru' ? 'Слоты' : 'Cлоти'}
                 </NavLinkStyled>
               </NavigationStyled>
             ) : null}
@@ -123,7 +129,7 @@ const Header: React.FC = () => {
                   <GiRollingDices
                     style={{ width: 24, height: 24, marginRight: 10 }}
                   />
-                  Покер на кістках
+                  {language === 'en' ? 'Cubics Poker' : language === 'ru' ? 'Покер на костях' : 'Покер на кістках'}
                 </NavLinkStyled>
               </NavigationStyled>
             ) : null}
@@ -133,7 +139,8 @@ const Header: React.FC = () => {
                   <AiOutlineLogout
                     style={{ width: 24, height: 24, marginRight: 10 }}
                   />
-                  Вихід
+                  {language === 'en' ? 'Exit' : language === 'ru' ? 'Выход' : 'Вихід'}
+
                 </Button>
               ) : null}
             </NavigationStyled>
@@ -143,7 +150,8 @@ const Header: React.FC = () => {
                   <AiOutlineLogin
                     style={{ width: 24, height: 24, marginRight: 10 }}
                   />
-                  Увійти
+                  {language === 'en' ? 'Login' : language === 'ru' ? 'Войти' : 'Увійти'}
+
                 </NavLinkStyled>
               ) : null}
             </NavigationStyled>
@@ -166,15 +174,19 @@ const Header: React.FC = () => {
                   onClose={() => toggle(false)}
                 >
                   <MenuItem onClick={() => onClickMenuItem('user/balance')}>
-                    <GiMoneyStack style={{ marginRight: 5 }} /> Баланс
+                    <GiMoneyStack style={{ marginRight: 5 }} />
+                    {language === 'en' ? 'Balance' : language === 'ru' ? 'Баланс' : 'Баланс'}
+
                   </MenuItem>
                   <MenuItem onClick={() => onClickMenuItem('user/profile')}>
                     <GiDualityMask style={{ marginRight: 5 }} />
-                    Профиль
+                    {language === 'en' ? 'Profile' : language === 'ru' ? 'Профиль' : 'Профіль'}
+
                   </MenuItem>
                   <MenuItem onClick={() => onClickMenuItem('user/bonuses')}>
                     <GiBrightExplosion style={{ marginRight: 5 }} />
-                    Бонуси
+                    {language === 'en' ? 'Bonuses' : language === 'ru' ? 'Бонусы' : 'Бонуси'}
+
                   </MenuItem>
                 </ControlledMenuStyle>
               </>
@@ -196,27 +208,31 @@ const Header: React.FC = () => {
                 <MenuItem>
                   <NavLinkStyled to={token ? '/slots' : 'demoSlots'}>
                     <GiBandit style={{ marginRight: 5 }} />
-                    Слоти
+                    {language === 'en' ? 'Slots' : language === 'ru' ? 'Слоты' : 'Cлоти'}
+
                   </NavLinkStyled>
                 </MenuItem>
                 <MenuItem>
                   <NavLinkStyled to={token ? '/cubics' : 'demoCubics'}>
                     <GiRollingDices style={{ marginRight: 5 }} />
-                    Покер на кістках
+                    {language === 'en' ? 'Cubics Poker' : language === 'ru' ? 'Покер на костях' : 'Покер на кістках'}
+
                   </NavLinkStyled>
                 </MenuItem>
                 <MenuItem>
                   {token ? (
                     <Button title="Вийти" onClick={onClickLogout}>
                       <AiOutlineLogout style={{ marginRight: 5 }} />
-                      Вийти
+                      {language === 'en' ? 'Exit' : language === 'ru' ? 'Выход' : 'Вихід'}
+
                     </Button>
                   ) : null}
                 </MenuItem>
               </Menu>
             ) : null}
             {!token ? (
-              <NavLinkStyled to={'/login'}>Увійти</NavLinkStyled>
+              <NavLinkStyled to={'/login'}>{language === 'en' ? 'Login' : language === 'ru' ? 'Войти' : 'Увійти'}
+              </NavLinkStyled>
             ) : null}
           </>
         )}

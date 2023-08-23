@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router';
 import styled from 'styled-components';
 import { NavLinkStyled } from '../Header/Header.styled';
+import { useSelector } from 'react-redux';
+import { getLanguage } from '../../redux/auth/authSelectors';
 
 const Container = styled.div`
   width: 100%;
@@ -20,6 +22,7 @@ const NavContainer = styled.div`
   justify-content: space-between;
 `;
 const User = () => {
+  const language = useSelector(getLanguage);
   return (
     <Container>
       <NavContainer>
@@ -27,19 +30,21 @@ const User = () => {
           style={{ minWidth: '33.3%', margin: 0, borderRadius: 0 }}
           to="/user/balance"
         >
-          Баланс
+          {language === 'en' ? 'Balance' : language === 'ru' ? 'Баланс' : 'Баланс'}
         </NavLinkStyled>
         <NavLinkStyled
           style={{ minWidth: '33.3%', margin: 0, borderRadius: 0 }}
           to="/user/profile"
         >
-          Профіль
+          {language === 'en' ? 'Profile' : language === 'ru' ? 'Профиль' : 'Профіль'}
+
         </NavLinkStyled>
         <NavLinkStyled
           style={{ minWidth: '33.3%', margin: 0, borderRadius: 0 }}
           to="/user/bonuses"
         >
-          Бонуси
+          {language === 'en' ? 'Bonuses' : language === 'ru' ? 'Бонусы' : 'Бонуси'}
+
         </NavLinkStyled>
       </NavContainer>
       <Outlet />

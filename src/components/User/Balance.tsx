@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Button, Input, Modal } from '../Appbar/AppBar.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserBalance } from '../../redux/auth/authSelectors';
+import { getLanguage, getUserBalance } from '../../redux/auth/authSelectors';
 import { useState } from 'react';
 import { AppDispatch } from '../../redux/store';
 import { postUserBalance } from '../../redux/auth/authOperations';
@@ -35,6 +35,7 @@ const BalanceContainer = styled.div`
 `;
 const Balance = () => {
   const dispatch: AppDispatch = useDispatch();
+  const language = useSelector(getLanguage);
   const [showModal, setShowModal] = useState(false);
   const useBalance = useSelector(getUserBalance);
   const [balance, setBalance] = useState('');
@@ -55,23 +56,23 @@ const Balance = () => {
   return (
     <Container>
       <BalanceContainer>
-        <h2>Ваш Баланс:</h2>
+        <h2>{language === 'en' ? 'Your Balance:' : language === 'ru' ? 'Ваш Баланс:' : 'Ваш Баланс:'}</h2>
         <div>{useBalance}</div>
       </BalanceContainer>
       <Button type="button" onClick={() => setShowModal(true)}>
-        Поповнити
+        {language === 'en' ? 'Top up' : language === 'ru' ? 'Пополнить' : 'Поповнити'}
       </Button>
       {showModal && (
         <Modal>
-          <h2>Поповнити баланс</h2>
+          <h2>{language === 'en' ? 'Top up balance' : language === 'ru' ? 'Пополнить баланс' : 'Поповнити баланс'}</h2>
           <Input
             type="text"
             value={balance}
             onChange={(e) => setBalance(e.target.value)}
-            placeholder="Введіть суму"
+            placeholder={language === 'en' ? 'enter sum' : language === 'ru' ? 'введите суму' : 'введіть суму'}
           />
-          <Button onClick={handleBalanceSubmit}>ОК</Button>
-          <Button onClick={onClickExit}>Exit</Button>
+          <Button onClick={handleBalanceSubmit}>OK</Button>
+          <Button onClick={onClickExit}>{language === 'en' ? 'Close' : language === 'ru' ? 'Закрыть' : 'Закрити'}</Button>
         </Modal>
       )}
     </Container>

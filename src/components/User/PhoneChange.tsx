@@ -12,7 +12,7 @@ import {
   Subtitle,
 } from './Profile.styled';
 
-const PhoneChange = () => {
+const PhoneChange = ({ language }: any) => {
   const userPhone = useSelector(getUserPhone);
   const [change, setChange] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -33,10 +33,11 @@ const PhoneChange = () => {
           change={change}
           changeFunc={setChange}
           initialPhoneNumber=""
+          language={language}
         />
       ) : (
         <>
-          <Subtitle>Ваш номер Телефону</Subtitle>
+          <Subtitle> {language === 'en' ? 'Your phone number' : language === 'ru' ? 'Ваш номер Телефона' : 'Ваш номер Телефону'}</Subtitle>
           <Box>
             <BoxIcon
               onClick={() =>
@@ -49,7 +50,7 @@ const PhoneChange = () => {
             <BoxInput>
               {copied ? (
                 <CopiedText>
-                  Copied
+                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
@@ -63,7 +64,8 @@ const PhoneChange = () => {
             onClick={() => setChange(true)}
             type="button"
           >
-            Змінити
+            {language === 'en' ? 'Change' : language === 'ru' ? 'Сменить' : 'Змінити'}
+
           </Button>
         </>
       )}

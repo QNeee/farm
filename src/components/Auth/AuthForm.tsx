@@ -1,5 +1,5 @@
 import { Formik, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { AiOutlineLogin } from 'react-icons/ai';
 import {
@@ -9,10 +9,7 @@ import {
 } from 'react-icons/md';
 
 import { login, register } from '../../redux/auth/authOperations';
-import {
-  commonValidationSchema,
-  loginValidationSchema,
-} from './authValidationSchema';
+
 import {
   Label,
   Input,
@@ -26,6 +23,8 @@ import {
 } from './Auth.styled';
 import { AppDispatch } from '../../redux/store';
 import { RulesModal } from '../Modal';
+import { getLanguage } from '../../redux/auth/authSelectors';
+import { getValidationSchema } from './authValidationSchema';
 
 interface IForm {
   email: string;
@@ -36,13 +35,12 @@ interface IForm {
 const AuthForm = () => {
   const dispatch: AppDispatch = useDispatch();
   const { pathname } = useLocation();
-
+  const language = useSelector(getLanguage);
   const initialValues: IForm = {
     email: '',
     password: '',
     toggle: false,
   };
-
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -62,7 +60,7 @@ const AuthForm = () => {
       }
       resetForm();
     } catch (error) {
-      console.error('Щось пішло не так!', error);
+      console.error(language === 'en' ? 'Something Wrong!' : language === 'ru' ? 'Чтото пошло не так!' : 'Щось пішло не так!', error);
     }
   };
 
@@ -71,7 +69,7 @@ const AuthForm = () => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={
-        pathname === '/login' ? loginValidationSchema : commonValidationSchema
+        pathname === '/login' ? getValidationSchema(language, 'loginValidationSchema') : getValidationSchema(language, 'commonValidationSchema')
       }
     >
       {({ isSubmitting, touched, errors }) => (
@@ -80,7 +78,7 @@ const AuthForm = () => {
             <Label htmlFor="email">
               <MdOutlineMailOutline />
             </Label>
-            <Input type="email" id="email" name="email" placeholder="Email" />
+            <Input type="email" id="email" name="email" placeholder={language === 'en' ? 'Email' : language === 'ru' ? 'Почта' : 'Пошта'} />
             <Error name="email" component={WrapError} />
           </WrapError>
 
@@ -89,7 +87,7 @@ const AuthForm = () => {
               <MdLockOutline />
             </Label>
             <Input
-              placeholder="Пароль"
+              placeholder={language === 'en' ? 'Password' : language === 'ru' ? 'Пароль' : 'Пароль'}
               type="password"
               id="password"
               name="password"
@@ -100,8 +98,8 @@ const AuthForm = () => {
             <WrapErrorCheck hasError={!!(touched.toggle && errors.toggle)}>
               <FieldCheck type="checkbox" id="checkbox" name="toggle" />
               <LabelCheck htmlFor="checkbox" style={{ display: 'flex' }}>
-                Погоджуюсь з
-                <RulesModal />
+                {language === 'en' ? 'I agree with' : language === 'ru' ? 'Согласан с' : 'Погоджуюсь з'}
+                <RulesModal language={language} />
               </LabelCheck>
               <ErrorCheck name="toggle" component={WrapError} />
             </WrapErrorCheck>
@@ -113,14 +111,14 @@ const AuthForm = () => {
                 <AiOutlineLogin
                   style={{ width: 24, height: 24, marginRight: 10 }}
                 />
-                Увійти
+                {language === 'en' ? 'Login' : language === 'ru' ? 'Войти' : 'Увійти'}
               </>
             ) : (
               <>
                 <MdAppRegistration
                   style={{ width: 24, height: 24, marginRight: 10 }}
                 />
-                Реєстрація
+                {language === 'en' ? 'Register' : language === 'ru' ? 'Регистрация' : 'Реєстрація'}
               </>
             )}
           </Button>

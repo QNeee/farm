@@ -13,6 +13,7 @@ const authPersistConfig = {
     'refreshToken',
     'isLoggedIn',
     'auth',
+    'language'
   ],
 };
 const persistedAuthReducer = persistReducer(authPersistConfig, authSlice.reducer);
