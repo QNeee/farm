@@ -1,5 +1,9 @@
 import { useSelector } from 'react-redux';
-import { getLanguage, getUserEmail, getUserId } from '../../redux/auth/authSelectors';
+import {
+  getLanguage,
+  getUserEmail,
+  getUserId,
+} from '../../redux/auth/authSelectors';
 
 import PassForm from './PassForm';
 import PhoneChange from './PhoneChange';
@@ -27,20 +31,20 @@ const Profile = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedName, setCopiedName] = useState(false);
   const language = useSelector(getLanguage);
-  const handleCopyToClipboard = (text: string, iconName: string) => {
+  const handleCopyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
 
-    if (iconName === 'id') {
+    if (field === 'id') {
       setCopiedId(true);
       setTimeout(() => {
         setCopiedId(false);
       }, 2000);
-    } else if (iconName === 'email') {
+    } else if (field === 'email') {
       setCopiedEmail(true);
       setTimeout(() => {
         setCopiedEmail(false);
       }, 2000);
-    } else if (iconName === 'name') {
+    } else if (field === 'name') {
       setCopiedName(true);
       setTimeout(() => {
         setCopiedName(false);
@@ -50,10 +54,22 @@ const Profile = () => {
 
   return (
     <Container>
-      <Title>{language === 'en' ? 'Your profile' : language === 'ru' ? 'Ваш профиль' : 'Ваш профіль'}</Title>
+      <Title>
+        {language === 'en'
+          ? 'Your profile'
+          : language === 'ru'
+          ? 'Ваш профиль'
+          : 'Ваш профіль'}
+      </Title>
       <ul>
         <Li>
-          <Subtitle>{language === 'en' ? 'Your ID' : language === 'ru' ? 'Ваш ID' : 'Ваш ID'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your ID'
+              : language === 'ru'
+              ? 'Ваш ID'
+              : 'Ваш ID'}
+          </Subtitle>
           <Box>
             <BoxIcon
               onClick={() =>
@@ -66,7 +82,11 @@ const Profile = () => {
             <BoxInput>
               {copiedId ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Copied'
+                    : language === 'ru'
+                    ? 'Скопировано'
+                    : 'Скопійовано'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
@@ -76,7 +96,13 @@ const Profile = () => {
           </Box>
         </Li>
         <Li>
-          <Subtitle>{language === 'en' ? 'Your email' : language === 'ru' ? 'Ваша почта' : 'Ваша пошта'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your email'
+              : language === 'ru'
+              ? 'Ваша почта'
+              : 'Ваша пошта'}
+          </Subtitle>
           <Box>
             <BoxIcon
               onClick={() =>
@@ -89,7 +115,11 @@ const Profile = () => {
             <BoxInput>
               {copiedEmail ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Copied'
+                    : language === 'ru'
+                    ? 'Скопировано'
+                    : 'Скопійовано'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
@@ -99,7 +129,13 @@ const Profile = () => {
           </Box>
         </Li>
         <Li>
-          <Subtitle>{language === 'en' ? 'Your name on site' : language === 'ru' ? 'Ваше имя на сайте' : 'Ваше Ім\'я на сайті'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your name on site'
+              : language === 'ru'
+              ? 'Ваше имя на сайте'
+              : "Ваше Ім'я на сайті"}
+          </Subtitle>
           <Box>
             <BoxIcon
               onClick={() =>
@@ -112,7 +148,11 @@ const Profile = () => {
             <BoxInput>
               {copiedName ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Copied'
+                    : language === 'ru'
+                    ? 'Скопировано'
+                    : 'Скопійовано'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
