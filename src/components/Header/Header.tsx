@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Lottie from 'lottie-react';
@@ -38,8 +38,8 @@ import { AppDispatch } from '../../redux/store';
 import { getLanguage, getToken } from '../../redux/auth/authSelectors';
 import { logout } from '../../redux/auth/authOperations';
 import burgerAnimation from '../../utils/burger.json';
-import { ImProfile } from 'react-icons/im';
-import { setLanguage } from '../../redux/auth/authSlice';
+
+import { SelectLang } from './SelectLang';
 
 const Header: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -67,15 +67,9 @@ const Header: React.FC = () => {
           src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png"
           alt="Logo"
         />
-        <select
-          style={{ position: 'relative', zIndex: 2323 }}
-          defaultValue={language}
-          onChange={(e) => dispatch(setLanguage(e.target.value))}
-        >
-          <option value="en">en</option>
-          <option value="ru">ru</option>
-          <option value="ukr">ukr</option>
-        </select>
+
+        <SelectLang />
+
         {isWide && (
           <NavigationStyled>
             <NavigationStyled>
