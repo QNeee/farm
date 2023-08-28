@@ -20,7 +20,7 @@ const SelectLang = () => {
         <Select
           onChange={onChange}
           value={language}
-          style={{ minWidth: 30, height: 40, borderColor: 'red' }}
+          sx={{ border: 0, height: 40 }}
         >
           <MenuItem value="en">
             <FlagEn style={{ width: 20, marginRight: 10 }} />

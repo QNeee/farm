@@ -67,8 +67,9 @@ const Header: React.FC = () => {
           src="https://cdn-icons-png.flaticon.com/128/2298/2298580.png"
           alt="Logo"
         />
-
-        <SelectLang />
+        <NewNavStyled style={{ padding: 0, zIndex: 100, margin: '0 10px' }}>
+          <SelectLang />
+        </NewNavStyled>
 
         {isWide && (
           <NavigationStyled>

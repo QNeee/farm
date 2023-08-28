@@ -104,15 +104,16 @@ export const NavigationStyled = styled.nav`
   }
 `;
 export const NewNavStyled = styled.div<{ path?: string }>`
-display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 40px;
   padding: 0 10px;
   font-size: 12px;
   font-weight: 600;
-  color:${({ path }) => path === 'user' ? 'white' : '#333'};
-  background-color:${({ path }) => path === 'user' ? 'rgba(13, 110, 43, 0.8)' : 'rgba(234, 194, 62, 0.8)'};
+  color: ${({ path }) => (path === 'user' ? 'white' : '#333')};
+  background-color: ${({ path }) =>
+    path === 'user' ? 'rgba(13, 110, 43, 0.8)' : 'rgba(234, 194, 62, 0.8)'};
   text-decoration: none;
   text-transform: uppercase;
   border: 1px solid rgba(0, 0, 0, 0.2);

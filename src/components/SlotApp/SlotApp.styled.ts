@@ -229,7 +229,7 @@ export const Balance = styled.div`
     font-size: 18px;
   }
   @media (min-width: 768px) {
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
 
