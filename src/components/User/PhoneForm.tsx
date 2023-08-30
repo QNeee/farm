@@ -6,6 +6,7 @@ import 'react-phone-input-2/lib/style.css';
 import { postUserPhone } from '../../redux/auth/authOperations';
 import { AppDispatch } from '../../redux/store';
 import { Button } from '../Appbar/AppBar.styled';
+import { Form, Formik } from 'formik';
 
 interface PhoneFormProps {
   initialPhoneNumber: string;
@@ -40,6 +41,10 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
   };
 
   return (
+    // <Formik
+    //   initialValues={{ phoneNumber: '' }}
+    //   onSubmit={handleSubmit}
+    // >
     <form onSubmit={handleSubmit}>
       <h2 style={{ margin: '40px 0 20px' }}>
         {language === 'en'
@@ -50,16 +55,26 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
       </h2>
       <div style={{ display: 'flex', margin: '8px 0 18px' }}>
         <PhoneInput
+          placeholder="+380 (XX) XXX-XX-XX"
           country={'ua'}
           value={phoneNumber}
           onChange={handlePhoneNumberChange}
-          onlyCountries={['ua']}
           masks={{ ua: '(..) ...-..-..' }}
-          localization={{ Ukraine: 'Україна' }}
+          disableDropdown={true}
+          enableLongNumbers={12}
+          countryCodeEditable={false}
+          isValid={(value) => {
+            if (value.match(/^\d{12}$/)) {
+              return true;
+            } else {
+              return 'Не вірний номер: ' + value;
+            }
+          }}
           inputProps={{
             name: 'phone',
             required: true,
             autoFocus: false,
+
             style: {
               width: '100%',
               padding: '20px 0 20px 45px',
@@ -92,6 +107,7 @@ const PhoneForm: React.FC<PhoneFormProps> = ({
         </Button>
       )}
     </form>
+    // </Formik>
   );
 };
 
