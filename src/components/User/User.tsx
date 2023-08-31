@@ -7,7 +7,6 @@ import { getLanguage } from '../../redux/auth/authSelectors';
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  font-family: 'Montserrat Variable';
   font-weight: 500px;
   padding: 0 0 30px;
   background-color: rgba(0, 0, 0, 0.7);
@@ -30,21 +29,31 @@ const User = () => {
           style={{ minWidth: '33.3%', margin: 0, borderRadius: 0 }}
           to="/user/balance"
         >
-          {language === 'en' ? 'Balance' : language === 'ru' ? 'Баланс' : 'Баланс'}
+          {language === 'en'
+            ? 'Balance'
+            : language === 'ru'
+            ? 'Баланс'
+            : 'Баланс'}
         </NavLinkStyled>
         <NavLinkStyled
           style={{ minWidth: '33.3%', margin: 0, borderRadius: 0 }}
           to="/user/profile"
         >
-          {language === 'en' ? 'Profile' : language === 'ru' ? 'Профиль' : 'Профіль'}
-
+          {language === 'en'
+            ? 'Profile'
+            : language === 'ru'
+            ? 'Профиль'
+            : 'Профіль'}
         </NavLinkStyled>
         <NavLinkStyled
           style={{ minWidth: '33.3%', margin: 0, borderRadius: 0 }}
           to="/user/bonuses"
         >
-          {language === 'en' ? 'Bonuses' : language === 'ru' ? 'Бонусы' : 'Бонуси'}
-
+          {language === 'en'
+            ? 'Bonuses'
+            : language === 'ru'
+            ? 'Бонусы'
+            : 'Бонуси'}
         </NavLinkStyled>
       </NavContainer>
       <Outlet />

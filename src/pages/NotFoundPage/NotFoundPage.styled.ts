@@ -38,7 +38,6 @@ const strokeAnimation = keyframes`
 `;
 
 export const StyledSvg = styled.svg`
-  font-family: 'Montserrat Variable', sans-serif;
   width: 100%;
   height: 80px;
 `;
