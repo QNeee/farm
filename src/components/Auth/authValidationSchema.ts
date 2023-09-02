@@ -155,7 +155,7 @@ export const getValidationSchema = (language: string, validation: string) => {
     case 'phoneValidationSchema':
       return Yup.object({
         phone: Yup.string().matches(
-          /^\d{12}$/,
+          /^\d{15}$/ /* /^\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/ */,
           language === 'en'
             ? 'Incorrect number'
             : language === 'ru'

@@ -109,11 +109,14 @@ export const postUserBalance = createAsyncThunk(
 );
 export const postUserPhone = createAsyncThunk(
   'user/phone',
-  async (data: { phone: number }, { rejectWithValue, getState, dispatch }) => {
+  async (data: { phone: string }, { rejectWithValue, getState, dispatch }) => {
     try {
       const state: RootState = getState() as RootState;
+
       setToken(state?.auth.accessToken as string);
+
       const result = await axios.post('users/phone', data);
+
       return result;
     } catch (error) {
       return rejectWithValue(error);

@@ -13,6 +13,7 @@ import {
   IconPhone,
   Subtitle,
 } from './Profile.styled';
+import PhoneFormC from './PhoneFormC';
 
 const PhoneChange = ({ language }: any) => {
   const userPhone = useSelector(getUserPhone);
@@ -34,7 +35,7 @@ const PhoneChange = ({ language }: any) => {
   return (
     <>
       {!userPhone || change ? (
-        <PhoneForm
+        <PhoneFormC
           change={change}
           changeFunc={setChange}
           initialPhoneNumber=""
