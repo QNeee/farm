@@ -26,12 +26,12 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
   const dispatch: AppDispatch = useDispatch();
 
-  const handleSubmit = async (values: { phone: string }) => {
-    const { phone } = values;
+  const handleSubmit = async () => {
+    const mask = phoneNumber.split('(')[1].split(')')[0];
+    const number = phoneNumber.split('(')[1].split(')')[1].trim().split('-');
     const objToRequest = {
-      phone,
+      phone: mask + number[0] + number[1] + number[2]
     };
-
     await dispatch(postUserPhone(objToRequest));
     changeFunc(false);
     setPhoneNumber(initialPhoneNumber);
@@ -43,8 +43,10 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
   );
 
   const handlePhoneNumberChange = (event: { target: { value: string } }) => {
+
     const inputValue = formatPhoneNumber(event.target.value);
     setPhoneNumber(inputValue);
+
   };
 
   const formatPhoneNumber = (phoneNumber: string) => {
@@ -75,8 +77,8 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
               {language === 'en'
                 ? 'Your phone number'
                 : language === 'ru'
-                ? 'Ваш номер телефона'
-                : 'Ваш номер Телефону'}
+                  ? 'Ваш номер телефона'
+                  : 'Ваш номер Телефону'}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', height: 40 }}>
@@ -106,13 +108,13 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
                 ? language === 'en'
                   ? 'Change'
                   : language === 'ru'
-                  ? 'Сменить'
-                  : 'Змінити'
+                    ? 'Сменить'
+                    : 'Змінити'
                 : language === 'en'
-                ? 'Install'
-                : language === 'ru'
-                ? 'Установить'
-                : 'Встановити'}
+                  ? 'Install'
+                  : language === 'ru'
+                    ? 'Установить'
+                    : 'Встановити'}
             </Button>
             {change && (
               <Button
@@ -123,8 +125,8 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
                 {language === 'en'
                   ? 'Back'
                   : language === 'ru'
-                  ? 'Назад'
-                  : 'Назад'}
+                    ? 'Назад'
+                    : 'Назад'}
               </Button>
             )}
           </Form>
