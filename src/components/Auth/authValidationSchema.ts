@@ -152,17 +152,29 @@ export const getValidationSchema = (language: string, validation: string) => {
               : 'Підтвердіть ваш пароль'
           ),
       });
+
     case 'phoneValidationSchema':
       return Yup.object({
-        phone: Yup.string().matches(
-          /^\d{15}$/ /* /^\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/ */,
-          language === 'en'
-            ? 'Incorrect number'
-            : language === 'ru'
-            ? 'Не верный номер'
-            : 'Не вірний номер'
-        ),
+        phone: Yup.string().length(10, 'Длина номера не больше 10'),
+        // .matches(
+        //   /^\d{11}$/,
+        //   // /^(\(\d{3}\)\s?\d{3}-\d{2}-\d{2})$/,
+        //   language === 'en'
+        //     ? 'Incorrect number'
+        //     : language === 'ru'
+        //     ? 'Не верный номер'
+        //     : 'Не вірний номер'
+        // )
+        // .required(
+        //   language === 'en'
+        //     ? 'Mandatory to fill'
+        //     : language === 'ru'
+        //     ? 'Обезательно для заполнения'
+        //     : "Обов'язково для заповнення"
+        // ),
+        // .min(9, language === 'en' ? '9' : language === 'ru' ? '9' : '9'),
       });
+
     default:
       break;
   }

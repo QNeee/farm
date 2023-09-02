@@ -7,8 +7,10 @@ import { postUserPhone } from '../../redux/auth/authOperations';
 import { AppDispatch } from '../../redux/store';
 import { Button } from '../Appbar/AppBar.styled';
 import { getValidationSchema } from '../Auth/authValidationSchema';
+import * as Yup from 'yup';
 
 import { FormPhone, BoxIcon, Input } from './Profile.styled';
+import { formatPhoneNumber } from './formatPhoneNumber';
 
 interface PhoneFormProps {
   initialPhoneNumber: string;
@@ -24,45 +26,29 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
   language,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
+  // const [phoneNumber, setPhoneNumber] = useState('');
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = async () => {
-    const mask = phoneNumber.split('(')[1].split(')')[0];
-    const number = phoneNumber.split('(')[1].split(')')[1].trim().split('-');
     const objToRequest = {
-      phone: mask + number[0] + number[1] + number[2]
+      phone: formatPhoneNumber(phoneNumber),
     };
     await dispatch(postUserPhone(objToRequest));
     changeFunc(false);
     setPhoneNumber(initialPhoneNumber);
   };
 
+  const handlePhoneNumberChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = event.target;
+    setPhoneNumber(formatPhoneNumber(value));
+  };
+
   const validationSchema = getValidationSchema(
     language,
     'phoneValidationSchema'
   );
-
-  const handlePhoneNumberChange = (event: { target: { value: string } }) => {
-
-    const inputValue = formatPhoneNumber(event.target.value);
-    setPhoneNumber(inputValue);
-
-  };
-
-  const formatPhoneNumber = (phoneNumber: string) => {
-    const cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
-    if (!/^\d+$/.test(cleanedPhoneNumber)) {
-      return cleanedPhoneNumber;
-    }
-    const match = cleanedPhoneNumber.match(
-      /^(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/
-    );
-    if (match) {
-      const formattedPhoneNumber = `(${match[1]}) ${match[2]}-${match[3]}-${match[4]}`;
-      return formattedPhoneNumber.trim();
-    }
-    return cleanedPhoneNumber;
-  };
 
   return (
     <>
@@ -71,14 +57,14 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {(formikProps: FormikProps<{ phone: string }>) => (
+        {({ isValid, handleBlur, isSubmitting, handleChange, values }) => (
           <Form>
             <h2 style={{ margin: '40px 0 20px' }}>
               {language === 'en'
                 ? 'Your phone number'
                 : language === 'ru'
-                  ? 'Ваш номер телефона'
-                  : 'Ваш номер Телефону'}
+                ? 'Ваш номер телефона'
+                : 'Ваш номер Телефону'}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', height: 40 }}>
@@ -88,11 +74,11 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
                 <Input
                   type="tel"
                   name="phone"
-                  placeholder="(055) 555 55 55"
-                  // onChange={formikProps.handleChange}
+                  placeholder="(055) 555-55-55"
                   onChange={handlePhoneNumberChange}
-                  onBlur={formikProps.handleBlur}
-                  // value={formikProps.values.phone}
+                  // onChange={handleChange}
+                  onBlur={handleBlur}
+                  // value={values.phone}
                   value={phoneNumber}
                   maxLength={15}
                 />
@@ -102,19 +88,19 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
             <Button
               style={{ width: '100%', margin: '18px 0' }}
               type="submit"
-              disabled={!formikProps.isValid || formikProps.isSubmitting}
+              disabled={!isValid || isSubmitting}
             >
               {change
                 ? language === 'en'
                   ? 'Change'
                   : language === 'ru'
-                    ? 'Сменить'
-                    : 'Змінити'
+                  ? 'Сменить'
+                  : 'Змінити'
                 : language === 'en'
-                  ? 'Install'
-                  : language === 'ru'
-                    ? 'Установить'
-                    : 'Встановити'}
+                ? 'Install'
+                : language === 'ru'
+                ? 'Установить'
+                : 'Встановити'}
             </Button>
             {change && (
               <Button
@@ -125,8 +111,8 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
                 {language === 'en'
                   ? 'Back'
                   : language === 'ru'
-                    ? 'Назад'
-                    : 'Назад'}
+                  ? 'Назад'
+                  : 'Назад'}
               </Button>
             )}
           </Form>
