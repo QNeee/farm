@@ -61,6 +61,9 @@ const PassForm = ({ language }: any) => {
       if (!google) {
         if (oldPass === '' || newPass === '' || newPassRepeat === '') return;
       }
+      if (google === 'false') {
+        if (oldPass === '' || newPass === '' || newPassRepeat === '') return;
+      }
       await dispatch(patchUserPassword(objRequest));
       resetForm();
     } catch (error) {
@@ -76,7 +79,6 @@ const PassForm = ({ language }: any) => {
   };
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -88,7 +90,7 @@ const PassForm = ({ language }: any) => {
           <h2 style={{ margin: '20px 0' }}>{language === 'en' ? 'Your password' : language === 'ru' ? 'Ваш пароль' : 'Ваш пароль'}
           </h2>
 
-          {google === 'false' && (
+          {google === 'false' || !google ? (
             <>
               <label style={{ fontWeight: 500, marginBottom: 8 }}>
                 {language === 'en' ? 'Your old password' : language === 'ru' ? 'Ваш старый пароль' : 'Ваш старий пароль'}
@@ -151,7 +153,7 @@ const PassForm = ({ language }: any) => {
                 <Error name="oldPass" component={WrapError} />
               </WrapError>
             </>
-          )}
+          ) : null}
           <>
             <label style={{ fontWeight: 500, marginBottom: 8 }}>
               {language === 'en' ? 'Your new password' : language === 'ru' ? 'Ваш новый пароль' : 'Ваш новий пароль'}
