@@ -1,7 +1,9 @@
-import { useSelector } from 'react-redux';
-import { getUserPhone } from '../../redux/auth/authSelectors';
-import { Button } from '../Appbar/AppBar.styled';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { getUserPhone } from '../../redux/auth/authSelectors';
+import { handleCopyToClipboard } from './clipboardHelper';
+import { Button } from '../Appbar/AppBar.styled';
 import PhoneForm from './PhoneForm';
 import {
   Box,
@@ -11,14 +13,15 @@ import {
   IconPhone,
   Subtitle,
 } from './Profile.styled';
+import PhoneFormC from './PhoneFormC';
 
 const PhoneChange = ({ language }: any) => {
   const userPhone = useSelector(getUserPhone);
   const [change, setChange] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const handleCopyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyOnClick = (text: string): void => {
+    handleCopyToClipboard(text);
 
     setCopied(true);
     setTimeout(() => {
@@ -26,10 +29,13 @@ const PhoneChange = ({ language }: any) => {
     }, 2000);
   };
 
+  const onClickPhone = () =>
+    userPhone !== null && copyOnClick(userPhone.toString());
+
   return (
     <>
       {!userPhone || change ? (
-        <PhoneForm
+        <PhoneFormC
           change={change}
           changeFunc={setChange}
           initialPhoneNumber=""
@@ -37,20 +43,25 @@ const PhoneChange = ({ language }: any) => {
         />
       ) : (
         <>
-          <Subtitle> {language === 'en' ? 'Your phone number' : language === 'ru' ? 'Ваш номер Телефона' : 'Ваш номер Телефону'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your phone number'
+              : language === 'ru'
+              ? 'Ваш номер Телефона'
+              : 'Ваш номер Телефону'}
+          </Subtitle>
           <Box>
-            <BoxIcon
-              onClick={() =>
-                userPhone !== null &&
-                handleCopyToClipboard(userPhone.toString())
-              }
-            >
+            <BoxIcon onClick={onClickPhone}>
               <IconPhone />
             </BoxIcon>
             <BoxInput>
               {copied ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Number copied!'
+                    : language === 'ru'
+                    ? 'Номер скопирован!'
+                    : 'Номер скопійовано!'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
@@ -64,8 +75,11 @@ const PhoneChange = ({ language }: any) => {
             onClick={() => setChange(true)}
             type="button"
           >
-            {language === 'en' ? 'Change' : language === 'ru' ? 'Сменить' : 'Змінити'}
-
+            {language === 'en'
+              ? 'Change'
+              : language === 'ru'
+              ? 'Сменить'
+              : 'Змінити'}
           </Button>
         </>
       )}

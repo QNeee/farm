@@ -1,3 +1,4 @@
+import { Field, Form, Formik } from 'formik';
 import { GiSmartphone } from 'react-icons/gi';
 import {
   MdAccessibilityNew,
@@ -45,6 +46,20 @@ export const Box = styled.div`
   display: flex;
   color: rgba(0, 0, 0, 0.8);
 `;
+export const FormPhone = styled(Form)`
+  /* width: 100%; */
+  /* height: 40px; */
+  /* display: flex;
+  flex-direction: column; */
+  /* color: rgba(0, 0, 0, 0.8); */
+`;
+export const Wrap = styled.div`
+  /* width: 100%; */
+  /* height: 40px; */
+  display: flex;
+  flex-direction: column;
+  /* color: rgba(0, 0, 0, 0.8); */
+`;
 
 export const BoxInput = styled.div`
   width: 100%;
@@ -55,6 +70,19 @@ export const BoxInput = styled.div`
   border-radius: 0 5px 5px 0;
   font-family: 'Roboto Mono Variable';
   font-size: 18;
+`;
+
+export const Input = styled(Field)`
+  width: 100%;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 0 5px 5px 0;
+  font-family: 'Roboto Mono Variable';
+  font-size: 18;
+  outline: none;
+  border: 0;
 `;
 
 export const BoxIcon = styled.div`

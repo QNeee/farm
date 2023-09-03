@@ -128,7 +128,7 @@ export const WrapDesc = styled.div`
 export const Title = styled.h1`
   /* margin-top: 10px; */
   text-align: center;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 900;
   text-transform: uppercase;
 
@@ -143,7 +143,8 @@ export const Title = styled.h1`
   @media screen and (min-width: ${size.mobile}) {
   }
   @media screen and (min-width: ${size.tablet}) {
-    margin-top: -10px;
+    margin-top: -30px;
+    font-size: 30px;
   }
   @media screen and (min-width: ${size.desktop}) {
     margin-top: -20px;
@@ -160,6 +161,7 @@ export const Desc = styled.h2`
   @media screen and (min-width: ${size.mobile}) {
   }
   @media screen and (min-width: ${size.tablet}) {
+    margin-top: 30px;
   }
 `;
 
@@ -170,10 +172,11 @@ export const Button = styled.button`
   transform: translateX(-50%);
   width: 65px;
   height: 65px;
-  padding: 10px;
+  /* padding: 10px; */
   text-transform: uppercase;
   cursor: pointer;
   font-weight: bold;
+  font-size: 12px;
   border-radius: 50%;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.6);
@@ -193,7 +196,7 @@ export const Button = styled.button`
     top: 20px;
     width: 100px;
     height: 100px;
-    font-size: 26px;
+    font-size: 18px;
   }
   @media screen and (min-width: ${size.desktop}) {
   }
@@ -225,33 +228,3 @@ export const LinkStyle = styled(Link)`
   @media screen and (min-width: ${size.large}) {
   }
 `;
-
-// import styled from 'styled-components';
-
-// export const Container = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   height: 100vh;
-// `;
-
-// export const Title = styled.h1`
-//   font-size: 2rem;
-//   margin-bottom: 1rem;
-// `;
-
-// export const Description = styled.p`
-//   font-size: 1.2rem;
-//   margin-bottom: 2rem;
-// `;
-
-// export const Button = styled.button`
-//   padding: 1rem 2rem;
-//   font-size: 1rem;
-//   background-color: #007bff;
-//   color: #fff;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-// `;

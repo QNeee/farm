@@ -1,10 +1,14 @@
-import { useSelector } from 'react-redux';
-import { getLanguage, getUserEmail, getUserId } from '../../redux/auth/authSelectors';
-
-import PassForm from './PassForm';
-import PhoneChange from './PhoneChange';
-
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { handleCopyToClipboard } from './clipboardHelper';
+import PhoneChange from './PhoneChange';
+import PassForm from './PassForm';
+import {
+  getLanguage,
+  getUserEmail,
+  getUserId,
+} from '../../redux/auth/authSelectors';
 import {
   Box,
   BoxIcon,
@@ -21,52 +25,57 @@ import {
 
 const Profile = () => {
   const userId = useSelector(getUserId);
+  const language = useSelector(getLanguage);
   const userEmail = useSelector(getUserEmail);
   const userNickName = userEmail?.split('@')[0];
-  const [copiedId, setCopiedId] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedName, setCopiedName] = useState(false);
-  const language = useSelector(getLanguage);
-  const handleCopyToClipboard = (text: string, iconName: string) => {
-    navigator.clipboard.writeText(text);
+  const [copiedField, setCopiedField] = useState('');
 
-    if (iconName === 'id') {
-      setCopiedId(true);
-      setTimeout(() => {
-        setCopiedId(false);
-      }, 2000);
-    } else if (iconName === 'email') {
-      setCopiedEmail(true);
-      setTimeout(() => {
-        setCopiedEmail(false);
-      }, 2000);
-    } else if (iconName === 'name') {
-      setCopiedName(true);
-      setTimeout(() => {
-        setCopiedName(false);
-      }, 2000);
-    }
+  const copyOnClick = (text: string, field: string): void => {
+    handleCopyToClipboard(text);
+    setCopiedField(field);
+
+    setTimeout(() => {
+      setCopiedField('');
+    }, 2000);
   };
+
+  const onClickId = () =>
+    userId !== null && copyOnClick(userId.toString(), 'id');
+  const onClickEmail = () =>
+    userEmail !== null && copyOnClick(userEmail.toString(), 'email');
+  const onClickName = () =>
+    userNickName !== null && copyOnClick(userNickName.toString(), 'name');
 
   return (
     <Container>
-      <Title>{language === 'en' ? 'Your profile' : language === 'ru' ? 'Ваш профиль' : 'Ваш профіль'}</Title>
+      <Title>
+        {language === 'en'
+          ? 'Your profile'
+          : language === 'ru'
+          ? 'Ваш профиль'
+          : 'Ваш профіль'}
+      </Title>
       <ul>
         <Li>
-          <Subtitle>{language === 'en' ? 'Your ID' : language === 'ru' ? 'Ваш ID' : 'Ваш ID'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your ID'
+              : language === 'ru'
+              ? 'Ваш ID'
+              : 'Ваш ID'}
+          </Subtitle>
           <Box>
-            <BoxIcon
-              onClick={() =>
-                userId !== null &&
-                handleCopyToClipboard(userId.toString(), 'id')
-              }
-            >
+            <BoxIcon onClick={onClickId}>
               <IconId />
             </BoxIcon>
             <BoxInput>
-              {copiedId ? (
+              {copiedField === 'id' ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Id copied!'
+                    : language === 'ru'
+                    ? 'Id скопирован!'
+                    : 'Id скопійовано!'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
@@ -76,20 +85,25 @@ const Profile = () => {
           </Box>
         </Li>
         <Li>
-          <Subtitle>{language === 'en' ? 'Your email' : language === 'ru' ? 'Ваша почта' : 'Ваша пошта'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your email'
+              : language === 'ru'
+              ? 'Ваша почта'
+              : 'Ваша пошта'}
+          </Subtitle>
           <Box>
-            <BoxIcon
-              onClick={() =>
-                userEmail !== null &&
-                handleCopyToClipboard(userEmail.toString(), 'email')
-              }
-            >
+            <BoxIcon onClick={onClickEmail}>
               <IconEmail />
             </BoxIcon>
             <BoxInput>
-              {copiedEmail ? (
+              {copiedField === 'email' ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Email copied!'
+                    : language === 'ru'
+                    ? 'Email скопирован!'
+                    : 'Email скопійовано!'}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
@@ -99,20 +113,25 @@ const Profile = () => {
           </Box>
         </Li>
         <Li>
-          <Subtitle>{language === 'en' ? 'Your name on site' : language === 'ru' ? 'Ваше имя на сайте' : 'Ваше Ім\'я на сайті'}</Subtitle>
+          <Subtitle>
+            {language === 'en'
+              ? 'Your name on site'
+              : language === 'ru'
+              ? 'Ваше имя на сайте'
+              : "Ваше Ім'я на сайті"}
+          </Subtitle>
           <Box>
-            <BoxIcon
-              onClick={() =>
-                userNickName !== null &&
-                handleCopyToClipboard(userNickName.toString(), 'name')
-              }
-            >
+            <BoxIcon onClick={onClickName}>
               <IconName />
             </BoxIcon>
             <BoxInput>
-              {copiedName ? (
+              {copiedField === 'name' ? (
                 <CopiedText>
-                  {language === 'en' ? 'Copied' : language === 'ru' ? 'Скопировано' : 'Скопійовано'}
+                  {language === 'en'
+                    ? 'Name copied!'
+                    : language === 'ru'
+                    ? 'Имя скопировано!'
+                    : "Ім'я скопійовано!"}
                   <span> &#x2713;</span>
                 </CopiedText>
               ) : (
