@@ -7,10 +7,12 @@ import { postUserPhone } from '../../redux/auth/authOperations';
 import { AppDispatch } from '../../redux/store';
 import { Button } from '../Appbar/AppBar.styled';
 import { getValidationSchema } from '../Auth/authValidationSchema';
-import * as Yup from 'yup';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { FormPhone, BoxIcon, Input } from './Profile.styled';
+import { FormPhone, BoxIcon, Input, Wrap } from './Profile.styled';
 import { formatPhoneNumber } from './formatPhoneNumber';
+import { ButtonBase, IconButton } from '@mui/material';
+import { GiTrashCan } from 'react-icons/gi';
 
 interface PhoneFormProps {
   initialPhoneNumber: string;
@@ -26,14 +28,20 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
   language,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
-  // const [phoneNumber, setPhoneNumber] = useState('');
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = async () => {
+    if (phoneNumber.length < 15) {
+      Notify.failure('Введите корректній номер телефона');
+      return;
+    }
+
     const objToRequest = {
       phone: formatPhoneNumber(phoneNumber),
     };
+
     await dispatch(postUserPhone(objToRequest));
+
     changeFunc(false);
     setPhoneNumber(initialPhoneNumber);
   };
@@ -49,6 +57,10 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
     language,
     'phoneValidationSchema'
   );
+
+  const handleClearPhone = () => {
+    setPhoneNumber('');
+  };
 
   return (
     <>
@@ -66,8 +78,10 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
                 ? 'Ваш номер телефона'
                 : 'Ваш номер Телефону'}
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', height: 40 }}>
+            <Wrap>
+              <div
+                style={{ position: 'relative', display: 'flex', height: 40 }}
+              >
                 <BoxIcon>
                   <FlagUa style={{ width: 15 }} />
                 </BoxIcon>
@@ -82,9 +96,22 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
                   value={phoneNumber}
                   maxLength={15}
                 />
+
+                <IconButton
+                  onClick={handleClearPhone}
+                  aria-label="delete"
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: 5,
+                    transform: 'translateY(-50%)',
+                  }}
+                >
+                  <GiTrashCan />
+                </IconButton>
               </div>
-              <ErrorMessage name="phone" component="div" />
-            </div>
+              <ErrorMessage name="phone" component={Wrap} />
+            </Wrap>
             <Button
               style={{ width: '100%', margin: '18px 0' }}
               type="submit"
