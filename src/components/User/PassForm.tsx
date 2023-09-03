@@ -76,7 +76,7 @@ const PassForm = ({ language }: any) => {
   };
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
+  console.log(google);
   return (
     <Formik
       initialValues={initialValues}
@@ -88,7 +88,7 @@ const PassForm = ({ language }: any) => {
           <h2 style={{ margin: '20px 0' }}>{language === 'en' ? 'Your password' : language === 'ru' ? 'Ваш пароль' : 'Ваш пароль'}
           </h2>
 
-          {google === 'false' && (
+          {google === 'false' || !google && (
             <>
               <label style={{ fontWeight: 500, marginBottom: 8 }}>
                 {language === 'en' ? 'Your old password' : language === 'ru' ? 'Ваш старый пароль' : 'Ваш старий пароль'}
