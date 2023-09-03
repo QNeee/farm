@@ -47,18 +47,10 @@ export const Box = styled.div`
   color: rgba(0, 0, 0, 0.8);
 `;
 export const FormPhone = styled(Form)`
-  /* width: 100%; */
-  /* height: 40px; */
-  /* display: flex;
-  flex-direction: column; */
-  /* color: rgba(0, 0, 0, 0.8); */
 `;
 export const Wrap = styled.div`
-  /* width: 100%; */
-  /* height: 40px; */
   display: flex;
   flex-direction: column;
-  /* color: rgba(0, 0, 0, 0.8); */
 `;
 
 export const BoxInput = styled.div`
