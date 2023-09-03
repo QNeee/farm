@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage, FormikProps } from 'formik';
 
 import { ReactComponent as FlagUa } from '../../images/ua.svg';
@@ -27,12 +27,19 @@ const PhoneFormC: React.FC<PhoneFormProps> = ({
   changeFunc,
   language,
 }) => {
-  const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
   const dispatch: AppDispatch = useDispatch();
+
+  const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
 
   const handleSubmit = async () => {
     if (phoneNumber.length < 15) {
-      Notify.failure('Введите корректній номер телефона');
+      Notify.failure(
+        language === 'en'
+          ? 'Phone number does not match the format'
+          : language === 'ru'
+          ? 'Номер телефона не соответствует формату'
+          : 'Номер телефону не відповідає формату'
+      );
       return;
     }
 
