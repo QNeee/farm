@@ -58,7 +58,10 @@ const PassForm = ({ language }: any) => {
         return Notify.failure(
           'новий пароль і новий пароль ще раз введені невірно'
         );
-      if (!google || google === 'false') {
+      if (!google) {
+        if (oldPass === '' || newPass === '' || newPassRepeat === '') return;
+      }
+      if (google === 'false') {
         if (oldPass === '' || newPass === '' || newPassRepeat === '') return;
       }
       await dispatch(patchUserPassword(objRequest));
