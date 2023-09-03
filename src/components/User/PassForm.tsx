@@ -42,7 +42,6 @@ const PassForm = ({ language }: any) => {
   };
 
   const validationSchema = getValidationSchema(language, 'passChangeValidationSchema', google);
-  console.log(google);
   const onSubmitForm = async (
     values: Values,
     { resetForm }: { resetForm: () => void }
