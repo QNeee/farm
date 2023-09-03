@@ -29,7 +29,8 @@ export const Error = styled(ErrorMessage)`
   position: absolute;
   bottom: -100%;
   left: 0;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
   padding: 3px 10px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 1);
