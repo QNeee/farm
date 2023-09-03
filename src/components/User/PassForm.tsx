@@ -41,8 +41,7 @@ const PassForm = ({ language }: any) => {
     showPassword: '',
   };
 
-  const validationSchema = getValidationSchema(language, 'passChangeValidationSchema');
-
+  const validationSchema = getValidationSchema(language, 'passChangeValidationSchema', google);
   const onSubmitForm = async (
     values: Values,
     { resetForm }: { resetForm: () => void }
@@ -58,12 +57,6 @@ const PassForm = ({ language }: any) => {
         return Notify.failure(
           'новий пароль і новий пароль ще раз введені невірно'
         );
-      if (!google) {
-        if (oldPass === '' || newPass === '' || newPassRepeat === '') return;
-      }
-      if (google === 'false') {
-        if (oldPass === '' || newPass === '' || newPassRepeat === '') return;
-      }
       await dispatch(patchUserPassword(objRequest));
       resetForm();
     } catch (error) {
