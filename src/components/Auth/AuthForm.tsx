@@ -1,4 +1,5 @@
 import { Formik, Form } from 'formik';
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { AiOutlineLogin } from 'react-icons/ai';
@@ -8,7 +9,7 @@ import {
   MdOutlineMailOutline,
 } from 'react-icons/md';
 
-import { login, register } from '../../redux/auth/authOperations';
+import { forgotPassword, login, register } from '../../redux/auth/authOperations';
 
 import {
   Label,
@@ -23,7 +24,7 @@ import {
 } from './Auth.styled';
 import { AppDispatch } from '../../redux/store';
 import { RulesModal } from '../Modal';
-import { getLanguage } from '../../redux/auth/authSelectors';
+import { getLanguage, getPassMsg } from '../../redux/auth/authSelectors';
 import { getValidationSchema } from './authValidationSchema';
 
 interface IForm {
@@ -34,6 +35,10 @@ interface IForm {
 
 const AuthForm = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [forgot, setForgot] = useState(false);
+  const [w8, setW8] = useState(false);
+  const passMsg = useSelector(getPassMsg);
+  const [email, setEmail] = useState('');
   const { pathname } = useLocation();
   const language = useSelector(getLanguage);
   const initialValues: IForm = {
@@ -43,7 +48,19 @@ const AuthForm = () => {
   };
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
-
+  const passTranslate = (msg: string) => {
+    let text = '';
+    switch (language) {
+      case 'en':
+        return msg;
+      case 'ru':
+        text = `Мы отправили пароль на вашу почту ${msg.split(' ')[5]}`
+        break;
+      default:
+        text = `Ми відправили пароль на вашу почту ${msg.split(' ')[5]}`
+    }
+    return text;
+  }
   const onSubmit = async (
     values: IForm,
     { resetForm }: { resetForm: () => void }
@@ -63,7 +80,18 @@ const AuthForm = () => {
       console.error(language === 'en' ? 'Something Wrong!' : language === 'ru' ? 'Чтото пошло не так!' : 'Щось пішло не так!', error);
     }
   };
-
+  const handleSubmit = async () => {
+    if (w8) return;
+    if (!email) return;
+    setW8(true);
+    const data = {
+      email
+    }
+    await dispatch(forgotPassword(data));
+    setEmail('');
+    setW8(false);
+    setForgot(false);
+  };
   return (
     <Formik
       initialValues={initialValues}
@@ -94,6 +122,16 @@ const AuthForm = () => {
             />
             <Error name="password" component={WrapError} />
           </WrapError>
+          {pathname === '/login' ? <div>
+            {!forgot ? <Button onClick={() => setForgot(true)}>{!passMsg ? language === 'en' ? 'Forgot password?' : language === 'ru' ? 'Забыли пароль?' : 'Забули пароль?' : passTranslate(passMsg)}</Button> :
+              <div>
+                <input placeholder={language === 'en' ? 'Enter your Email' : language === 'ru' ? 'Введите вашу Почту' : 'Введіть вашу почту'} type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <div style={{ display: 'flex' }}>
+                  <Button type='button' onClick={handleSubmit}>{language === 'en' ? 'Send Password' : language === 'ru' ? 'Отправить Пароль' : 'Відправити Пароль'}</Button>
+                  <Button type='button' onClick={() => setForgot(false)}>{language === 'en' ? 'Back' : language === 'ru' ? 'Назад' : 'Назад'}</Button>
+                </div>
+              </div>}
+          </div> : null}
           {pathname === '/login' ? null : (
             <WrapErrorCheck hasError={!!(touched.toggle && errors.toggle)}>
               <FieldCheck type="checkbox" id="checkbox" name="toggle" />
@@ -123,8 +161,9 @@ const AuthForm = () => {
             )}
           </Button>
         </Form>
-      )}
-    </Formik>
+      )
+      }
+    </Formik >
   );
 };
 export { AuthForm };

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, refresh, logout, getUserInfo, postUserBalance, postUserPhone, patchUserPassword } from './authOperations';
+import { register, login, refresh, logout, getUserInfo, postUserBalance, postUserPhone, patchUserPassword, forgotPassword } from './authOperations';
 interface IUserState {
     user: { email: string; id: number | null; balance: number | 0, phone: string | null, google: boolean | string };
 }
@@ -11,6 +11,7 @@ export interface IAuthState {
     isLoggedIn: boolean;
     loading: boolean;
     error: unknown;
+    passMsg: string;
     allSlots: [];
     slot: [];
     result: number;
@@ -28,6 +29,7 @@ const initialState: IAuthState = {
     accessToken: null,
     refreshToken: null,
     sid: '',
+    passMsg: '',
     isLoggedIn: false,
     loading: false,
     error: null,
@@ -197,6 +199,17 @@ export const authSlice = createSlice({
                 state.loading = false;
             })
             .addCase(patchUserPassword.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(forgotPassword.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(forgotPassword.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.passMsg = payload.data.message;
+            })
+            .addCase(forgotPassword.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

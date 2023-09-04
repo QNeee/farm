@@ -147,3 +147,14 @@ export const patchUserPassword = createAsyncThunk(
     }
   }
 );
+export const forgotPassword = createAsyncThunk(
+  'user/forgotPassword',
+  async (data: { email: string }, { rejectWithValue }) => {
+    try {
+      const result = await axios.post('auth/forgot', data);
+      return result;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
