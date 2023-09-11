@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { ICubicResultRenderOtherProps } from '../../types';
 
-const ResultRenderSchool = ({ cubicsResult }: any) => {
+const ResultRenderSchool: React.FC<ICubicResultRenderOtherProps> = ({ cubicsResult }) => {
     const results: string[] = ['schoolX', 'school'];
-    const result = cubicsResult ? cubicsResult.filter((item: any) => results.includes(item.result.split(' ')[0])).flatMap((item: any) => item.result).join('') : null;
+    const result = cubicsResult ? cubicsResult.filter((item) => results.includes(item.result.split(' ')[0])).flatMap((item) => item.result).join('') : null;
+    console.log(result);
     useEffect(() => {
         const resultNumber = result?.split(' ')[1];
         const allElements = document.querySelectorAll('[id$=" user"]');
         allElements.forEach((el) => {
-            if (el.id === (resultNumber - 1) + ' user') {
-                (el as HTMLElement).style.border = cubicsResult && cubicsResult.length > 0 ? '1px solid tomato' : '';
+            if (el.id === (parseInt(resultNumber as string) - 1) + ' user') {
+                (el as HTMLElement).style.border = cubicsResult && cubicsResult.length > 0 ? '3px solid tomato' : '';
             } else {
                 (el as HTMLElement).style.border = '';
             }

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ICubicsData, IResultCubicsSchool } from '../../types';
+import { ICubicsData, ICubicsResultTable, IResultCubicsSchool } from '../../types';
 import { getCubicsTable, getCubicsResult, postCubicResultOther, postCubicResultCherk, postCubicResultSchool, getCubicsReroll, getCubicOutStash, getCubicInStash, getCubicsStartGame, postCubicStartGame, deleteThrowGame, getCubicsStart } from './cubicsOperations';
 
 export interface ICubicState {
@@ -12,10 +12,10 @@ export interface ICubicState {
     endGame: boolean;
     endGameResult: string;
     startGame: boolean;
-    cubicResultRenderUserSchool: [] | null;
-    cubicResultRenderPcSchool: [] | null;
-    cubicResultRenderUserOther: [] | null;
-    cubicResultRenderPcOther: [] | null;
+    cubicResultRenderUserSchool: ICubicsResultTable[] | null;
+    cubicResultRenderPcSchool: ICubicsResultTable[] | null;
+    cubicResultRenderUserOther: ICubicsResultTable[] | null;
+    cubicResultRenderPcOther: ICubicsResultTable[] | null;
     rolls: number | null,
     error: unknown;
     loading: boolean,
