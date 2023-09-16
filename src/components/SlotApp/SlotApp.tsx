@@ -37,7 +37,13 @@ import {
   getUserBet,
   getUserResult,
 } from '../../redux/slots/slotsSelectors';
-import { getLanguage, getRefreshed, getToken, getUpdateBalance, getUserBalance } from '../../redux/auth/authSelectors';
+import {
+  getLanguage,
+  getRefreshed,
+  getToken,
+  getUpdateBalance,
+  getUserBalance,
+} from '../../redux/auth/authSelectors';
 import {
   getSlotsById,
   postBetSlot,
@@ -68,7 +74,7 @@ export const SlotApp = () => {
   const namePath = pathname.split('/')[1];
   const getDemoBalanceNumber = () => {
     return parseInt(localStorage.getItem(localBalance) as string);
-  }
+  };
   useEffect(() => {
     if (refreshed || namePath === 'demoSlots') {
       if (namePath === 'demoSlots') {
@@ -80,21 +86,21 @@ export const SlotApp = () => {
             lines: 1,
             bet: 1,
             totalBet: 1,
-          }
+          };
           newArr.push(obj);
           localStorage.setItem(localItem, JSON.stringify(newArr));
           localStorage.setItem(localBalance, '1000');
           dispatch(getSlotsById(newArr));
         } else {
           const arr: ISlotDemo[] = JSON.parse(storedData as string);
-          const index = arr.findIndex(item => item.id === id);
+          const index = arr.findIndex((item) => item.id === id);
           if (index === -1) {
             const obj = {
               id,
               lines: 1,
               bet: 1,
               totalBet: 1,
-            }
+            };
             arr.push(obj);
             localStorage.setItem(localItem, JSON.stringify(arr));
             const arrToRequest = arr[arr.length - 1];
@@ -113,7 +119,7 @@ export const SlotApp = () => {
     if (updatedBalance) {
       setRenderBalance(balance);
     }
-  }, [updateBalance, balance])
+  }, [updateBalance, balance]);
   const [animate, setAnimate] = useState(false);
   const [w8, setW8] = useState(false);
   const [auto, setAuto] = useState(false);
@@ -125,7 +131,9 @@ export const SlotApp = () => {
   const [expense, setExpense] = useState(false);
   const [resultRender, setResultRender] = useState(false);
   const [autoModal, setAutoModal] = useState(false);
-  const [renderBalance, setRenderBalance] = useState(token ? balance : getDemoBalanceNumber() || 1000);
+  const [renderBalance, setRenderBalance] = useState(
+    token ? balance : getDemoBalanceNumber() || 1000
+  );
   const [play, setPlay] = useState(false);
   const [playSpin] = useSound(spinSound);
   const [playWin] = useSound(winSound);
@@ -137,22 +145,22 @@ export const SlotApp = () => {
     const storedData = localStorage.getItem(localItem) || [];
     if (storedData.length > 0) {
       const arr: ISlotDemo[] = JSON.parse(storedData as string);
-      const index = arr.findIndex(item => item.id === id);
+      const index = arr.findIndex((item) => item.id === id);
       if (index !== -1) {
         return arr[index].lines;
       }
     }
-  }
+  };
   const betFunc = () => {
     const storedData = localStorage.getItem(localItem) || [];
     if (storedData.length > 0) {
       const arr: ISlotDemo[] = JSON.parse(storedData as string);
-      const index = arr.findIndex(item => item.id === id);
+      const index = arr.findIndex((item) => item.id === id);
       if (index !== -1) {
         return arr[index].bet;
       }
     }
-  }
+  };
   const [demoLines, setDemoLines] = useState(linesFunc());
   const [demoBet, setDemoBet] = useState(betFunc());
   useEffect(() => {
@@ -163,14 +171,18 @@ export const SlotApp = () => {
         setW8(false);
       }, 1500);
     }
-  }, [dispatch, slotAnimate, helperAnimate])
+  }, [dispatch, slotAnimate, helperAnimate]);
   useEffect(() => {
     if (result > 0 && !animate) {
       if (!isWinSoundPlayed) {
         playWin();
         setWinSoundPlayed(true);
         setResultRender(true);
-        setRenderBalance(token ? balance : parseInt(localStorage.getItem(localBalance) as string));
+        setRenderBalance(
+          token
+            ? balance
+            : parseInt(localStorage.getItem(localBalance) as string)
+        );
       }
     } else {
       setWinSoundPlayed(false);
@@ -199,18 +211,18 @@ export const SlotApp = () => {
             setAuto(false);
             return;
           }
-          setRenderBalance(prev => prev - bet * lines);
+          setRenderBalance((prev) => prev - bet * lines);
           playSpin();
           setAnimate(true);
           dispatch(animateHelper(true));
           await dispatch(postStartGame(reqData));
-          setCount(prev => prev - 1);
+          setCount((prev) => prev - 1);
           count++;
         }, 4000);
 
         setIntervalId(interval);
       } else {
-        setRenderBalance(prev => prev - bet * lines);
+        setRenderBalance((prev) => prev - bet * lines);
         playSpin();
         setAnimate(true);
         dispatch(animateHelper(true));
@@ -241,26 +253,31 @@ export const SlotApp = () => {
             return;
           }
           playSpin();
-          setRenderBalance(prev => prev - (demoBet || 1) * (demoLines || 1));
-          localStorage.setItem(localBalance, '' + (getDemoBalanceNumber() - (demoBet || 1) * (demoLines || 1)));
+          setRenderBalance((prev) => prev - (demoBet || 1) * (demoLines || 1));
+          localStorage.setItem(
+            localBalance,
+            '' + (getDemoBalanceNumber() - (demoBet || 1) * (demoLines || 1))
+          );
           setAnimate(true);
           dispatch(animateHelper(true));
           await dispatch(postStartGame(newArr as ISlotDemo[]));
-          setCount(prev => prev - 1);
+          setCount((prev) => prev - 1);
           count++;
         }, 4000);
 
         setIntervalId(interval);
       } else {
         playSpin();
-        setRenderBalance(prev => prev - (demoBet || 1) * (demoLines || 1));
-        localStorage.setItem(localBalance, '' + (getDemoBalanceNumber() - (demoBet || 1) * (demoLines || 1)));
+        setRenderBalance((prev) => prev - (demoBet || 1) * (demoLines || 1));
+        localStorage.setItem(
+          localBalance,
+          '' + (getDemoBalanceNumber() - (demoBet || 1) * (demoLines || 1))
+        );
         setAnimate(true);
         dispatch(animateHelper(true));
         await dispatch(postStartGame(newArr as ISlotDemo[]));
       }
     }
-
   };
   const stopAnimation = () => {
     if (intervalId) {
@@ -298,7 +315,7 @@ export const SlotApp = () => {
           if (demoLines === 3) return;
           const storedData = localStorage.getItem(localItem) || [];
           const arr: ISlotDemo[] = JSON.parse(storedData as string);
-          const index = arr.findIndex(item => item.id === id);
+          const index = arr.findIndex((item) => item.id === id);
           arr[index].lines = arr[index].lines + 1;
           arr.splice(index, 1, arr[index]);
           localStorage.setItem(localItem, JSON.stringify(arr));
@@ -319,7 +336,7 @@ export const SlotApp = () => {
           if (demoLines === 1) return;
           const storedData = localStorage.getItem(localItem) || [];
           const arr: ISlotDemo[] = JSON.parse(storedData as string);
-          const index = arr.findIndex(item => item.id === id);
+          const index = arr.findIndex((item) => item.id === id);
           arr[index].lines = arr[index].lines - 1;
           arr.splice(index, 1, arr[index]);
           localStorage.setItem(localItem, JSON.stringify(arr));
@@ -340,7 +357,7 @@ export const SlotApp = () => {
           if (demoBet === 20) return;
           const storedData = localStorage.getItem(localItem) || [];
           const arr: ISlotDemo[] = JSON.parse(storedData as string);
-          const index = arr.findIndex(item => item.id === id);
+          const index = arr.findIndex((item) => item.id === id);
           arr[index].bet = arr[index].bet + 1;
           arr.splice(index, 1, arr[index]);
           localStorage.setItem(localItem, JSON.stringify(arr));
@@ -361,7 +378,7 @@ export const SlotApp = () => {
           if (demoBet === 20) return;
           const storedData = localStorage.getItem(localItem) || [];
           const arr: ISlotDemo[] = JSON.parse(storedData as string);
-          const index = arr.findIndex(item => item.id === id);
+          const index = arr.findIndex((item) => item.id === id);
           arr[index].bet = arr[index].bet - 1;
           arr.splice(index, 1, arr[index]);
           localStorage.setItem(localItem, JSON.stringify(arr));
@@ -404,8 +421,10 @@ export const SlotApp = () => {
         <HeaderStyled>
           <Lamp>
             {isOpen && (
-              <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              </TextModal>
+              <TextModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+              ></TextModal>
             )}
             <FcIdea
               onClick={toggleModal}
@@ -414,19 +433,46 @@ export const SlotApp = () => {
             />
           </Lamp>
           <Balance>
-            {language === 'en' ? 'Balance' : language === 'ru' ? 'Баланс' : 'Баланс'}: {renderBalance}
+            {language === 'en'
+              ? 'Balance'
+              : language === 'ru'
+              ? 'Баланс'
+              : 'Баланс'}
+            : {renderBalance}
             {expense ? (
               <Span primary={!resultRender ? true : false}>
-                {result > 0 && resultRender ? `+(${result})` : `-(${token ? bet * lines : (demoLines || 1) * (demoBet || 1)})`}
+                {result > 0 && resultRender
+                  ? `+(${result})`
+                  : `-(${
+                      token ? bet * lines : (demoLines || 1) * (demoBet || 1)
+                    })`}
               </Span>
             ) : null}
           </Balance>
-          <LineCount>{language === 'en' ? 'Lines' : language === 'ru' ? 'Линии' : 'Лінії'}
-            :{token ? lines : demoLines || 1}</LineCount>
-          <LineCount>{language === 'en' ? 'Bet' : language === 'ru' ? 'Ставка' : 'Ставка'}
-            :{token ? bet : demoBet || 1}</LineCount>
-          <LineCount>{language === 'en' ? 'Total bet' : language === 'ru' ? 'Общая ставка' : 'Загальна ставка'}
-            :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}</LineCount>
+          <LineCount>
+            {language === 'en'
+              ? 'Lines'
+              : language === 'ru'
+              ? 'Линии'
+              : 'Лінії'}
+            :{token ? lines : demoLines || 1}
+          </LineCount>
+          <LineCount>
+            {language === 'en'
+              ? 'Bet'
+              : language === 'ru'
+              ? 'Ставка'
+              : 'Ставка'}
+            :{token ? bet : demoBet || 1}
+          </LineCount>
+          <LineCount>
+            {language === 'en'
+              ? 'Total bet'
+              : language === 'ru'
+              ? 'Общая ставка'
+              : 'Загальна ставка'}
+            :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}
+          </LineCount>
         </HeaderStyled>
         <Container>
           {result > 0 && resultRender && <NumberModal number={result} />}
@@ -442,7 +488,11 @@ export const SlotApp = () => {
                 primary={false}
                 disabled={auto}
               >
-                {language === 'en' ? 'Bet' : language === 'ru' ? 'Ставка' : 'Ставка'}
+                {language === 'en'
+                  ? 'Bet'
+                  : language === 'ru'
+                  ? 'Ставка'
+                  : 'Ставка'}
               </SpinButton>
             )}
 
@@ -452,7 +502,13 @@ export const SlotApp = () => {
                 onClick={() => startAnimation()}
                 disabled={auto}
               >
-                {!auto ? language === 'en' ? 'Spin' : language === 'ru' ? 'Крутить' : 'Крутити' : count}
+                {!auto
+                  ? language === 'en'
+                    ? 'Spin'
+                    : language === 'ru'
+                    ? 'Крутить'
+                    : 'Крутити'
+                  : count}
               </SpinButton>
             )}
             {!showModal && !autoModal && (
@@ -462,9 +518,17 @@ export const SlotApp = () => {
                   !auto ? onClickLines('autoModal') : stopAnimation()
                 }
               >
-                {!auto ? language === 'en' ? 'Auto' : language === 'ru' ? 'Авто' : 'Авто'
-                  : language === 'en' ? 'Stop' : language === 'ru' ? 'Стоп' : 'Стоп'
-                }
+                {!auto
+                  ? language === 'en'
+                    ? 'Auto'
+                    : language === 'ru'
+                    ? 'Авто'
+                    : 'Авто'
+                  : language === 'en'
+                  ? 'Stop'
+                  : language === 'ru'
+                  ? 'Стоп'
+                  : 'Стоп'}
               </SpinButton>
             )}
             {!showModal && !autoModal && (
@@ -473,7 +537,11 @@ export const SlotApp = () => {
                 primary={false}
                 disabled={auto}
               >
-                {language === 'en' ? 'Lines' : language === 'ru' ? 'Линии' : 'Лінії'}
+                {language === 'en'
+                  ? 'Lines'
+                  : language === 'ru'
+                  ? 'Линии'
+                  : 'Лінії'}
               </SpinButton>
             )}
             {showModal && (
@@ -494,12 +562,20 @@ export const SlotApp = () => {
             )}
             {showModal && (
               <SpinButton onClick={onClickBack} primary={false}>
-                {language === 'en' ? 'Back' : language === 'ru' ? 'назад' : 'назад'}
+                {language === 'en'
+                  ? 'Back'
+                  : language === 'ru'
+                  ? 'назад'
+                  : 'назад'}
               </SpinButton>
             )}
             {autoModal && (
               <SpinButton onClick={onClickBack} primary={false}>
-                {language === 'en' ? 'Back' : language === 'ru' ? 'назад' : 'назад'}
+                {language === 'en'
+                  ? 'Back'
+                  : language === 'ru'
+                  ? 'назад'
+                  : 'назад'}
               </SpinButton>
             )}
             {autoModal && (

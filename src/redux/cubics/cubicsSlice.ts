@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ICubicsData, IResultCubicsSchool } from '../../types';
-import { getCubicsTable, getCubicsResult, postCubicResultOther, postCubicResultCherk, postCubicResultSchool, getCubicsReroll, getCubicOutStash, getCubicInStash, getCubicsStartGame, postCubicStartGame, deleteThrowGame, getCubicsStart } from './cubicsOperations';
+import { ICubicsData, ICubicsResultTable, IResultCubicsSchool } from '../../types';
+import { getCubicsTable, getCubicsResult, postCubicResultOther, postCubicResultCherk, postCubicResultSchool, getCubicsReroll, getCubicOutStash, getCubicInStash, getCubicsStartGame, postCubicStartGame, deleteThrowGame, getCubicsStart, getCubicsInstruction } from './cubicsOperations';
 
 export interface ICubicState {
     cubics: ICubicsData[] | null;
@@ -12,10 +12,14 @@ export interface ICubicState {
     endGame: boolean;
     endGameResult: string;
     startGame: boolean;
-    cubicResultRenderUserSchool: [] | null;
-    cubicResultRenderPcSchool: [] | null;
-    cubicResultRenderUserOther: [] | null;
-    cubicResultRenderPcOther: [] | null;
+    cubicInstruction: [];
+    instrCombination: [];
+    instrValues: [];
+    instrLines: [];
+    cubicResultRenderUserSchool: ICubicsResultTable[] | null;
+    cubicResultRenderPcSchool: ICubicsResultTable[] | null;
+    cubicResultRenderUserOther: ICubicsResultTable[] | null;
+    cubicResultRenderPcOther: ICubicsResultTable[] | null;
     rolls: number | null,
     error: unknown;
     loading: boolean,
@@ -31,6 +35,10 @@ const initialState: ICubicState = {
     loading: false,
     startGame: false,
     cubicInStash: undefined,
+    cubicInstruction: [],
+    instrCombination: [],
+    instrValues: [],
+    instrLines: [],
     cubicResultRenderUserSchool: null,
     cubicResultRenderPcSchool: null,
     cubicResultRenderUserOther: null,
@@ -229,6 +237,20 @@ export const cubicSlice = createSlice({
                 state.endGameResult = payload.data.endGameResult;
             })
             .addCase(postCubicResultCherk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addCase(getCubicsInstruction.pending, (state) => {
+                state.instrCombination = [];
+                state.instrLines = [];
+                state.instrValues = [];
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsInstruction.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubicInstruction = payload.data;
+            })
+            .addCase(getCubicsInstruction.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

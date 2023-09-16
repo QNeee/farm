@@ -47,8 +47,31 @@ export interface IPostSlotLine {
   id: string;
   bet?: number;
 }
-
-// export interface ISchoolResult {
-//   number: string,
-//   count: number
-// }
+export interface ICubicDataProps {
+  cubicsData: ICubicsData[] | null;
+}
+export interface ICubicsResultTable {
+  combination: string;
+  count: number;
+  number: string;
+  textContent: string;
+}
+interface ICubicResultDataRenderOther {
+  [key: string]: string
+}
+export interface ICubicResultRenderOtherProps {
+  cubicsResult: ICubicResultDataRenderOther[] | null
+}
+interface ICubicInstValues {
+  img: string;
+  value: number;
+}
+interface ICubicInstComb {
+  img: string;
+  name: string;
+}
+export interface ICubicInstr {
+  combination: ICubicInstComb[];
+  text: [];
+  values: ICubicInstValues[];
+}
