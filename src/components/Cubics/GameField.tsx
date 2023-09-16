@@ -21,21 +21,17 @@ import { getLanguage } from '../../redux/auth/authSelectors';
 import { Lamp } from '../SlotApp/SlotApp.styled';
 import { TextModal } from '../Modal';
 import { FcIdea } from 'react-icons/fc';
-const GameFieldContainer = styled.div`
-  position: relative;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  background-color: green;
-  width: 300px;
-  height: 400px;
-  border: 5px solid black;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-
-  @media (min-width: 768px) {
-    width: 500px;
-  }
+import {
+  BottomContainer,
+  GameFieldContainer,
+  Image,
+  MainContainer,
+  Square,
+  Text,
+  TopContainer,
+  UrnContainer,
+  UrnImage,
+} from './GameField.styled';
 
 const GameField: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -212,8 +208,8 @@ const GameField: React.FC = () => {
             {language === 'en'
               ? 'Rolls'
               : language === 'ru'
-                ? 'Крутить'
-                : 'Розкочувати'}{' '}
+              ? 'Крутить'
+              : 'Розкочувати'}{' '}
             {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
           </Text>
           <UrnImage
@@ -225,8 +221,10 @@ const GameField: React.FC = () => {
         </UrnContainer>
         <Lamp>
           {isOpen && (
-            <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            </TextModal>
+            <TextModal
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+            ></TextModal>
           )}
           <FcIdea
             onClick={toggleModal}
