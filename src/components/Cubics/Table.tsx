@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
 import ResultRenderSchool from './ResultRenderSchool';
 import ResultRenderOther from './ResultRenderOther';
@@ -23,25 +22,13 @@ import {
   postCubicResultSchool,
 } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
-
-const TableContainer = styled.table`
-  /* width: 50%; */
-  border-collapse: collapse;
-  color: rgba(255, 255, 255, 1);
-`;
-
-const TableRow = styled.tr`
-  height: 5px;
-`;
-
-const TableCell = styled.td`
-  border: 2px solid #ccc;
-  min-width: 70px;
-`;
-const TableHeader = styled.th`
-  padding: 10px;
-  border: 1px solid #ccc;
-`;
+import {
+  TableHeader,
+  Wrapper,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from './Table.styled';
 
 const Table: React.FC = () => {
   const language = useSelector(getLanguage);
@@ -367,73 +354,57 @@ const Table: React.FC = () => {
     return text;
   };
   return (
-    <TableContainer>
-      <thead>
-        <tr>
-          <TableHeader>
-            {/* {language === 'en'
-              ? 'School'
-              : language === 'ru'
-                ? 'Школа'
-                : 'Школа'} */}
-          </TableHeader>
-          <TableHeader>
-            {language === 'en'
-              ? 'User'
-              : language === 'ru'
-              ? 'Игрок'
-              : 'Гравець'}
-          </TableHeader>
-          <TableHeader>
-            {language === 'en' ? 'PC' : language === 'ru' ? 'ПК' : 'ПК'}
-          </TableHeader>
-        </tr>
-      </thead>
-      <tbody>
-        {school?.map((item, index) => (
-          <TableRow key={index}>
-            <TableCell>{translateTable(item, 'school')}</TableCell>
-            <TableCell
-              onClick={() => onClickTableSchool()}
-              key={index + ' user'}
-              id={index + ' user'}
-            >
-              <ResultRenderSchool cubicsResult={cubicsResult} />
-            </TableCell>
-            <TableCell key={index + ' pc'} id={index + ' pc'}></TableCell>
-          </TableRow>
-        ))}
-        {/* </tbody>
-      <thead>
-        <tr>
-          <TableHeader>
-            {language === 'en'
-              ? 'Others'
-              : language === 'ru'
-                ? 'Остальное'
-                : 'Інше'}
-          </TableHeader>
-        </tr>
-      </thead>
-      <tbody> */}
-        {others?.map((item, index) => (
-          <TableRow key={index}>
-            <TableCell key={index}>{translateTable(item, 'other')}</TableCell>
-            <TableCell
-              onClick={() => onClickTableOther(ids[index])}
-              key={index + ' userOther'}
-              id={ids[index] + ' userOther'}
-            >
-              <ResultRenderOther cubicsResult={cubicsResult} />
-            </TableCell>
-            <TableCell
-              key={ids[index] + ' pcOther'}
-              id={ids[index] + ' pcOther'}
-            ></TableCell>
-          </TableRow>
-        ))}
-      </tbody>
-    </TableContainer>
+    <Wrapper>
+      <TableContainer>
+        <thead>
+          <tr>
+            <TableHeader></TableHeader>
+            <TableHeader>
+              {language === 'en'
+                ? 'User'
+                : language === 'ru'
+                ? 'Игрок'
+                : 'Гравець'}
+            </TableHeader>
+            <TableHeader>
+              {language === 'en' ? 'PC' : language === 'ru' ? 'ПК' : 'ПК'}
+            </TableHeader>
+          </tr>
+        </thead>
+        <tbody>
+          {school?.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>{translateTable(item, 'school')}</TableCell>
+              <TableCell
+                onClick={() => onClickTableSchool()}
+                key={index + ' user'}
+                id={index + ' user'}
+              >
+                <ResultRenderSchool cubicsResult={cubicsResult} />
+              </TableCell>
+              <TableCell key={index + ' pc'} id={index + ' pc'}></TableCell>
+            </TableRow>
+          ))}
+
+          {others?.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell key={index}>{translateTable(item, 'other')}</TableCell>
+              <TableCell
+                onClick={() => onClickTableOther(ids[index])}
+                key={index + ' userOther'}
+                id={ids[index] + ' userOther'}
+              >
+                <ResultRenderOther cubicsResult={cubicsResult} />
+              </TableCell>
+              <TableCell
+                key={ids[index] + ' pcOther'}
+                id={ids[index] + ' pcOther'}
+              ></TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </TableContainer>
+    </Wrapper>
   );
 };
 

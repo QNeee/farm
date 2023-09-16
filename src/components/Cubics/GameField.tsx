@@ -18,62 +18,18 @@ import {
 } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
 import { getLanguage } from '../../redux/auth/authSelectors';
-const GameFieldContainer = styled.div`
-  position: relative;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  background-color: green;
-  width: 300px;
-  height: 400px;
-  border: 5px solid black;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+import {
+  BottomContainer,
+  GameFieldContainer,
+  Image,
+  MainContainer,
+  Square,
+  Text,
+  TopContainer,
+  UrnContainer,
+  UrnImage,
+} from './GameField.styled';
 
-  @media (min-width: 768px) {
-    width: 500px;
-  }
-
-  @media (min-width: 1280px) {
-    width: 800px;
-  }
-`;
-const TopContainer = styled.div`
-  display: flex;
-`;
-const BottomContainer = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 15px;
-`;
-const MainContainer = styled.div`
-  display: flex;
-`;
-const Square = styled.div`
-  width: 40px;
-  height: 40px;
-  background-color: transparent;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-const Image = styled.img`
-  margin-left: -20px;
-`;
-const UrnContainer = styled.div`
-  position: absolute;
-  right: 20px;
-  top: 50%;
-`;
-const UrnImage = styled.img`
-  cursor: pointer;
-  border: 1px solid black;
-`;
-const P = styled.p`
-  background-color: white;
-`;
 const GameField: React.FC = () => {
   const [w8, setW8] = useState(false);
   const language = useSelector(getLanguage);
@@ -243,14 +199,14 @@ const GameField: React.FC = () => {
           </Square>
         </BottomContainer>
         <UrnContainer>
-          <P>
+          <Text>
             {language === 'en'
               ? 'Rolls'
               : language === 'ru'
               ? 'Крутить'
               : 'Розкочувати'}{' '}
             {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
-          </P>
+          </Text>
           <UrnImage
             onClick={onClickStartGame}
             src="https://www.sab.kh.ua/wp-content/uploads/2020/06/435346456456.jpg"
