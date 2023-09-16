@@ -119,8 +119,8 @@ const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
           {language === 'en'
             ? 'Throw'
             : language === 'ru'
-              ? 'Здатся'
-              : 'Здатися'}
+            ? 'Здаться'
+            : 'Здатися'}
         </ThrowButton>
       )}
       {cubicsData?.map((item: ICubicsData, index: number) => (
