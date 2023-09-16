@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AppDispatch } from '../../redux/store';
-import { ICubicsData } from '../../types';
+import { ICubicDataProps, ICubicsData } from '../../types';
 import { getStartGame } from '../../redux/cubics/cubicsSelectors';
 import {
   deleteThrowGame,
@@ -51,8 +51,7 @@ const ThrowButton = styled.button`
 const Image = styled.img`
   margin-left: 10px;
 `;
-
-const ImageContainer = ({ cubicsData }: any) => {
+const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
   const cubicKey = 'cubicId';
   const language = useSelector(getLanguage);
   const [w8, setW8] = useState(false);
@@ -120,8 +119,8 @@ const ImageContainer = ({ cubicsData }: any) => {
           {language === 'en'
             ? 'Throw'
             : language === 'ru'
-            ? 'Здатся'
-            : 'Здатися'}
+              ? 'Здатся'
+              : 'Здатися'}
         </ThrowButton>
       )}
       {cubicsData?.map((item: ICubicsData, index: number) => (

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { ICubicResultRenderOtherProps } from '../../types';
 
-const ResultRenderOther = ({ cubicsResult }: any) => {
+const ResultRenderOther: React.FC<ICubicResultRenderOtherProps> = ({ cubicsResult }) => {
   const antiCross = ['pair', 'small', 'big', 'triangle', 'sqr', 'fx', 'poker'];
   const results: string[] = [
     'wl9pa',
@@ -15,11 +16,11 @@ const ResultRenderOther = ({ cubicsResult }: any) => {
   ];
   const result1 = cubicsResult
     ? cubicsResult
-        .filter((item: any) => results.includes(item.result.split(' ')[0]))
-        .flatMap((item: any) => item.result.split(' '))
+      .filter((item) => results.includes(item.result.split(' ')[0]))
+      .flatMap((item) => item.result.split(' '))
     : [];
   const cross = cubicsResult
-    ? cubicsResult.filter((item: any) => item.result === 'cross')
+    ? cubicsResult.filter((item) => item.result === 'cross')
     : [];
   useEffect(() => {
     const allElements = document.querySelectorAll('[id$=" userOther"]');
