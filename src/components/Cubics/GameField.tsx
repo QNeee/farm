@@ -18,6 +18,9 @@ import {
 } from '../../redux/cubics/cubicsOperations';
 import { useLocation } from 'react-router';
 import { getLanguage } from '../../redux/auth/authSelectors';
+import { Lamp } from '../SlotApp/SlotApp.styled';
+import { TextModal } from '../Modal';
+import { FcIdea } from 'react-icons/fc';
 const GameFieldContainer = styled.div`
   position: relative;
   grid-template-columns: repeat(3, 1fr);
@@ -75,6 +78,8 @@ const P = styled.p`
   background-color: white;
 `;
 const GameField: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleModal = () => setIsOpen((prev) => !prev);
   const [w8, setW8] = useState(false);
   const language = useSelector(getLanguage);
   const cubicKey = 'cubicId';
@@ -247,8 +252,8 @@ const GameField: React.FC = () => {
             {language === 'en'
               ? 'Rolls'
               : language === 'ru'
-              ? 'Крутить'
-              : 'Розкочувати'}{' '}
+                ? 'Крутить'
+                : 'Розкочувати'}{' '}
             {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
           </P>
           <UrnImage
@@ -258,6 +263,17 @@ const GameField: React.FC = () => {
             width="50"
           />
         </UrnContainer>
+        <Lamp>
+          {isOpen && (
+            <TextModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            </TextModal>
+          )}
+          <FcIdea
+            onClick={toggleModal}
+            title="Інструкції"
+            style={{ height: 32, width: 32 }}
+          />
+        </Lamp>
       </GameFieldContainer>
       {/* <Table /> */}
     </MainContainer>

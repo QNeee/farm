@@ -225,3 +225,14 @@ export const getCubicOutStash = createAsyncThunk(
         }
     }
 );
+export const getCubicsInstruction = createAsyncThunk(
+    'cubics/instr',
+    async (_, { rejectWithValue }) => {
+        try {
+            const result = await axios.get("instructions/cubicInstruction");
+            return result;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);

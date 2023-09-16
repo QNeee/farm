@@ -20,7 +20,7 @@ export const getInstructionSlot = createAsyncThunk(
     'slots/instruction',
     async (id: string, { rejectWithValue }) => {
         try {
-            const result = await axios.get(`instructions/${id}`);
+            const result = await axios.get(`instructions/slotsInstruction/${id}`);
             return result;
         } catch (error) {
             return rejectWithValue(error);
