@@ -41,6 +41,7 @@ const ResultRenderOther = ({ cubicsResult }: any) => {
         }
         if (!found) {
           (allElements[i] as HTMLElement).style.border = '';
+          (allElements[i] as HTMLElement).style.cursor = '';
         }
       }
     } else {
@@ -52,13 +53,16 @@ const ResultRenderOther = ({ cubicsResult }: any) => {
           const resultId = antiCross[j].trim() + ' userOther';
           if (elementId === resultId && allElements[i].textContent !== '0+0') {
             (allElements[i] as HTMLElement).style.border =
-              cubicsResult && cubicsResult.length > 0 ? '1px solid red' : '';
+              cubicsResult && cubicsResult.length > 0 ? '3px solid red' : '';
+            (allElements[i] as HTMLElement).style.cursor =
+              cubicsResult && cubicsResult.length > 0 ? 'pointer' : '';
             found = true;
             break;
           }
         }
         if (!found) {
           (allElements[i] as HTMLElement).style.border = '';
+          (allElements[i] as HTMLElement).style.cursor = '';
         }
       }
     }
