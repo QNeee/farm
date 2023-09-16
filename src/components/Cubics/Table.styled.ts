@@ -21,6 +21,6 @@ export const TableCell = styled.td`
   padding: 5px;
 `;
 export const TableHeader = styled.th`
-  padding: 10px;
+  padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.5);
 `;
