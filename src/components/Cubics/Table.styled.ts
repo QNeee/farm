@@ -1,10 +1,20 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  padding: 15px;
+  padding: 5px;
   background-color: rgba(0, 0, 0, 0.5);
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 `;
 export const TableContainer = styled.table`
   border-collapse: collapse;

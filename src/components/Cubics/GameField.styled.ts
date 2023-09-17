@@ -35,10 +35,20 @@ const shakeAnimation = keyframes`
 
 export const MainContainer = styled.div`
   display: flex;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  padding: 15px;
+  justify-content: center;
+  padding: 5px;
   background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const GameFieldContainer = styled.div`
@@ -48,19 +58,23 @@ export const GameFieldContainer = styled.div`
   padding: 20px;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-
   background-color: #188000;
-
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
 
   @media (min-width: 768px) {
-    width: 500px;
   }
 
   @media (min-width: 1280px) {
+    position: relative;
     width: 500px;
     height: 500px;
+    padding: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background-color: #188000;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
   }
 `;
 
@@ -79,14 +93,32 @@ export const TopContainer = styled.div`
   display: flex;
   position: absolute;
   top: 30px;
-  left: 30px;
+  left: 24px;
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    display: flex;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
 `;
 
 export const BottomContainer = styled.div`
   display: flex;
   position: absolute;
   bottom: 30px;
-  left: 30px;
+  left: 24px;
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+  }
 `;
 
 export const Square = styled.div`
@@ -95,7 +127,18 @@ export const Square = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 5px;
-  margin-left: 10px;
+  margin-left: 2px;
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    margin-left: 10px;
+  }
 `;
 
 export const ImageUser = styled(FcManager)`
@@ -117,13 +160,24 @@ export const ImagePc = styled(FcReddit)`
 
 export const UrnContainer = styled.div`
   position: absolute;
-  right: 20px;
-  top: 50%;
+  right: 0;
+  top: 18%;
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+  }
 `;
 
 export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
-  width: 150px;
-  height: 150px;
+  position: absolute;
+  right: 85px;
+  top: -150px;
+  width: 50px;
+  height: 50px;
   transform: rotate(-45deg);
   cursor: pointer;
   animation: ${shakeAnimation} 1.5s infinite;
@@ -134,19 +188,49 @@ export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
   &:hover {
     animation-play-state: running;
   }
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    position: static;
+    right: 0;
+    top: 0;
+    width: 150px;
+    height: 150px;
+    transform: rotate(-45deg);
+    cursor: pointer;
+    animation: ${shakeAnimation} 1.5s infinite;
+    animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+
+    &:hover {
+      animation-play-state: running;
+    }
+  }
 `;
 
 export const Text = styled.p`
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
   text-align: center;
-  margin-right: 10px;
+  /* margin-top: -100px;
+  margin-right: -20px; */
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 1);
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    text-align: center;
+    margin-right: 10px;
+  }
 `;
 
 export const PointerAngle = styled(FcRightDown)`
   width: 25px;
   height: 25px;
-  /* transform: rotate(-230deg); */
 `;

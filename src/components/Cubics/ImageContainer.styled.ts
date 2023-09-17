@@ -7,9 +7,21 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 300px;
-  height: 300px;
-  /* border: 1px solid rgba(255, 255, 255, 0.5); */
+  height: 225px;
   border-radius: 10px;
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 1280px) {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    /* border: 1px solid rgba(255, 255, 255, 0.5); */
+    border-radius: 10px;
+  }
 `;
 export const CubicsContainer = styled.div`
   /* outline: 2px solid tomato; */

@@ -223,7 +223,7 @@ const GameField: React.FC = () => {
                 right: '-100px',
               }}
             >
-              <UrnImage animation={true} />
+              <UrnImage />
             </IconButton>
           </UrnContainer>
           <Lamp>
