@@ -20,11 +20,12 @@ import { useLocation } from 'react-router';
 import { getLanguage } from '../../redux/auth/authSelectors';
 import { Lamp } from '../SlotApp/SlotApp.styled';
 import { TextModal } from '../Modal';
-import { FcEmptyTrash, FcIdea } from 'react-icons/fc';
+import { FcIdea } from 'react-icons/fc';
 import {
   BottomContainer,
   GameFieldContainer,
-  Image,
+  ImagePc,
+  ImageUser,
   MainContainer,
   Square,
   Text,
@@ -103,19 +104,11 @@ const GameField: React.FC = () => {
       <GameFieldContainer>
         <Wrapper>
           <TopContainer>
-            <Image
-              src="https://klike.net/uploads/posts/2019-03/1551511823_2.jpg"
-              alt="dd"
-              width="60"
-            />
+            <ImagePc />
           </TopContainer>
           <ImageContainer cubicsData={cubicsData} />
           <BottomContainer>
-            <Image
-              src="https://klike.net/uploads/posts/2019-03/1551511823_2.jpg"
-              alt="dd"
-              width="60"
-            />
+            <ImageUser />
             <Square
               onClick={() =>
                 onClickCubic(

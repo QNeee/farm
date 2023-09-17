@@ -1,4 +1,4 @@
-import { FcEmptyTrash } from 'react-icons/fc';
+import { FcEmptyTrash, FcManager, FcReddit } from 'react-icons/fc';
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
@@ -43,35 +43,53 @@ export const GameFieldContainer = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
   height: 100%;
   width: 100%;
-  border: 5px solid rgba(24, 128, 0, 0.1);
   border-radius: 10px;
+  display: flex;
+  align-items: center;
 `;
 
 export const TopContainer = styled.div`
   display: flex;
+  position: absolute;
+  top: 30px;
+  left: 30px;
 `;
 
 export const BottomContainer = styled.div`
   display: flex;
   position: absolute;
-  bottom: 0;
-  margin-bottom: 15px;
+  bottom: 30px;
+  left: 30px;
 `;
 
 export const Square = styled.div`
   width: 40px;
   height: 40px;
-  background-color: transparent;
-  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 5px;
   margin-left: 10px;
-  margin-right: 10px;
 `;
 
-export const Image = styled.img`
-  margin-left: -20px;
+export const ImageUser = styled(FcManager)`
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+`;
+export const ImagePc = styled(FcReddit)`
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
 `;
 
 export const UrnContainer = styled.div`
@@ -93,4 +111,5 @@ export const Text = styled.p`
   border-radius: 5px;
   font-weight: 500;
   text-align: center;
+  margin-right: 10px;
 `;

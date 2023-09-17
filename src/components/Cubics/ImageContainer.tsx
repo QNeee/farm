@@ -12,45 +12,16 @@ import {
 import { useLocation } from 'react-router';
 import { nanoid } from '@reduxjs/toolkit';
 import { getLanguage } from '../../redux/auth/authSelectors';
+import {
+  Container,
+  Button,
+  CubicsContainer,
+  Image,
+  ThrowButton,
+} from './ImageContainer.styled';
+import { BsFillHandIndexThumbFill } from 'react-icons/bs';
+import { FaHandPointDown } from 'react-icons/fa';
 
-const Container = styled.div`
-  position: relative;
-  width: 300px;
-  height: 200px;
-  display: flex;
-  outline: 2px solid tomato;
-  margin-top: 50px;
-`;
-const CubicsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Button = styled.button`
-  padding: 8px 16px;
-  margin-left: 100px;
-  margin-top: 100px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-const ThrowButton = styled.button`
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  right: 0;
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-const Image = styled.img`
-  margin-left: 10px;
-`;
 const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
   const cubicKey = 'cubicId';
   const language = useSelector(getLanguage);
@@ -111,11 +82,15 @@ const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
   return (
     <Container>
       {!startGame ? (
-        <Button onClick={onClickStartGame} type="button">
+        <Button onClick={onClickStartGame}>
           {language === 'en' ? 'Start' : language === 'ru' ? 'Старт' : 'Старт'}
+          <br />
+          <BsFillHandIndexThumbFill />
         </Button>
       ) : (
         <ThrowButton onClick={onClickThrowGame} type="button">
+          <FaHandPointDown />
+          <br />
           {language === 'en'
             ? 'Throw'
             : language === 'ru'
@@ -123,6 +98,7 @@ const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
             : 'Здатися'}
         </ThrowButton>
       )}
+      {/* <div style={{ outline: '2px solid tomato', width: 400 }}> */}
       {cubicsData?.map((item: ICubicsData, index: number) => (
         <CubicsContainer key={index}>
           <Image
@@ -133,6 +109,7 @@ const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
           />
         </CubicsContainer>
       ))}
+      {/* </div> */}
     </Container>
   );
 };
