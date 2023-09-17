@@ -18,6 +18,8 @@ import {
   CubicsContainer,
   Image,
   ThrowButton,
+  PointerDown,
+  PointerUp,
 } from './ImageContainer.styled';
 import { BsFillHandIndexThumbFill } from 'react-icons/bs';
 import { FaHandPointDown } from 'react-icons/fa';
@@ -85,16 +87,16 @@ const ImageContainer: React.FC<ICubicDataProps> = ({ cubicsData }) => {
         <Button onClick={onClickStartGame}>
           {language === 'en' ? 'Start' : language === 'ru' ? 'Старт' : 'Старт'}
           <br />
-          <BsFillHandIndexThumbFill />
+          <PointerUp />
         </Button>
       ) : (
         <ThrowButton onClick={onClickThrowGame} type="button">
-          <FaHandPointDown />
+          <PointerDown />
           <br />
           {language === 'en'
             ? 'Throw'
             : language === 'ru'
-            ? 'Здаться'
+            ? 'Сдаться'
             : 'Здатися'}
         </ThrowButton>
       )}

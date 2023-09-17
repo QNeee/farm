@@ -284,7 +284,7 @@ const Table: React.FC = () => {
             language === 'en'
               ? (text = 'Sum')
               : language === 'ru'
-              ? (text = 'Сума')
+              ? (text = 'Сумма')
               : (text = 'Сума');
 
             break;
@@ -360,11 +360,7 @@ const Table: React.FC = () => {
           <tr>
             <TableHeader></TableHeader>
             <TableHeader>
-              {language === 'en'
-                ? 'User'
-                : language === 'ru'
-                ? 'Игрок'
-                : 'Гравець'}
+              {language === 'en' ? 'You' : language === 'ru' ? 'Вы' : 'Ви'}
             </TableHeader>
             <TableHeader>
               {language === 'en' ? 'PC' : language === 'ru' ? 'ПК' : 'ПК'}

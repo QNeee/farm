@@ -1,5 +1,37 @@
-import { FcEmptyTrash, FcManager, FcReddit } from 'react-icons/fc';
-import styled from 'styled-components';
+import { BsFillHandIndexThumbFill } from 'react-icons/bs';
+import { FcEmptyTrash, FcManager, FcReddit, FcRightDown } from 'react-icons/fc';
+import styled, { css, keyframes } from 'styled-components';
+
+interface UrnImageProps {
+  animation?: boolean;
+}
+
+const shakeAnimation = keyframes`
+  0%,
+  100% {
+    transform: rotate(-45deg);
+    transform-origin: 50% 50%;
+  }
+  10% {
+    transform: rotate(8deg);
+  }
+  20%,
+  40%,
+  60% {
+    transform: rotate(-10deg);
+  }
+  30%,
+  50%,
+  70% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(-8deg);
+  }
+  90% {
+    transform: rotate(8deg);
+  }
+`;
 
 export const MainContainer = styled.div`
   display: flex;
@@ -18,19 +50,9 @@ export const GameFieldContainer = styled.div`
   gap: 20px;
 
   background-color: #188000;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23185d1f' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 
-  /* background-color: rgb(19, 74, 54);
-  background: radial-gradient(
-    circle farthest-corner at center center,
-    rgb(19, 74, 54, 1) 0%,
-    rgb(19, 120, 54, 1) 50%
-  ); */
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  /* box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset; */
 
   @media (min-width: 768px) {
     width: 500px;
@@ -50,6 +72,7 @@ export const Wrapper = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23185d1f' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 `;
 
 export const TopContainer = styled.div`
@@ -98,18 +121,32 @@ export const UrnContainer = styled.div`
   top: 50%;
 `;
 
-export const UrnImage = styled(FcEmptyTrash)`
+export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
   width: 150px;
   height: 150px;
   transform: rotate(-45deg);
   cursor: pointer;
+  animation: ${shakeAnimation} 1.5s infinite;
+  animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+
+  &:hover {
+    animation-play-state: running;
+  }
 `;
 
 export const Text = styled.p`
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   margin-right: 10px;
+`;
+
+export const PointerAngle = styled(FcRightDown)`
+  width: 25px;
+  height: 25px;
+  /* transform: rotate(-230deg); */
 `;

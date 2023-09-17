@@ -1,3 +1,4 @@
+import { BsFillHandIndexThumbFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -39,6 +40,11 @@ export const ThrowButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
+
+export const PointerDown = styled(BsFillHandIndexThumbFill)`
+  transform: rotate(180deg);
+`;
+export const PointerUp = styled(BsFillHandIndexThumbFill)``;
 export const Image = styled.img`
   margin-right: 10px;
 `;

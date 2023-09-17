@@ -27,6 +27,7 @@ import {
   ImagePc,
   ImageUser,
   MainContainer,
+  PointerAngle,
   Square,
   Text,
   TopContainer,
@@ -205,10 +206,12 @@ const GameField: React.FC = () => {
               {language === 'en'
                 ? 'Rolls'
                 : language === 'ru'
-                ? 'Кидать кости'
-                : 'Кидати кубики'}{' '}
+                ? 'Кинуть кости'
+                : 'Кинути кубики'}{' '}
               <br />
               {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
+              <br />
+              <PointerAngle />
             </Text>
 
             <IconButton
@@ -220,7 +223,7 @@ const GameField: React.FC = () => {
                 right: '-100px',
               }}
             >
-              <UrnImage />
+              <UrnImage animation={true} />
             </IconButton>
           </UrnContainer>
           <Lamp>
