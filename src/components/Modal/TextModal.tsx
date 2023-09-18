@@ -20,6 +20,11 @@ const CombImg = styled.img`
     width: 100px;
   }
 `;
+const TextLi = styled.li`
+border: 3px solid black;
+display: flex;
+
+`;
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -51,7 +56,7 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const instrLines: IData[] = useSelector(getInstrLines);
   const cubicInstr: ICubicInstr[] = useSelector(getCubicInstr);
   const cubicValues = cubicInstr.flatMap((item) => item.values);
-  // const cubicText = cubicInstr.flatMap(item => item.text);
+  const cubicText = cubicInstr.flatMap(item => item.text);
   const cubicComb = cubicInstr.flatMap((item) => item.combination);
   const onClickLines = () => {
     setValues(false);
@@ -83,15 +88,15 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               ? 'Lines'
               : 'Text'
             : language === 'ru'
-            ? 'Линии'
-            : 'Лінії'}
+              ? pathname !== '/demoCubics' && pathname !== '/cubics' ? 'Линии' : "Текст"
+              : pathname !== '/demoCubics' && pathname !== '/cubics' ? 'Лінії' : "Текст"}
         </button>
         <button type="button" disabled={values} onClick={onClickValues}>
           {language === 'en'
             ? 'Values'
             : language === 'ru'
-            ? 'Значения'
-            : 'Знаяення'}
+              ? 'Значения'
+              : 'Знаяення'}
         </button>
         <button
           type="button"
@@ -101,8 +106,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           {language === 'en'
             ? 'Combination'
             : language === 'ru'
-            ? 'Комбинации'
-            : 'Комбінації'}
+              ? 'Комбинации'
+              : 'Комбінації'}
         </button>
         {pathname !== '/demoCubics' && pathname !== '/cubics' ? (
           <>
@@ -115,8 +120,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                         {language === 'en'
                           ? 'Line'
                           : language === 'ru'
-                          ? 'Линия'
-                          : 'Лінія'}
+                            ? 'Линия'
+                            : 'Лінія'}
                         {item.lines}:
                         <img
                           src={item.img}
@@ -150,8 +155,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                         {language === 'en'
                           ? 'Line'
                           : language === 'ru'
-                          ? 'Линия'
-                          : 'Лінія'}
+                            ? 'Линия'
+                            : 'Лінія'}
                         {item.lines}:
                         <img
                           src={item.img}
@@ -166,7 +171,19 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           </>
         ) : (
           <>
-            {lines ? <div>КУча текста</div> : null}
+            {lines ? (
+              <div>
+                {cubicText.length > 0 &&
+                  cubicText.map((item, index) => (
+                    <ul key={index}>
+                      <TextLi>
+                        <p>{item.text}</p>
+                        <CombImg src={item.img} alt={index.toString()} width='30' />
+                      </TextLi>
+                    </ul>
+                  ))}
+              </div>
+            ) : null}
             {values ? (
               <div>
                 {cubicValues.length > 0 &&
