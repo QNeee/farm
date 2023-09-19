@@ -62,16 +62,20 @@ interface ICubicResultDataRenderOther {
 export interface ICubicResultRenderOtherProps {
   cubicsResult: ICubicResultDataRenderOther[] | null
 }
+export interface ICubicText {
+  text: string;
+  img: string;
+}
 interface ICubicInstValues {
   img: string;
   value: number;
 }
-interface ICubicInstComb {
+export interface ICubicInstComb {
   img: string;
   name: string;
 }
 export interface ICubicInstr {
   combination: ICubicInstComb[];
-  text: [];
+  text: ICubicText[];
   values: ICubicInstValues[];
 }
