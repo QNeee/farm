@@ -14,7 +14,7 @@ import {
 import { getLanguage } from '../../redux/auth/authSelectors';
 import { getCubicsInstruction } from '../../redux/cubics/cubicsOperations';
 import { getCubicInstr } from '../../redux/cubics/cubicsSelectors';
-import { ICubicInstComb, ICubicInstr, ICubicText } from '../../types';
+import { ICubicInstr } from '../../types';
 import { translateFunc } from '../../translateFunc';
 const CombImg = styled.img`
   &:hover {
@@ -69,7 +69,6 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
     const endIndex = startIndex + itemsCount;
     return arr.slice(startIndex, endIndex);
   }
-  console.log(page);
   const onClickLines = () => {
     setPage(0);
     setValues(false);
