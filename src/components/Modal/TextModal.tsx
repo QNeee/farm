@@ -15,11 +15,18 @@ import { getLanguage } from '../../redux/auth/authSelectors';
 import { getCubicsInstruction } from '../../redux/cubics/cubicsOperations';
 import { getCubicInstr } from '../../redux/cubics/cubicsSelectors';
 import { ICubicInstr } from '../../types';
+import { translateFunc } from '../../translateFunc';
 const CombImg = styled.img`
   &:hover {
     width: 100px;
   }
 `;
+const TextLi = styled.li`
+border: 3px solid black;
+display: flex;
+
+`;
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -31,6 +38,8 @@ interface IData {
 }
 const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
+  const itemsPerPageComb = 7;
+  const itemsPerPageText = 1;
   const language = useSelector(getLanguage);
   const dispatch: AppDispatch = useDispatch();
   const { pathname } = useLocation();
@@ -38,6 +47,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const [lines, setLines] = useState(true);
   const [values, setValues] = useState(false);
   const [combination, setCombination] = useState(false);
+  const [page, setPage] = useState(0);
+
   useEffect(() => {
     if (pathname === '/demoCubics' || pathname === '/cubics') {
       dispatch(getCubicsInstruction());
@@ -51,19 +62,27 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const instrLines: IData[] = useSelector(getInstrLines);
   const cubicInstr: ICubicInstr[] = useSelector(getCubicInstr);
   const cubicValues = cubicInstr.flatMap((item) => item.values);
-  // const cubicText = cubicInstr.flatMap(item => item.text);
+  const cubicText = cubicInstr.flatMap(item => item.text);
   const cubicComb = cubicInstr.flatMap((item) => item.combination);
+  function pagination<T>(arr: T[], itemsCount: number, currentPage: number) {
+    const startIndex = currentPage * itemsCount;
+    const endIndex = startIndex + itemsCount;
+    return arr.slice(startIndex, endIndex);
+  }
   const onClickLines = () => {
+    setPage(0);
     setValues(false);
     setCombination(false);
     setLines(!lines);
   };
   const onClickValues = () => {
+    setPage(0);
     setLines(false);
     setCombination(false);
     setValues(!values);
   };
   const onClickCombinations = () => {
+    setPage(0);
     setValues(false);
     setLines(false);
     setCombination(!combination);
@@ -83,15 +102,15 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               ? 'Lines'
               : 'Text'
             : language === 'ru'
-            ? 'Линии'
-            : 'Лінії'}
+              ? pathname !== '/demoCubics' && pathname !== '/cubics' ? 'Линии' : "Текст"
+              : pathname !== '/demoCubics' && pathname !== '/cubics' ? 'Лінії' : "Текст"}
         </button>
         <button type="button" disabled={values} onClick={onClickValues}>
           {language === 'en'
             ? 'Values'
             : language === 'ru'
-            ? 'Значения'
-            : 'Знаяення'}
+              ? 'Значения'
+              : 'Значення'}
         </button>
         <button
           type="button"
@@ -101,8 +120,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           {language === 'en'
             ? 'Combination'
             : language === 'ru'
-            ? 'Комбинации'
-            : 'Комбінації'}
+              ? 'Комбинации'
+              : 'Комбінації'}
         </button>
         {pathname !== '/demoCubics' && pathname !== '/cubics' ? (
           <>
@@ -115,8 +134,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                         {language === 'en'
                           ? 'Line'
                           : language === 'ru'
-                          ? 'Линия'
-                          : 'Лінія'}
+                            ? 'Линия'
+                            : 'Лінія'}
                         {item.lines}:
                         <img
                           src={item.img}
@@ -150,8 +169,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                         {language === 'en'
                           ? 'Line'
                           : language === 'ru'
-                          ? 'Линия'
-                          : 'Лінія'}
+                            ? 'Линия'
+                            : 'Лінія'}
                         {item.lines}:
                         <img
                           src={item.img}
@@ -166,7 +185,21 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           </>
         ) : (
           <>
-            {lines ? <div>КУча текста</div> : null}
+            {lines ? (
+              <div>
+                {cubicText.length > 0 &&
+                  pagination(cubicText, itemsPerPageText, page).map((item, index) => (
+                    <ul key={index}>
+                      <TextLi>
+                        <p>{translateFunc(item.text, language)}</p>
+                        <img src={item.img} alt={index.toString()} width='200' />
+                      </TextLi>
+                    </ul>
+                  ))}
+                <button disabled={page < 7 ? false : true} onClick={() => setPage(prev => prev + 1)} type='button'>{language === 'en' ? "Next" : language === 'ru' ? "Следущая" : 'Наступна'}</button>
+                <button disabled={page !== 0 ? false : true} onClick={() => setPage(prev => prev - 1)} type='button'>{language === 'en' ? "Prev" : language === 'ru' ? "Предыдущая" : 'Попередня'}</button>
+              </div>
+            ) : null}
             {values ? (
               <div>
                 {cubicValues.length > 0 &&
@@ -183,7 +216,7 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
             {combination ? (
               <div>
                 {cubicComb.length > 0 &&
-                  cubicComb.map((item, index) => (
+                  pagination(cubicComb, itemsPerPageComb, page).map((item, index) => (
                     <ul key={index}>
                       <li>
                         {item.name}:
@@ -195,6 +228,8 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
                       </li>
                     </ul>
                   ))}
+                <button disabled={page === 0 ? false : true} onClick={() => setPage(prev => prev + 1)} type='button'>{language === 'en' ? "Next" : language === 'ru' ? "Следущая" : 'Наступна'}</button>
+                <button disabled={page === 1 ? false : true} onClick={() => setPage(prev => prev - 1)} type='button'>{language === 'en' ? "Prev" : language === 'ru' ? "Предыдущая" : 'Попередня'}</button>
               </div>
             ) : null}
           </>
