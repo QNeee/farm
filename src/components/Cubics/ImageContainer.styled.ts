@@ -9,29 +9,19 @@ export const Container = styled.div`
   width: 300px;
   height: 225px;
   border-radius: 10px;
-  @media (min-width: 480px) {
-  }
-  @media (min-width: 768px) {
-  }
 
   @media (min-width: 1280px) {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
     height: 300px;
-    /* border: 1px solid rgba(255, 255, 255, 0.5); */
-    border-radius: 10px;
   }
 `;
+
 export const CubicsContainer = styled.div`
-  /* outline: 2px solid tomato; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
 `;
+
 export const Button = styled.button`
   padding: 16px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -41,6 +31,7 @@ export const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
+
 export const ThrowButton = styled.button`
   position: absolute;
   top: 0;
@@ -59,7 +50,9 @@ export const PointerDown = styled(BsFillHandIndexThumbFill)`
   transform: rotate(180deg);
 `;
 
-export const PointerUp = styled(BsFillHandIndexThumbFill)``;
+export const PointerUp = styled(BsFillHandIndexThumbFill)`
+  margin: 0;
+`;
 
 export const Image = styled.img`
   margin-right: 10px;

@@ -1,10 +1,5 @@
-import { BsFillHandIndexThumbFill } from 'react-icons/bs';
 import { FcEmptyTrash, FcManager, FcReddit, FcRightDown } from 'react-icons/fc';
-import styled, { css, keyframes } from 'styled-components';
-
-interface UrnImageProps {
-  animation?: boolean;
-}
+import styled, { keyframes } from 'styled-components';
 
 const shakeAnimation = keyframes`
   0%,
@@ -39,17 +34,14 @@ export const MainContainer = styled.div`
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.5);
+
   @media (min-width: 768px) {
     padding: 11px;
     border-radius: 5px 0 0 5px;
   }
-
   @media (min-width: 1280px) {
-    display: flex;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
     padding: 15px;
-    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
   }
 `;
 
@@ -74,15 +66,8 @@ export const GameFieldContainer = styled.div`
   }
 
   @media (min-width: 1280px) {
-    position: relative;
     width: 500px;
     height: 500px;
-    padding: 20px;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    background-color: #188000;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
   }
 `;
 
@@ -102,13 +87,8 @@ export const TopContainer = styled.div`
   position: absolute;
   top: 30px;
   left: 24px;
-  @media (min-width: 768px) {
-  }
 
   @media (min-width: 1280px) {
-    display: flex;
-    position: absolute;
-    top: 30px;
     left: 30px;
   }
 `;
@@ -118,13 +98,8 @@ export const BottomContainer = styled.div`
   position: absolute;
   bottom: 30px;
   left: 24px;
-  @media (min-width: 768px) {
-  }
 
   @media (min-width: 1280px) {
-    display: flex;
-    position: absolute;
-    bottom: 30px;
     left: 30px;
   }
 `;
@@ -136,15 +111,8 @@ export const Square = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 5px;
   margin-left: 2px;
-  @media (min-width: 768px) {
-  }
 
   @media (min-width: 1280px) {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
     margin-left: 10px;
   }
 `;
@@ -157,6 +125,7 @@ export const ImageUser = styled(FcManager)`
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
 `;
+
 export const ImagePc = styled(FcReddit)`
   width: 40px;
   height: 40px;
@@ -176,20 +145,19 @@ export const UrnContainer = styled.div`
   }
   @media (min-width: 768px) {
     right: 40px;
-    top: 23%;
+    top: 22%;
   }
 
   @media (min-width: 1280px) {
-    position: absolute;
     right: 20px;
     top: 50%;
   }
 `;
 
-export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
+export const UrnImage = styled(FcEmptyTrash)`
   position: absolute;
-  right: 85px;
   top: -150px;
+  right: 85px;
   width: 50px;
   height: 50px;
   transform: rotate(-45deg);
@@ -198,37 +166,28 @@ export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
   animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
   animation-iteration-count: infinite;
   animation-play-state: paused;
-
   &:hover {
     animation-play-state: running;
   }
   @media (min-width: 480px) {
-    right: 65px;
     top: -135px;
+    right: 65px;
     width: 80px;
     height: 80px;
   }
   @media (min-width: 768px) {
+    top: -130px;
+    right: 55px;
     width: 75px;
     height: 75px;
   }
 
   @media (min-width: 1280px) {
     position: static;
-    right: 0;
     top: 0;
+    right: 0;
     width: 150px;
     height: 150px;
-    transform: rotate(-45deg);
-    cursor: pointer;
-    animation: ${shakeAnimation} 1.5s infinite;
-    animation-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
-    animation-iteration-count: infinite;
-    animation-play-state: paused;
-
-    &:hover {
-      animation-play-state: running;
-    }
   }
 `;
 
@@ -236,19 +195,19 @@ export const Text = styled.p`
   color: rgba(255, 255, 255, 1);
   font-weight: 500;
   text-align: center;
-  /* margin-top: -100px;
-  margin-right: -20px; */
-  @media (min-width: 768px) {
-  }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 768px) {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgba(0, 0, 0, 1);
-    padding: 10px;
+    padding: 3px;
     border-radius: 5px;
     font-weight: 600;
     text-align: center;
     margin-right: 10px;
+  }
+
+  @media (min-width: 1280px) {
+    padding: 10px;
   }
 `;
 
