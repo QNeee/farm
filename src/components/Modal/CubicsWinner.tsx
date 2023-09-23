@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { deleteThrowGame } from "../../redux/cubics/cubicsOperations";
 import { getCubicsEndGameResult } from "../../redux/cubics/cubicsSelectors";
+import { BalanceContainer, Container } from "../User/Balance";
+import { Button } from "../Appbar/AppBar.styled";
 
 
 
@@ -11,9 +13,10 @@ const CubicsWinner = () => {
     const onClickEndGame = () => {
         dispatch(deleteThrowGame(''));
     }
-    return <div>{endGameResult}
-        <button type="button" onClick={() => onClickEndGame()}>End Game</button>
-    </div>
+    return <Container><BalanceContainer>{endGameResult.toUpperCase()}
+        <Button type="button" onClick={() => onClickEndGame()}>End Game</Button>
+    </BalanceContainer>
+    </Container>
 }
 
 export default CubicsWinner;

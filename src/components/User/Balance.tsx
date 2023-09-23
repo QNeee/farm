@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { AppDispatch } from '../../redux/store';
 import { postUserBalance } from '../../redux/auth/authOperations';
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 100vh;
 
@@ -15,7 +15,7 @@ const Container = styled.div`
   /* justify-content: center; */
   align-items: center;
 `;
-const BalanceContainer = styled.div`
+export const BalanceContainer = styled.div`
   width: 300px;
   height: 150px;
   border-radius: 5px;
