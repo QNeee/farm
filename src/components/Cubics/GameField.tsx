@@ -37,7 +37,7 @@ import {
 } from './GameField.styled';
 import { LuBeaker, LuDices } from 'react-icons/lu';
 import { Checkbox, IconButton } from '@mui/material';
-import { useMediaQuery } from 'react-responsive';
+
 const GameField: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => setIsOpen((prev) => !prev);
@@ -51,7 +51,6 @@ const GameField: React.FC = () => {
   const cubicInStash = useSelector(getCubicInStashArr);
   const { pathname } = useLocation();
   const namePath = pathname.split('/')[1];
-  const isWide = useMediaQuery({ minWidth: 768 });
   const onClickStartGame = async () => {
     if (w8) return;
     if (!startGame) return;
@@ -202,31 +201,20 @@ const GameField: React.FC = () => {
               ></img>
             </Square>
           </BottomContainer>
-          {startGame ? <UrnContainer>
+          <UrnContainer>
             <Text>
               {language === 'en'
                 ? 'Rolls'
                 : language === 'ru'
-                  ? 'Кинуть кости'
-                  : 'Кинути кубики'}{' '}
+                ? 'Кинуть кости'
+                : 'Кинути кістки'}{' '}
               <br />
               {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
               <br />
               <PointerAngle />
             </Text>
-
-            <IconButton
-              onClick={onClickStartGame}
-              aria-label="beaker"
-              style={isWide ? {
-                position: 'absolute',
-                bottom: '-150px',
-                right: '-100px',
-              } : undefined}
-            >
-              <UrnImage />
-            </IconButton>
-          </UrnContainer> : null}
+            <UrnImage onClick={onClickStartGame} />
+          </UrnContainer>
           <Lamp>
             {isOpen && (
               <TextModal

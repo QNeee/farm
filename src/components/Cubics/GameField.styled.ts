@@ -1,3 +1,4 @@
+import { IconButton } from '@mui/material';
 import { FcEmptyTrash, FcManager, FcReddit, FcRightDown } from 'react-icons/fc';
 import styled, { keyframes } from 'styled-components';
 
@@ -136,28 +137,31 @@ export const ImagePc = styled(FcReddit)`
 `;
 
 export const UrnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  right: 0;
-  top: 18%;
+  top: 15%;
+  right: 23px;
   @media (min-width: 480px) {
-    right: 50px;
     top: 26%;
+    right: 30px;
   }
   @media (min-width: 768px) {
-    right: 40px;
     top: 22%;
+    right: 10px;
   }
 
   @media (min-width: 1280px) {
-    right: 20px;
     top: 50%;
+    right: 20px;
   }
 `;
 
 export const UrnImage = styled(FcEmptyTrash)`
-  position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   transform: rotate(-45deg);
   cursor: pointer;
   animation: ${shakeAnimation} 1.5s infinite;
@@ -168,37 +172,32 @@ export const UrnImage = styled(FcEmptyTrash)`
     animation-play-state: running;
   }
   @media (min-width: 480px) {
-    top: -135px;
-    right: 65px;
-    width: 80px;
-    height: 80px;
-  }
-  @media (min-width: 768px) {
-    top: -130px;
-    right: 55px;
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
   }
 
   @media (min-width: 1280px) {
-    position: static;
-    top: 0;
-    right: 0;
     width: 150px;
     height: 150px;
   }
 `;
 
 export const Text = styled.p`
-  color: rgba(255, 255, 255, 1);
+  padding: 3px;
+  border-radius: 5px;
+  font-size: 11px;
   font-weight: 500;
   text-align: center;
+
+  @media (min-width: 480px) {
+    padding: 6px;
+    font-size: 14px;
+  }
 
   @media (min-width: 768px) {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgba(0, 0, 0, 1);
-    padding: 3px;
-    border-radius: 5px;
+    padding: 2px;
     font-weight: 600;
     text-align: center;
     margin-right: 10px;
@@ -206,10 +205,21 @@ export const Text = styled.p`
 
   @media (min-width: 1280px) {
     padding: 10px;
+    font-size: 16px;
   }
 `;
 
 export const PointerAngle = styled(FcRightDown)`
-  width: 25px;
-  height: 25px;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+
+  @media (min-width: 480px) {
+    width: 20px;
+    height: 20px;
+  }
+  @media (min-width: 768px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
