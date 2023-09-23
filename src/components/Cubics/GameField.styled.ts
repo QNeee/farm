@@ -183,6 +183,8 @@ export const UrnImage = styled(FcEmptyTrash)`
 `;
 
 export const Text = styled.p`
+  background-color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 1);
   padding: 3px;
   border-radius: 5px;
   font-size: 11px;
@@ -195,8 +197,6 @@ export const Text = styled.p`
   }
 
   @media (min-width: 768px) {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: rgba(0, 0, 0, 1);
     padding: 2px;
     font-weight: 600;
     text-align: center;
