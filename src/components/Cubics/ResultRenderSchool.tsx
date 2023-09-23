@@ -11,7 +11,6 @@ const ResultRenderSchool: React.FC<ICubicResultRenderOtherProps> = ({
       .flatMap((item) => item.result)
       .join('')
     : null;
-  console.log(result);
   useEffect(() => {
     const resultNumber = result?.split(' ')[1];
     const allElements = document.querySelectorAll('[id$=" user"]');

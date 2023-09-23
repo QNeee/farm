@@ -78,7 +78,6 @@ const Table: React.FC = () => {
   const func = () => {
     if (cubicResultRenderUserSchool) {
       for (const elem of cubicResultRenderUserSchool) {
-        console.log(elem);
         const number = elem.number;
         const el = document.getElementById(parseInt(number) - 1 + ' user');
         if (el) {
@@ -142,9 +141,9 @@ const Table: React.FC = () => {
     const results: string[] = ['schoolX', 'school'];
     const result = cubicsResult
       ? cubicsResult
-          .filter((item) => results.includes(item.result.split(' ')[0]))
-          .flatMap((item) => item.result)
-          .join('')
+        .filter((item) => results.includes(item.result.split(' ')[0]))
+        .flatMap((item) => item.result)
+        .join('')
       : null;
     const requestData = {
       data: result && result,
@@ -168,9 +167,9 @@ const Table: React.FC = () => {
     setW8(true);
     const result = cubicsResult
       ? cubicsResult
-          .filter((item) => id === item.result.split(' ')[0])
-          .flatMap((item) => item.result)
-          .join(' ')
+        .filter((item) => id === item.result.split(' ')[0])
+        .flatMap((item) => item.result)
+        .join(' ')
       : null;
     const cross = cubicsResult
       ? cubicsResult.filter((item) => item.result === 'cross')
@@ -224,47 +223,47 @@ const Table: React.FC = () => {
             language === 'en'
               ? (text = 'Ones')
               : language === 'ru'
-              ? (text = 'Единицы')
-              : (text = 'Одиниці');
+                ? (text = 'Единицы')
+                : (text = 'Одиниці');
             break;
           case 'Двійки':
             language === 'en'
               ? (text = 'Twos')
               : language === 'ru'
-              ? (text = 'Двойки')
-              : (text = 'Двійки');
+                ? (text = 'Двойки')
+                : (text = 'Двійки');
 
             break;
           case 'Трійки':
             language === 'en'
               ? (text = 'Threes')
               : language === 'ru'
-              ? (text = 'Тройки')
-              : (text = 'Трійки');
+                ? (text = 'Тройки')
+                : (text = 'Трійки');
 
             break;
           case 'Четвірки':
             language === 'en'
               ? (text = 'Fours')
               : language === 'ru'
-              ? (text = 'Четвёрки')
-              : (text = 'Четвірки');
+                ? (text = 'Четвёрки')
+                : (text = 'Четвірки');
 
             break;
           case 'Пятірки':
             language === 'en'
               ? (text = 'Fives')
               : language === 'ru'
-              ? (text = 'Пятёрки')
-              : (text = "П'ятірки");
+                ? (text = 'Пятёрки')
+                : (text = "П'ятірки");
 
             break;
           case 'Шестірки':
             language === 'en'
               ? (text = 'Sixs')
               : language === 'ru'
-              ? (text = 'Шестёрки')
-              : (text = 'Шестірки');
+                ? (text = 'Шестёрки')
+                : (text = 'Шестірки');
 
             break;
           default:
@@ -277,71 +276,71 @@ const Table: React.FC = () => {
             language === 'en'
               ? (text = 'Hat')
               : language === 'ru'
-              ? (text = 'Шляпа')
-              : (text = 'Шляпа');
+                ? (text = 'Шляпа')
+                : (text = 'Шляпа');
             break;
           case 'Сума':
             language === 'en'
               ? (text = 'Sum')
               : language === 'ru'
-              ? (text = 'Сумма')
-              : (text = 'Сума');
+                ? (text = 'Сумма')
+                : (text = 'Сума');
 
             break;
           case 'Пара':
             language === 'en'
               ? (text = 'Pairs')
               : language === 'ru'
-              ? (text = 'Пара')
-              : (text = 'Пара');
+                ? (text = 'Пара')
+                : (text = 'Пара');
 
             break;
           case 'Мала':
             language === 'en'
               ? (text = 'Small')
               : language === 'ru'
-              ? (text = 'Малая')
-              : (text = 'Мала');
+                ? (text = 'Малая')
+                : (text = 'Мала');
 
             break;
           case 'Велика':
             language === 'en'
               ? (text = 'Large')
               : language === 'ru'
-              ? (text = 'Большая')
-              : (text = 'Велика');
+                ? (text = 'Большая')
+                : (text = 'Велика');
 
             break;
           case 'Трикутник':
             language === 'en'
               ? (text = 'Triangle')
               : language === 'ru'
-              ? (text = 'Треугольник')
-              : (text = 'Трикутник');
+                ? (text = 'Треугольник')
+                : (text = 'Трикутник');
 
             break;
           case 'Квадрат':
             language === 'en'
               ? (text = 'square')
               : language === 'ru'
-              ? (text = 'Квадрат')
-              : (text = 'Квадрат');
+                ? (text = 'Квадрат')
+                : (text = 'Квадрат');
 
             break;
           case 'ФХ':
             language === 'en'
               ? (text = 'FH')
               : language === 'ru'
-              ? (text = 'ФХ')
-              : (text = 'ФХ');
+                ? (text = 'ФХ')
+                : (text = 'ФХ');
 
             break;
           case 'Покер':
             language === 'en'
               ? (text = 'Poker')
               : language === 'ru'
-              ? (text = 'Покер')
-              : (text = 'Покер');
+                ? (text = 'Покер')
+                : (text = 'Покер');
 
             break;
           default:
