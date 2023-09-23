@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { INewVersion } from '../../types';
 import { getSlots, getSlotsById, postStartGame, postSlotLine, postBetSlot, getInstructionSlot } from '../slots/slotsOperations';
+import { logout } from '../auth/authOperations';
+import { Notify } from 'notiflix';
 export interface ISlotState {
     demoBalance: number | null;
     lineRender: boolean;
@@ -148,7 +150,25 @@ export const slotSlice = createSlice({
             .addCase(getInstructionSlot.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            }).addCase(logout.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             })
+            .addCase(logout.fulfilled, (state, { payload }) => {
+                return initialState;
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addMatcher(
+                action => action.type.endsWith(`/rejected`),
+                (_state, { payload }) => {
+                    if (payload.code === 401) {
+                        Notify.info('Sesion close login again please');
+                        return initialState;
+                    }
+                }
+            );
     },
 });
 export const { animateHelper } = slotSlice.actions;

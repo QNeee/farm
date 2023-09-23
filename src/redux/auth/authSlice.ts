@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, login, refresh, logout, getUserInfo, postUserBalance, postUserPhone, patchUserPassword, forgotPassword } from './authOperations';
+import { Notify } from 'notiflix';
 interface IUserState {
     user: { email: string; id: number | null; balance: number | 0, phone: string | null, google: boolean | string };
 }
@@ -12,14 +13,8 @@ export interface IAuthState {
     loading: boolean;
     error: unknown;
     passMsg: string;
-    allSlots: [];
-    slot: [];
-    result: number;
-    lines: number;
     language: string;
-    bet: number;
     refreshed: boolean;
-    startGame: boolean;
     updateBalance: boolean;
 }
 const initialState: IAuthState = {
@@ -34,13 +29,7 @@ const initialState: IAuthState = {
     loading: false,
     error: null,
     updateBalance: false,
-    allSlots: [],
-    slot: [],
-    result: 0,
-    lines: 1,
-    bet: 1,
     language: 'en',
-    startGame: false,
     refreshed: false
 };
 export const authSlice = createSlice({
@@ -98,22 +87,7 @@ export const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(logout.fulfilled, (state) => {
-                state.loading = false;
-                state.auth.user.id = null;
-                state.auth.user.email = '';
-                state.auth.user.balance = 0;
-                state.accessToken = null;
-                state.refreshToken = null;
-                state.sid = null;
-                state.allSlots = [];
-                state.slot = [];
-                state.result = 0;
-                state.bet = 1;
-                state.lines = 1;
-                state.isLoggedIn = false;
-                state.startGame = false;
-                state.refreshed = false;
-                state.auth.user.google = 'false';
+                return initialState;
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
@@ -130,27 +104,8 @@ export const authSlice = createSlice({
                 state.refreshToken = payload.data.newRefreshToken;
                 state.sid = payload.data.newSid;
                 state.refreshed = true;
-
             })
             .addCase(refresh.rejected, (state, action) => {
-                state.loading = false;
-                state.auth.user.id = null;
-                state.auth.user.email = '';
-                state.auth.user.balance = 0;
-                state.accessToken = null;
-                state.refreshToken = null;
-                state.sid = null;
-                state.allSlots = [];
-                state.slot = [];
-                state.result = 0;
-                state.bet = 1;
-                state.lines = 1;
-                state.isLoggedIn = false;
-                state.startGame = false;
-                state.loading = false;
-                state.auth.user.google = 'false';
-                state.error = action.payload;
-
             })
             .addCase(getUserInfo.pending, (state) => {
                 state.loading = true;
@@ -212,7 +167,15 @@ export const authSlice = createSlice({
             .addCase(forgotPassword.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            })
+            }).addMatcher(
+                action => action.type.endsWith(`/rejected`),
+                (_state, { payload }) => {
+                    if (payload.code === 401) {
+                        Notify.info('Sesion close login again please');
+                        return initialState;
+                    }
+                }
+            );
     },
 });
 export const { googleAuth, updateBalance, setLanguage } = authSlice.actions;

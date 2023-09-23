@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ICubicsData, ICubicsResultTable, IResultCubicsSchool } from '../../types';
 import { getCubicsTable, getCubicsResult, postCubicResultOther, postCubicResultCherk, postCubicResultSchool, getCubicsReroll, getCubicOutStash, getCubicInStash, getCubicsStartGame, postCubicStartGame, deleteThrowGame, getCubicsStart, getCubicsInstruction } from './cubicsOperations';
+import { logout } from '../auth/authOperations';
+import { Notify } from 'notiflix';
 
 export interface ICubicState {
     cubics: ICubicsData[] | null;
@@ -117,7 +119,10 @@ export const cubicSlice = createSlice({
             })
             .addCase(getCubicsStart.fulfilled, (state, { payload }) => {
                 state.loading = false;
-                state.startGame = payload.data;
+                state.startGame = payload.data.start;
+                state.rolls = payload.data.rolls;
+                state.cubicInStash = payload.data.cubicsInStash;
+                state.cubics = payload.data.cubicsOutStash;
             })
             .addCase(getCubicsStart.rejected, (state, action) => {
                 state.loading = false;
@@ -253,6 +258,24 @@ export const cubicSlice = createSlice({
             .addCase(getCubicsInstruction.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            }).addCase(logout.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             })
+            .addCase(logout.fulfilled, (state, { payload }) => {
+                return initialState;
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            }).addMatcher(
+                action => action.type.endsWith(`/rejected`),
+                (_state, { payload }) => {
+                    if (payload.code === 401) {
+                        Notify.info('Sesion close login again please');
+                        return initialState;
+                    }
+                }
+            );
     },
 });

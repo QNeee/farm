@@ -75,7 +75,7 @@ export const refresh = createAsyncThunk(
       const result = await axios.post('auth/refresh', { sid });
       return result;
     } catch (error) {
-      Notify.info('Sesion close login again please');
+      console.log(error);
       return rejectWithValue(error);
     }
   }
