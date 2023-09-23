@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ICubicsData, ICubicsResultTable, IResultCubicsSchool } from '../../types';
-import { getCubicsTable, getCubicsResult, postCubicResultOther, postCubicResultCherk, postCubicResultSchool, getCubicsReroll, getCubicOutStash, getCubicInStash, getCubicsStartGame, postCubicStartGame, deleteThrowGame, getCubicsStart, getCubicsInstruction } from './cubicsOperations';
+import { getCubicsTable, getCubicsResult, postCubicResultOther, postCubicResultCherk, postCubicResultSchool, getCubicsReroll, getCubicOutStash, getCubicInStash, getCubicsStartGame, postCubicStartGame, deleteThrowGame, getCubicsStart, getCubicsInstruction, getCubicsResultRender } from './cubicsOperations';
 import { logout } from '../auth/authOperations';
 import { Notify } from 'notiflix';
 
@@ -186,6 +186,17 @@ export const cubicSlice = createSlice({
                 state.cubicResultRenderPcSchool = null;
                 state.cubicResultRenderUserOther = null;
                 state.cubicResultRenderPcOther = null;
+                state.error = action.payload;
+            }).addCase(getCubicsResultRender.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getCubicsResultRender.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.cubicsResult = payload.data;
+            })
+            .addCase(getCubicsResultRender.rejected, (state, action) => {
+                state.loading = false;
                 state.error = action.payload;
             }).addCase(postCubicResultSchool.pending, (state) => {
                 state.loading = true;

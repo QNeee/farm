@@ -117,6 +117,25 @@ export const getCubicsResult = createAsyncThunk(
         }
     }
 );
+export const getCubicsResultRender = createAsyncThunk(
+    'cubics/resultRender',
+    async (demo: string, { rejectWithValue, getState }) => {
+        try {
+            if (demo) {
+                const result = await axios.get(`demoSlots/resultRender/${demo}`);
+                return result;
+            } else {
+                const state: RootState = getState() as RootState;
+                setToken(state?.auth?.accessToken as string);
+                const result = await axios.get('cubics/resultRender');
+                return result;
+            }
+        } catch (error) {
+            Notify.info('Click Start Game To play');
+            return rejectWithValue(error);
+        }
+    }
+);
 export const postCubicResultSchool = createAsyncThunk(
     'cubics/postresultSchool',
     async (data: object | [], { rejectWithValue, getState }) => {

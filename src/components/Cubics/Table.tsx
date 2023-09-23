@@ -16,6 +16,7 @@ import {
 } from '../../redux/cubics/cubicsSelectors';
 import {
   getCubicsResult,
+  getCubicsResultRender,
   getCubicsTable,
   postCubicResultCherk,
   postCubicResultOther,
@@ -33,7 +34,6 @@ import {
 const Table: React.FC = () => {
   const language = useSelector(getLanguage);
   const cubicKey = 'cubicId';
-  const startGame = useSelector(getStartGame);
   const [w8, setW8] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const refreshed = useSelector(getRefreshed);
@@ -66,13 +66,15 @@ const Table: React.FC = () => {
         dispatch(getCubicsTable('demo'));
         if (id) {
           dispatch(getCubicsResult(localStorage.getItem(cubicKey) as string));
+          dispatch(getCubicsResultRender(localStorage.getItem(cubicKey) as string));
         }
       } else {
         dispatch(getCubicsTable(''));
         dispatch(getCubicsResult(''));
+        dispatch(getCubicsResultRender(''));
       }
     }
-  }, [dispatch, refreshed, startGame]);
+  }, [dispatch, refreshed, namePath]);
   const school: string[] | null = useSelector(getSchool);
   const others: string[] | null = useSelector(getOther);
   const func = () => {
