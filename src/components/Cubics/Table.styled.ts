@@ -12,6 +12,9 @@ export const Wrapper = styled.div`
     padding: 25px;
   }
   @media (min-width: 768px) {
+    padding: 6px;
+    margin: 0;
+    border-radius: 0 5px 5px 0;
   }
 
   @media (min-width: 1280px) {

@@ -14,6 +14,8 @@ export const Container = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
 
   @media (min-width: 768px) {
+    justify-content: center;
+    flex-direction: row;
   }
 
   @media (min-width: 1280px) {

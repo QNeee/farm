@@ -40,6 +40,8 @@ export const MainContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.5);
   @media (min-width: 768px) {
+    padding: 11px;
+    border-radius: 5px 0 0 5px;
   }
 
   @media (min-width: 1280px) {
@@ -67,6 +69,8 @@ export const GameFieldContainer = styled.div`
     height: 450px;
   }
   @media (min-width: 768px) {
+    width: 400px;
+    height: 400px;
   }
 
   @media (min-width: 1280px) {
@@ -171,6 +175,8 @@ export const UrnContainer = styled.div`
     top: 26%;
   }
   @media (min-width: 768px) {
+    right: 40px;
+    top: 23%;
   }
 
   @media (min-width: 1280px) {
@@ -203,6 +209,8 @@ export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
     height: 80px;
   }
   @media (min-width: 768px) {
+    width: 75px;
+    height: 75px;
   }
 
   @media (min-width: 1280px) {
