@@ -62,6 +62,10 @@ export const GameFieldContainer = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
 
+  @media (min-width: 480px) {
+    width: 450px;
+    height: 450px;
+  }
   @media (min-width: 768px) {
   }
 
@@ -162,6 +166,10 @@ export const UrnContainer = styled.div`
   position: absolute;
   right: 0;
   top: 18%;
+  @media (min-width: 480px) {
+    right: 50px;
+    top: 26%;
+  }
   @media (min-width: 768px) {
   }
 
@@ -187,6 +195,12 @@ export const UrnImage = styled(FcEmptyTrash)<UrnImageProps>`
 
   &:hover {
     animation-play-state: running;
+  }
+  @media (min-width: 480px) {
+    right: 65px;
+    top: -135px;
+    width: 80px;
+    height: 80px;
   }
   @media (min-width: 768px) {
   }

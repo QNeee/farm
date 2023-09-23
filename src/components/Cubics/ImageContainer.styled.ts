@@ -9,6 +9,8 @@ export const Container = styled.div`
   width: 300px;
   height: 225px;
   border-radius: 10px;
+  @media (min-width: 480px) {
+  }
   @media (min-width: 768px) {
   }
 
@@ -56,7 +58,9 @@ export const ThrowButton = styled.button`
 export const PointerDown = styled(BsFillHandIndexThumbFill)`
   transform: rotate(180deg);
 `;
+
 export const PointerUp = styled(BsFillHandIndexThumbFill)``;
+
 export const Image = styled.img`
   margin-right: 10px;
 `;
