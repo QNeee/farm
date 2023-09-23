@@ -156,8 +156,6 @@ export const UrnContainer = styled.div`
 
 export const UrnImage = styled(FcEmptyTrash)`
   position: absolute;
-  top: -150px;
-  right: 85px;
   width: 50px;
   height: 50px;
   transform: rotate(-45deg);

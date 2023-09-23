@@ -7,9 +7,9 @@ const ResultRenderSchool: React.FC<ICubicResultRenderOtherProps> = ({
   const results: string[] = ['schoolX', 'school'];
   const result = cubicsResult
     ? cubicsResult
-        .filter((item) => results.includes(item.result.split(' ')[0]))
-        .flatMap((item) => item.result)
-        .join('')
+      .filter((item) => results.includes(item.result.split(' ')[0]))
+      .flatMap((item) => item.result)
+      .join('')
     : null;
   console.log(result);
   useEffect(() => {
@@ -25,6 +25,8 @@ const ResultRenderSchool: React.FC<ICubicResultRenderOtherProps> = ({
           cubicsResult && cubicsResult.length > 0 ? 'green' : '';
       } else {
         (el as HTMLElement).style.border = '';
+        (el as HTMLElement).style.cursor = '';
+        (el as HTMLElement).style.backgroundColor = '';
       }
     });
   }, [cubicsResult, result]);

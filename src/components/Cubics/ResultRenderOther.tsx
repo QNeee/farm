@@ -18,8 +18,8 @@ const ResultRenderOther: React.FC<ICubicResultRenderOtherProps> = ({
   ];
   const result1 = cubicsResult
     ? cubicsResult
-        .filter((item) => results.includes(item.result.split(' ')[0]))
-        .flatMap((item) => item.result.split(' '))
+      .filter((item) => results.includes(item.result.split(' ')[0]))
+      .flatMap((item) => item.result.split(' '))
     : [];
   const cross = cubicsResult
     ? cubicsResult.filter((item) => item.result === 'cross')
@@ -39,7 +39,7 @@ const ResultRenderOther: React.FC<ICubicResultRenderOtherProps> = ({
             (allElements[i] as HTMLElement).style.cursor =
               cubicsResult && cubicsResult.length > 0 ? 'pointer' : '';
             (allElements[i] as HTMLElement).style.backgroundColor =
-              cubicsResult && cubicsResult.length > 0 ? 'red' : '';
+              cubicsResult && cubicsResult.length > 0 ? 'green' : '';
             found = true;
             break;
           }
@@ -58,8 +58,8 @@ const ResultRenderOther: React.FC<ICubicResultRenderOtherProps> = ({
         for (let j = 0; j < antiCross.length; j++) {
           const resultId = antiCross[j].trim() + ' userOther';
           if (elementId === resultId && allElements[i].textContent !== '0+0') {
-            // (allElements[i] as HTMLElement).style.border =
-            //   cubicsResult && cubicsResult.length > 0 ? '3px solid red' : '';
+            (allElements[i] as HTMLElement).style.border =
+              cubicsResult && cubicsResult.length > 0 ? '3px solid black' : '';
             (allElements[i] as HTMLElement).style.cursor =
               cubicsResult && cubicsResult.length > 0 ? 'pointer' : '';
             (allElements[i] as HTMLElement).style.backgroundColor =
