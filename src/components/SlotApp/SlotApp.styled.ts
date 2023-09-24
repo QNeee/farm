@@ -263,7 +263,7 @@ export const Lamp = styled.div`
   cursor: pointer;
   &:hover {
     background-color: rgba(13, 110, 43, 0.8);
-    scale: 1.1;
+    scale: 0.9;
     transition: scale 500ms, background-color 500ms;
   }
 `;
