@@ -202,9 +202,8 @@ export const SpinButton = styled.button<{ primary: boolean }>`
   }
 `;
 export const HeaderStyled = styled.div`
-  position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   margin-bottom: 15px;
@@ -248,12 +247,25 @@ export const Span = styled.span<{ primary: boolean }>`
 `;
 
 export const Lamp = styled.div`
-  position: absolute;
-  top: 17px;
-  right: 5px;
-  z-index: 1;
+  margin-right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.4);
+  /* border-radius: 50%; */
+  /* border: 5px solid #333; */
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #333 #333 transparent;
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  scale: 1;
+  transition: scale 500ms, background-color 500ms;
   cursor: pointer;
   &:hover {
-    padding: 1px;
+    background-color: rgba(13, 110, 43, 0.8);
+    scale: 1.1;
+    transition: scale 500ms, background-color 500ms;
   }
 `;

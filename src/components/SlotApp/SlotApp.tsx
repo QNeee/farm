@@ -419,7 +419,7 @@ export const SlotApp = () => {
       <Wrapper />
       <MainContainer imgUrl={slotImg}>
         <HeaderStyled>
-          <Lamp>
+          {/* <Lamp>
             {isOpen && (
               <TextModal
                 isOpen={isOpen}
@@ -431,7 +431,7 @@ export const SlotApp = () => {
               title="Інструкції"
               style={{ height: 32, width: 32 }}
             />
-          </Lamp>
+          </Lamp> */}
           <Balance>
             {language === 'en'
               ? 'Balance'
@@ -473,6 +473,19 @@ export const SlotApp = () => {
               : 'Загальна ставка'}
             :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}
           </LineCount>
+          <Lamp>
+            {isOpen && (
+              <TextModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+              ></TextModal>
+            )}
+            <FcIdea
+              onClick={toggleModal}
+              title="Інструкції"
+              style={{ height: 32, width: 32 }}
+            />
+          </Lamp>
         </HeaderStyled>
         <Container>
           {result > 0 && resultRender && <NumberModal number={result} />}
