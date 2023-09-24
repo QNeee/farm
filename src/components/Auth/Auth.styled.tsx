@@ -48,7 +48,6 @@ export const WrapError = styled.div<WrapErrorProps>`
   position: relative;
   background-color: white;
   margin-bottom: 18px;
-  /* z-index: 1; */
   ${(props) =>
     props.hasError &&
     css`
@@ -69,7 +68,6 @@ export const Error = styled(ErrorMessage)`
   top: -40%;
   left: 90px;
   transform: translate(0, 40%);
-  /* z-index: 20; */
   border: 1px solid rgba(219, 26, 17, 0.8);
   padding: 3px 10px;
   border-radius: 5px;
@@ -87,17 +85,12 @@ export const Error = styled(ErrorMessage)`
 `;
 
 export const Label = styled.label`
+  display: flex;
+  align-items: center;
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 10px;
-  transform: translateY(-40%);
-  /* z-index: 1; */
-  @media (min-width: 480px) {
-    transform: translateY(-45%);
-  }
-  @media (min-width: 768px) {
-    transform: translateY(-40%);
-  }
+  height: 100%;
 `;
 
 export const Input = styled(Field)`
@@ -132,7 +125,8 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 8px 16px;
+  margin-top: 10px;
+  padding: 8px 14px;
   color: #333;
   border: none;
   border-radius: 5px;
@@ -205,7 +199,6 @@ export const WrapErrorCheck = styled.div<WrapErrorProps>`
   position: relative;
   width: 100%;
   margin-bottom: 18px;
-  /* z-index: 1; */
 
   ${(props) =>
     props.hasError &&
