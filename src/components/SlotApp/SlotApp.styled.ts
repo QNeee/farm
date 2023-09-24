@@ -254,8 +254,6 @@ export const Lamp = styled.div`
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.4);
-  /* border-radius: 50%; */
-  /* border: 5px solid #333; */
   border-width: 5px;
   border-style: solid;
   border-color: transparent #333 #333 transparent;

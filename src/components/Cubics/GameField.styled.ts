@@ -85,12 +85,18 @@ export const Wrapper = styled.div`
 
 export const TopContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   position: absolute;
   top: 30px;
-  left: 24px;
+  right: 0;
+  padding: 0 70px 0 25px;
 
+  @media (min-width: 768px) {
+    padding-right: 40px;
+  }
   @media (min-width: 1280px) {
-    left: 30px;
+    padding-left: 30px;
   }
 `;
 

@@ -106,6 +106,19 @@ const GameField: React.FC = () => {
         <Wrapper>
           <TopContainer>
             <ImagePc />
+            <Lamp>
+              {isOpen && (
+                <TextModal
+                  isOpen={isOpen}
+                  onClose={() => setIsOpen(false)}
+                ></TextModal>
+              )}
+              <FcIdea
+                onClick={toggleModal}
+                title="Інструкції"
+                style={{ height: 32, width: 32 }}
+              />
+            </Lamp>
           </TopContainer>
           <ImageContainer cubicsData={cubicsData} />
           <BottomContainer>
@@ -215,19 +228,6 @@ const GameField: React.FC = () => {
             </Text>
             <UrnImage onClick={onClickStartGame} />
           </UrnContainer>
-          <Lamp>
-            {isOpen && (
-              <TextModal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-              ></TextModal>
-            )}
-            <FcIdea
-              onClick={toggleModal}
-              title="Інструкції"
-              style={{ height: 32, width: 32 }}
-            />
-          </Lamp>
         </Wrapper>
       </GameFieldContainer>
     </MainContainer>
