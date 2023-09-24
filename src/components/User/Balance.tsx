@@ -33,6 +33,12 @@ export const BalanceContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 100px;
 `;
+const ModalWrapper = styled.div`
+display: flex;
+flex-direction: column;
+height: 200px;
+justify-content: space-around;
+`;
 const Balance = () => {
   const dispatch: AppDispatch = useDispatch();
   const language = useSelector(getLanguage);
@@ -43,12 +49,19 @@ const Balance = () => {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
+    if (!balance) return;
     const reqBody = {
       balance: balance,
     };
     await dispatch(postUserBalance(reqBody));
     setBalance('');
     setShowModal(false);
+  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (/^[+]?\d*\.?\d*$/.test(inputValue)) {
+      setBalance(inputValue);
+    }
   };
   const onClickExit = () => {
     setShowModal(false);
@@ -65,14 +78,16 @@ const Balance = () => {
       {showModal && (
         <Modal>
           <h2>{language === 'en' ? 'Top up balance' : language === 'ru' ? 'Пополнить баланс' : 'Поповнити баланс'}</h2>
-          <Input
-            type="text"
-            value={balance}
-            onChange={(e) => setBalance(e.target.value)}
-            placeholder={language === 'en' ? 'enter sum' : language === 'ru' ? 'введите суму' : 'введіть суму'}
-          />
-          <Button onClick={handleBalanceSubmit}>OK</Button>
-          <Button onClick={onClickExit}>{language === 'en' ? 'Close' : language === 'ru' ? 'Закрыть' : 'Закрити'}</Button>
+          <ModalWrapper>
+            <Input
+              type="number"
+              value={balance}
+              onChange={handleInputChange}
+              placeholder={language === 'en' ? 'enter sum' : language === 'ru' ? 'введите суму' : 'введіть суму'}
+            />
+            <Button onClick={handleBalanceSubmit}>OK</Button>
+            <Button onClick={onClickExit}>{language === 'en' ? 'Close' : language === 'ru' ? 'Закрыть' : 'Закрити'}</Button>
+          </ModalWrapper>
         </Modal>
       )}
     </Container>
