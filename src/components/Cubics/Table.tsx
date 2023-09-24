@@ -30,6 +30,7 @@ import {
   TableContainer,
   TableRow,
 } from './Table.styled';
+import { ICubicsResultTable } from '../../types';
 
 const Table: React.FC = () => {
   const language = useSelector(getLanguage);
@@ -63,80 +64,51 @@ const Table: React.FC = () => {
   useEffect(() => {
     if (refreshed || namePath === 'demoCubics') {
       if (namePath === 'demoCubics') {
-        dispatch(getCubicsTable('demo'));
-        if (id) {
-          dispatch(getCubicsResult(localStorage.getItem(cubicKey) as string));
-          dispatch(getCubicsResultRender(localStorage.getItem(cubicKey) as string));
-        }
+        dispatch(getCubicsTable('demo')).then(() => {
+          if (id) {
+            dispatch(getCubicsResult(id)).then(() => {
+              dispatch(getCubicsResultRender(id));
+            });
+          }
+        });
       } else {
-        dispatch(getCubicsTable(''));
-        dispatch(getCubicsResult(''));
-        dispatch(getCubicsResultRender(''));
+        dispatch(getCubicsTable('')).then(() => {
+          dispatch(getCubicsResult('')).then(() => {
+            dispatch(getCubicsResultRender(''));
+          });
+        });
       }
     }
-  }, [dispatch, refreshed, namePath]);
+  }, [dispatch, refreshed, namePath, id]);
   const school: string[] | null = useSelector(getSchool);
   const others: string[] | null = useSelector(getOther);
-  const func = () => {
-    if (cubicResultRenderUserSchool) {
-      for (const elem of cubicResultRenderUserSchool) {
-        const number = elem.number;
-        const el = document.getElementById(parseInt(number) - 1 + ' user');
-        if (el) {
-          el.textContent = elem.textContent;
+  useEffect(() => {
+    const updateElements = (cubicResultRender: ICubicsResultTable[] | null, type: string) => {
+      if (cubicResultRender) {
+        for (const elem of cubicResultRender) {
+          const index = type === 'user' || type === 'pc' ? elem.number : elem.combination;
+          const el = document.getElementById(`${type === 'user' || type === 'pc' ? parseInt(index) - 1 : index} ${type}`);
+          if (el) {
+            el.textContent = elem.textContent;
+          }
         }
+      } else {
+        const allElements = document.querySelectorAll(`[id$=" ${type}"]`);
+        allElements.forEach((el) => {
+          el.textContent = '';
+        });
       }
-    } else {
-      const allElements = document.querySelectorAll('[id$=" user"]');
-      allElements.forEach((el) => {
-        el.textContent = '';
-      });
-    }
-
-    if (cubicResultRenderPcSchool) {
-      for (const elem of cubicResultRenderPcSchool) {
-        const number = elem.number;
-        const el = document.getElementById(parseInt(number) - 1 + ' pc');
-        if (el) {
-          el.textContent = elem.textContent;
-        }
-      }
-    } else {
-      const allElements = document.querySelectorAll('[id$=" pc"]');
-      allElements.forEach((el) => {
-        el.textContent = '';
-      });
-    }
-    if (cubicResultRenderUserOther) {
-      for (const elem of cubicResultRenderUserOther) {
-        const number = elem.combination;
-        const el = document.getElementById(number + ' userOther');
-        if (el) {
-          el.textContent = elem.textContent;
-        }
-      }
-    } else {
-      const allElements = document.querySelectorAll('[id$=" userOther"]');
-      allElements.forEach((el) => {
-        el.textContent = '';
-      });
-    }
-
-    if (cubicResultRenderPcOther) {
-      for (const elem of cubicResultRenderPcOther) {
-        const number = elem.combination;
-        const el = document.getElementById(number + ' pcOther');
-        if (el) {
-          el.textContent = elem.textContent;
-        }
-      }
-    } else {
-      const allElements = document.querySelectorAll('[id$=" pcOther"]');
-      allElements.forEach((el) => {
-        el.textContent = '';
-      });
-    }
-  };
+    };
+    updateElements(cubicResultRenderUserSchool, 'user');
+    updateElements(cubicResultRenderPcSchool, 'pc');
+    updateElements(cubicResultRenderUserOther, 'userOther');
+    updateElements(cubicResultRenderPcOther, 'pcOther');
+  }, [
+    cubicResultRenderUserSchool,
+    cubicResultRenderPcSchool,
+    cubicResultRenderUserOther,
+    cubicResultRenderPcOther,
+  ]);
   const onClickTableSchool = async () => {
     if (w8) return;
     setW8(true);
@@ -215,7 +187,6 @@ const Table: React.FC = () => {
     }
     setW8(false);
   };
-  func();
   const translateTable = (name: string, flag: string) => {
     let text = '';
     switch (flag) {
