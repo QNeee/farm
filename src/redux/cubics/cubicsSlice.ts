@@ -167,10 +167,6 @@ export const cubicSlice = createSlice({
                 state.error = action.payload;
             }).addCase(getCubicsResult.pending, (state) => {
                 state.loading = true;
-                state.cubicResultRenderUserSchool = null;
-                state.cubicResultRenderPcSchool = null;
-                state.cubicResultRenderUserOther = null;
-                state.cubicResultRenderPcOther = null;
                 state.error = null;
             })
             .addCase(getCubicsResult.fulfilled, (state, { payload }) => {
