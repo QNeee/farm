@@ -90,7 +90,7 @@ export const TopContainer = styled.div`
   position: absolute;
   top: 30px;
   right: 0;
-  padding: 0 70px 0 25px;
+  padding: 0 40px 0 25px;
 
   @media (min-width: 768px) {
     padding-right: 40px;
@@ -148,8 +148,8 @@ export const UrnContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 15%;
-  right: 23px;
+  top: 26%;
+  right: 0;
   @media (min-width: 480px) {
     top: 26%;
     right: 30px;

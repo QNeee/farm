@@ -39,6 +39,7 @@ import {
 } from './GameField.styled';
 import { LuBeaker, LuDices } from 'react-icons/lu';
 import { Checkbox, IconButton } from '@mui/material';
+// import { ModalStyle } from '../Modal/TextModal.styled';
 
 const GameField: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -129,7 +130,7 @@ const GameField: React.FC = () => {
                 appElement={document.getElementById('root') || undefined}
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                contentLabel="Інструкції"
+                contentLabel="modal"
               >
                 <TextModal onClose={closeModal} />
               </Modal>
@@ -229,20 +230,22 @@ const GameField: React.FC = () => {
               ></img>
             </Square>
           </BottomContainer>
-          <UrnContainer>
-            <Text>
-              {language === 'en'
-                ? 'Rolls'
-                : language === 'ru'
-                ? 'Кинуть кости'
-                : 'Кинути кістки'}{' '}
-              <br />
-              {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
-              <br />
-              <PointerAngle />
-            </Text>
-            <UrnImage onClick={onClickStartGame} />
-          </UrnContainer>
+          {startGame && (
+            <UrnContainer>
+              <Text>
+                {language === 'en'
+                  ? 'Rolls'
+                  : language === 'ru'
+                  ? 'Кинуть кости'
+                  : 'Кинути кістки'}{' '}
+                <br />
+                {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
+                <br />
+                <PointerAngle />
+              </Text>
+              <UrnImage onClick={onClickStartGame} />
+            </UrnContainer>
+          )}
         </Wrapper>
       </GameFieldContainer>
     </MainContainer>

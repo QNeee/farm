@@ -16,12 +16,20 @@ import { getCubicInstr } from '../../redux/cubics/cubicsSelectors';
 import { ICubicInstr } from '../../types';
 import { translateFunc } from '../../translateFunc';
 import {
-  CloseButton,
+  Btn,
   CombImg,
   Content,
   Overlay,
-  TextLi,
+  Text,
+  Container,
+  Item,
+  List,
+  CloseButtonIcon,
+  Wrapper,
+  ButtonWrap,
+  Wrap,
 } from './TextModal.styled';
+import { Button, ButtonGroup } from '@mui/material';
 
 interface ModalProps {
   // isOpen: boolean;
@@ -32,7 +40,7 @@ interface IData {
   lines?: number;
   value?: number;
 }
-const TextModal: FC<ModalProps> = ({ /* isOpen,  */ onClose }) => {
+const TextModal: FC<ModalProps> = ({ onClose }) => {
   // const TextModal = () => {
   // if (!isOpen) return null;
   const itemsPerPageComb = 7;
@@ -87,199 +95,221 @@ const TextModal: FC<ModalProps> = ({ /* isOpen,  */ onClose }) => {
   return (
     <Overlay>
       <Content>
-        <CloseButton>
-          <AiOutlineCloseCircle
-            onClick={onClose}
-            style={{ height: 32, width: 32 }}
-          />
-        </CloseButton>
-        <button type="button" disabled={lines} onClick={onClickLines}>
-          {language === 'en'
-            ? pathname !== '/demoCubics' && pathname !== '/cubics'
-              ? 'Lines'
-              : 'Text'
-            : language === 'ru'
-            ? pathname !== '/demoCubics' && pathname !== '/cubics'
-              ? 'Линии'
-              : 'Текст'
-            : pathname !== '/demoCubics' && pathname !== '/cubics'
-            ? 'Лінії'
-            : 'Текст'}
+        <button onClick={onClose}>
+          <CloseButtonIcon />
         </button>
-        <button type="button" disabled={values} onClick={onClickValues}>
-          {language === 'en'
-            ? 'Values'
-            : language === 'ru'
-            ? 'Значения'
-            : 'Значення'}
-        </button>
-        <button
-          type="button"
-          disabled={combination}
-          onClick={onClickCombinations}
-        >
-          {language === 'en'
-            ? 'Combination'
-            : language === 'ru'
-            ? 'Комбинации'
-            : 'Комбінації'}
-        </button>
+
+        <Wrap>
+          <Btn disabled={lines} onClick={onClickLines}>
+            {language === 'en'
+              ? pathname !== '/demoCubics' && pathname !== '/cubics'
+                ? 'Lines'
+                : 'Text'
+              : language === 'ru'
+              ? pathname !== '/demoCubics' && pathname !== '/cubics'
+                ? 'Линии'
+                : 'Текст'
+              : pathname !== '/demoCubics' && pathname !== '/cubics'
+              ? 'Лінії'
+              : 'Текст'}
+          </Btn>
+          <Btn disabled={values} onClick={onClickValues}>
+            {language === 'en'
+              ? 'Values'
+              : language === 'ru'
+              ? 'Значения'
+              : 'Значення'}
+          </Btn>
+          <Btn
+            type="button"
+            disabled={combination}
+            onClick={onClickCombinations}
+          >
+            {language === 'en'
+              ? 'Combination'
+              : language === 'ru'
+              ? 'Комбинации'
+              : 'Комбінації'}
+          </Btn>
+        </Wrap>
         {pathname !== '/demoCubics' && pathname !== '/cubics' ? (
           <>
             {lines ? (
-              <div>
+              <Container>
                 {instrLines.length > 0 &&
                   instrLines.map((item, index) => (
-                    <ul key={index}>
-                      <li>
-                        {language === 'en'
-                          ? 'Line'
-                          : language === 'ru'
-                          ? 'Линия'
-                          : 'Лінія'}
-                        {item.lines}:
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          {language === 'en'
+                            ? 'Line'
+                            : language === 'ru'
+                            ? 'Линия'
+                            : 'Лінія'}
+
+                          <Text>{item.lines}:</Text>
+                        </Wrapper>
                         <img
                           src={item.img}
                           alt={index.toString()}
-                          width="200"
+                          width="300"
                         />
-                      </li>
-                    </ul>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
             {values ? (
-              <div>
+              <Container>
                 {instrValues.length > 0 &&
                   instrValues.map((item, index) => (
-                    <ul key={index}>
-                      <li style={{ display: 'flex' }}>
-                        <img src={item.img} alt={index.toString()} width="40" />
-                        ={item.value}
-                      </li>
-                    </ul>
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          <img
+                            src={item.img}
+                            alt={index.toString()}
+                            width="50"
+                          />
+                          <Text>={item.value}</Text>
+                        </Wrapper>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
             {combination ? (
-              <div>
+              <Container>
                 {instrCombination.length > 0 &&
                   instrCombination.map((item, index) => (
-                    <ul key={index}>
-                      <li>
-                        {language === 'en'
-                          ? 'Line'
-                          : language === 'ru'
-                          ? 'Линия'
-                          : 'Лінія'}
-                        {item.lines}:
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          {' '}
+                          {language === 'en'
+                            ? 'Line'
+                            : language === 'ru'
+                            ? 'Линия'
+                            : 'Лінія'}
+                          <Text>{item.lines}:</Text>
+                        </Wrapper>
                         <img
                           src={item.img}
                           alt={index.toString()}
-                          width="200"
+                          width="300"
                         />
-                      </li>
-                    </ul>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
           </>
         ) : (
           <>
             {lines ? (
-              <div>
+              <Container>
                 {cubicText.length > 0 &&
                   pagination(cubicText, itemsPerPageText, page).map(
                     (item, index) => (
-                      <ul key={index}>
-                        <TextLi>
-                          <p>{translateFunc(item.text, language)}</p>
+                      <List key={index}>
+                        <Item>
+                          <Text>{translateFunc(item.text, language)}</Text>
                           <img
                             src={item.img}
                             alt={index.toString()}
                             width="200"
                           />
-                        </TextLi>
-                      </ul>
+                        </Item>
+                      </List>
                     )
                   )}
-                <button
-                  disabled={page < 7 ? false : true}
-                  onClick={() => setPage((prev) => prev + 1)}
-                  type="button"
-                >
-                  {language === 'en'
-                    ? 'Next'
-                    : language === 'ru'
-                    ? 'Следущая'
-                    : 'Наступна'}
-                </button>
-                <button
-                  disabled={page !== 0 ? false : true}
-                  onClick={() => setPage((prev) => prev - 1)}
-                  type="button"
-                >
-                  {language === 'en'
-                    ? 'Prev'
-                    : language === 'ru'
-                    ? 'Предыдущая'
-                    : 'Попередня'}
-                </button>
-              </div>
+                <ButtonWrap>
+                  <Button
+                    disabled={page !== 0 ? false : true}
+                    onClick={() => setPage((prev) => prev - 1)}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Prev'
+                      : language === 'ru'
+                      ? 'Предыдущая'
+                      : 'Попередня'}
+                  </Button>
+                  <Button
+                    disabled={page < 7 ? false : true}
+                    onClick={() => setPage((prev) => prev + 1)}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Next'
+                      : language === 'ru'
+                      ? 'Следущая'
+                      : 'Наступна'}
+                  </Button>
+                </ButtonWrap>
+              </Container>
             ) : null}
             {values ? (
-              <div>
+              <Container>
                 {cubicValues.length > 0 &&
                   cubicValues.map((item, index) => (
-                    <ul key={index}>
-                      <li style={{ display: 'flex' }}>
-                        <img src={item.img} alt={index.toString()} width="40" />
-                        ={item.value}
-                      </li>
-                    </ul>
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          <img
+                            src={item.img}
+                            alt={index.toString()}
+                            width="40"
+                          />
+                          <Text>={item.value}</Text>
+                        </Wrapper>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
             {combination ? (
-              <div>
+              <Container>
                 {cubicComb.length > 0 &&
                   pagination(cubicComb, itemsPerPageComb, page).map(
                     (item, index) => (
-                      <ul key={index}>
-                        <li>
-                          {item.name}:
+                      <List key={index}>
+                        <Item>
+                          <Text>{item.name}:</Text>
                           <CombImg
                             src={item.img}
                             alt={index.toString()}
-                            width="75"
+                            width="100"
                           />
-                        </li>
-                      </ul>
+                        </Item>
+                      </List>
                     )
                   )}
-                <button
-                  disabled={page === 0 ? false : true}
-                  onClick={() => setPage((prev) => prev + 1)}
-                  type="button"
-                >
-                  {language === 'en'
-                    ? 'Next'
-                    : language === 'ru'
-                    ? 'Следущая'
-                    : 'Наступна'}
-                </button>
-                <button
-                  disabled={page === 1 ? false : true}
-                  onClick={() => setPage((prev) => prev - 1)}
-                  type="button"
-                >
-                  {language === 'en'
-                    ? 'Prev'
-                    : language === 'ru'
-                    ? 'Предыдущая'
-                    : 'Попередня'}
-                </button>
-              </div>
+                <ButtonWrap>
+                  <Button
+                    disabled={page === 1 ? false : true}
+                    onClick={() => setPage((prev) => prev - 1)}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Prev'
+                      : language === 'ru'
+                      ? 'Предыдущая'
+                      : 'Попередня'}
+                  </Button>
+                  <Button
+                    disabled={page === 0 ? false : true}
+                    onClick={() => setPage((prev) => prev + 1)}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Next'
+                      : language === 'ru'
+                      ? 'Следущая'
+                      : 'Наступна'}
+                  </Button>
+                </ButtonWrap>
+              </Container>
             ) : null}
           </>
         )}

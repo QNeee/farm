@@ -1,4 +1,6 @@
+import { FcIdea } from 'react-icons/fc';
 import styled, { keyframes } from 'styled-components';
+import { Button } from '@mui/material';
 
 const Position = keyframes` 
     0% {
@@ -261,9 +263,15 @@ export const Lamp = styled.div`
   scale: 1;
   transition: scale 500ms, background-color 500ms;
   cursor: pointer;
+  z-index: 5;
   &:hover {
     background-color: rgba(13, 110, 43, 0.8);
     scale: 0.9;
     transition: scale 500ms, background-color 500ms;
   }
+`;
+
+export const FcIdeaIcon = styled(FcIdea)`
+  height: 32px;
+  width: 32px;
 `;

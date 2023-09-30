@@ -17,9 +17,15 @@ export const Container = styled.div`
 
 export const CubicsContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-wrap: nowrap;
+  width: 35px;
+  margin: 2px;
+  @media (min-width: 480px) {
+    width: 100%;
+    margin: auto;
+  }
 `;
 
 export const Button = styled.button`
