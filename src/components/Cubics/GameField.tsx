@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import Modal from 'react-modal';
 import Table from './Table';
 import ImageContainer from './ImageContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,6 +53,17 @@ const GameField: React.FC = () => {
   const cubicInStash = useSelector(getCubicInStashArr);
   const { pathname } = useLocation();
   const namePath = pathname.split('/')[1];
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   const onClickStartGame = async () => {
     if (w8) return;
     if (!startGame) return;
@@ -107,17 +120,19 @@ const GameField: React.FC = () => {
           <TopContainer>
             <ImagePc />
             <Lamp>
-              {isOpen && (
-                <TextModal
-                  isOpen={isOpen}
-                  onClose={() => setIsOpen(false)}
-                ></TextModal>
-              )}
               <FcIdea
-                onClick={toggleModal}
+                onClick={openModal}
                 title="Інструкції"
                 style={{ height: 32, width: 32 }}
               />
+              <Modal
+                appElement={document.getElementById('root') || undefined}
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Інструкції"
+              >
+                <TextModal onClose={closeModal} />
+              </Modal>
             </Lamp>
           </TopContainer>
           <ImageContainer cubicsData={cubicsData} />

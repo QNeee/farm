@@ -6,7 +6,7 @@ import useSound from 'use-sound';
 import { FcIdea } from 'react-icons/fc';
 // import lampAnimation from '../../utils/lamp.json';
 import { Slots } from '../Slot';
-
+import Modal from 'react-modal';
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
 import lineSound from '../../audio/line.mp3';
@@ -72,6 +72,17 @@ export const SlotApp = () => {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const namePath = pathname.split('/')[1];
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   const getDemoBalanceNumber = () => {
     return parseInt(localStorage.getItem(localBalance) as string);
   };
@@ -474,17 +485,19 @@ export const SlotApp = () => {
             :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}
           </LineCount>
           <Lamp>
-            {isOpen && (
-              <TextModal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-              ></TextModal>
-            )}
             <FcIdea
-              onClick={toggleModal}
+              onClick={openModal}
               title="Інструкції"
               style={{ height: 32, width: 32 }}
             />
+            <Modal
+              appElement={document.getElementById('root') || undefined}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Інструкції"
+            >
+              <TextModal onClose={closeModal} />
+            </Modal>
           </Lamp>
         </HeaderStyled>
         <Container>
