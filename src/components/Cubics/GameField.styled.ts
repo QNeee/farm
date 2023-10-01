@@ -85,12 +85,18 @@ export const Wrapper = styled.div`
 
 export const TopContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   position: absolute;
   top: 30px;
-  left: 24px;
+  right: 0;
+  padding: 0 40px 0 25px;
 
+  @media (min-width: 768px) {
+    padding-right: 40px;
+  }
   @media (min-width: 1280px) {
-    left: 30px;
+    padding-left: 30px;
   }
 `;
 
@@ -142,8 +148,8 @@ export const UrnContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 15%;
-  right: 23px;
+  top: 26%;
+  right: 0;
   @media (min-width: 480px) {
     top: 26%;
     right: 30px;

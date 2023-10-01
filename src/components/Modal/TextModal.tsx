@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import styled from 'styled-components';
-import { Overlay, Content, CloseButton } from './NumberModal.styled';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { AppDispatch } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { getInstructionSlot } from '../../redux/slots/slotsOperations';
+import Modal from 'react-modal';
 import {
   getInstrCombination,
   getInstrLines,
@@ -16,19 +16,26 @@ import { getCubicsInstruction } from '../../redux/cubics/cubicsOperations';
 import { getCubicInstr } from '../../redux/cubics/cubicsSelectors';
 import { ICubicInstr } from '../../types';
 import { translateFunc } from '../../translateFunc';
-const CombImg = styled.img`
-  &:hover {
-    width: 100px;
-  }
-`;
-const TextLi = styled.li`
-border: 3px solid black;
-display: flex;
-
-`;
+import {
+  Btn,
+  CombImg,
+  Content,
+  Overlay,
+  Text,
+  Container,
+  Item,
+  List,
+  CloseButtonIcon,
+  Wrapper,
+  ButtonWrap,
+  Wrap,
+  SlideTransition,
+  ImgValCub,
+} from './TextModal.styled';
+import { Button, ButtonGroup } from '@mui/material';
 
 interface ModalProps {
-  isOpen: boolean;
+  // isOpen: boolean;
   onClose: () => void;
 }
 interface IData {
@@ -36,8 +43,9 @@ interface IData {
   lines?: number;
   value?: number;
 }
-const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+const TextModal: FC<ModalProps> = ({ onClose }) => {
+  // const TextModal = () => {
+  // if (!isOpen) return null;
   const itemsPerPageComb = 7;
   const itemsPerPageText = 1;
   const language = useSelector(getLanguage);
@@ -48,6 +56,7 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const [values, setValues] = useState(false);
   const [combination, setCombination] = useState(false);
   const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState<'prev' | 'next'>('next');
 
   useEffect(() => {
     if (pathname === '/demoCubics' || pathname === '/cubics') {
@@ -56,13 +65,13 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
       dispatch(getInstructionSlot(id));
     }
   }, [dispatch, id, pathname]);
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
   const instrValues: IData[] = useSelector(getInstrValues);
   const instrCombination: IData[] = useSelector(getInstrCombination);
   const instrLines: IData[] = useSelector(getInstrLines);
   const cubicInstr: ICubicInstr[] = useSelector(getCubicInstr);
   const cubicValues = cubicInstr.flatMap((item) => item.values);
-  const cubicText = cubicInstr.flatMap(item => item.text);
+  const cubicText = cubicInstr.flatMap((item) => item.text);
   const cubicComb = cubicInstr.flatMap((item) => item.combination);
   function pagination<T>(arr: T[], itemsCount: number, currentPage: number) {
     const startIndex = currentPage * itemsCount;
@@ -87,150 +96,253 @@ const TextModal: FC<ModalProps> = ({ isOpen, onClose }) => {
     setLines(false);
     setCombination(!combination);
   };
+
+  const handlePrevClick = () => {
+    setPage((prev) => prev - 1);
+    setDirection('prev');
+  };
+
+  const handleNextClick = () => {
+    setPage((prev) => prev + 1);
+    setDirection('next');
+  };
+
+  Modal.setAppElement('#root');
   return (
     <Overlay>
       <Content>
-        <CloseButton>
-          <AiOutlineCloseCircle
-            onClick={onClose}
-            style={{ height: 32, width: 32 }}
-          />
-        </CloseButton>
-        <button type="button" disabled={lines} onClick={onClickLines}>
-          {language === 'en'
-            ? pathname !== '/demoCubics' && pathname !== '/cubics'
-              ? 'Lines'
-              : 'Text'
-            : language === 'ru'
-              ? pathname !== '/demoCubics' && pathname !== '/cubics' ? 'Линии' : "Текст"
-              : pathname !== '/demoCubics' && pathname !== '/cubics' ? 'Лінії' : "Текст"}
-        </button>
-        <button type="button" disabled={values} onClick={onClickValues}>
-          {language === 'en'
-            ? 'Values'
-            : language === 'ru'
+        <CloseButtonIcon onClick={onClose} />
+
+        <Wrap>
+          <Btn disabled={lines} onClick={onClickLines}>
+            {language === 'en'
+              ? pathname !== '/demoCubics' && pathname !== '/cubics'
+                ? 'Lines'
+                : 'Text'
+              : language === 'ru'
+              ? pathname !== '/demoCubics' && pathname !== '/cubics'
+                ? 'Линии'
+                : 'Текст'
+              : pathname !== '/demoCubics' && pathname !== '/cubics'
+              ? 'Лінії'
+              : 'Текст'}
+          </Btn>
+          <Btn disabled={values} onClick={onClickValues}>
+            {language === 'en'
+              ? 'Values'
+              : language === 'ru'
               ? 'Значения'
               : 'Значення'}
-        </button>
-        <button
-          type="button"
-          disabled={combination}
-          onClick={onClickCombinations}
-        >
-          {language === 'en'
-            ? 'Combination'
-            : language === 'ru'
+          </Btn>
+          <Btn
+            type="button"
+            disabled={combination}
+            onClick={onClickCombinations}
+          >
+            {language === 'en'
+              ? 'Combination'
+              : language === 'ru'
               ? 'Комбинации'
               : 'Комбінації'}
-        </button>
+          </Btn>
+        </Wrap>
         {pathname !== '/demoCubics' && pathname !== '/cubics' ? (
           <>
             {lines ? (
-              <div>
+              <Container>
                 {instrLines.length > 0 &&
                   instrLines.map((item, index) => (
-                    <ul key={index}>
-                      <li>
-                        {language === 'en'
-                          ? 'Line'
-                          : language === 'ru'
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          {language === 'en'
+                            ? 'Line'
+                            : language === 'ru'
                             ? 'Линия'
                             : 'Лінія'}
-                        {item.lines}:
+
+                          <Text>{item.lines}:</Text>
+                        </Wrapper>
                         <img
                           src={item.img}
                           alt={index.toString()}
-                          width="200"
+                          width="300"
                         />
-                      </li>
-                    </ul>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
             {values ? (
-              <div>
+              <Container>
                 {instrValues.length > 0 &&
                   instrValues.map((item, index) => (
-                    <ul key={index}>
-                      <li style={{ display: 'flex' }}>
-                        <img src={item.img} alt={index.toString()} width="40" />
-                        ={item.value}
-                      </li>
-                    </ul>
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          <img
+                            src={item.img}
+                            alt={index.toString()}
+                            width="50"
+                          />
+                          <Text>={item.value}</Text>
+                        </Wrapper>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
             {combination ? (
-              <div>
+              <Container>
                 {instrCombination.length > 0 &&
                   instrCombination.map((item, index) => (
-                    <ul key={index}>
-                      <li>
-                        {language === 'en'
-                          ? 'Line'
-                          : language === 'ru'
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          {' '}
+                          {language === 'en'
+                            ? 'Line'
+                            : language === 'ru'
                             ? 'Линия'
                             : 'Лінія'}
-                        {item.lines}:
+                          <Text>{item.lines}:</Text>
+                        </Wrapper>
                         <img
                           src={item.img}
                           alt={index.toString()}
-                          width="200"
+                          width="300"
                         />
-                      </li>
-                    </ul>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
           </>
         ) : (
           <>
             {lines ? (
-              <div>
-                {cubicText.length > 0 &&
-                  pagination(cubicText, itemsPerPageText, page).map((item, index) => (
-                    <ul key={index}>
-                      <TextLi>
-                        <p>{translateFunc(item.text, language)}</p>
-                        <img src={item.img} alt={index.toString()} width='200' />
-                      </TextLi>
-                    </ul>
-                  ))}
-                <button disabled={page < 7 ? false : true} onClick={() => setPage(prev => prev + 1)} type='button'>{language === 'en' ? "Next" : language === 'ru' ? "Следущая" : 'Наступна'}</button>
-                <button disabled={page !== 0 ? false : true} onClick={() => setPage(prev => prev - 1)} type='button'>{language === 'en' ? "Prev" : language === 'ru' ? "Предыдущая" : 'Попередня'}</button>
-              </div>
+              <Container>
+                <TransitionGroup component={null}>
+                  {cubicText.length > 0 &&
+                    pagination(cubicText, itemsPerPageText, page).map(
+                      (item, index) => (
+                        <SlideTransition
+                          key={item.img}
+                          classNames="slide"
+                          timeout={300}
+                          direction={direction}
+                        >
+                          <List key={index}>
+                            <Item>
+                              <Text>{translateFunc(item.text, language)}</Text>
+                              <ImgValCub
+                                src={item.img}
+                                alt={index.toString()}
+                                width="180"
+                              />
+                            </Item>
+                          </List>
+                        </SlideTransition>
+                      )
+                    )}
+                </TransitionGroup>
+                <ButtonWrap>
+                  <Button
+                    disabled={page !== 0 ? false : true}
+                    onClick={handlePrevClick}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Prev'
+                      : language === 'ru'
+                      ? 'Предыдущая'
+                      : 'Попередня'}
+                  </Button>
+                  <Button
+                    disabled={page < 7 ? false : true}
+                    onClick={handleNextClick}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Next'
+                      : language === 'ru'
+                      ? 'Следущая'
+                      : 'Наступна'}
+                  </Button>
+                </ButtonWrap>
+              </Container>
             ) : null}
             {values ? (
-              <div>
+              <Container>
                 {cubicValues.length > 0 &&
                   cubicValues.map((item, index) => (
-                    <ul key={index}>
-                      <li style={{ display: 'flex' }}>
-                        <img src={item.img} alt={index.toString()} width="40" />
-                        ={item.value}
-                      </li>
-                    </ul>
+                    <List key={index}>
+                      <Item>
+                        <Wrapper>
+                          <img
+                            src={item.img}
+                            alt={index.toString()}
+                            width="40"
+                          />
+                          <Text>={item.value}</Text>
+                        </Wrapper>
+                      </Item>
+                    </List>
                   ))}
-              </div>
+              </Container>
             ) : null}
             {combination ? (
-              <div>
-                {cubicComb.length > 0 &&
-                  pagination(cubicComb, itemsPerPageComb, page).map((item, index) => (
-                    <ul key={index}>
-                      <li>
-                        {item.name}:
-                        <CombImg
-                          src={item.img}
-                          alt={index.toString()}
-                          width="75"
-                        />
-                      </li>
-                    </ul>
-                  ))}
-                <button disabled={page === 0 ? false : true} onClick={() => setPage(prev => prev + 1)} type='button'>{language === 'en' ? "Next" : language === 'ru' ? "Следущая" : 'Наступна'}</button>
-                <button disabled={page === 1 ? false : true} onClick={() => setPage(prev => prev - 1)} type='button'>{language === 'en' ? "Prev" : language === 'ru' ? "Предыдущая" : 'Попередня'}</button>
-              </div>
+              <Container>
+                {' '}
+                <TransitionGroup component={null}>
+                  {cubicComb.length > 0 &&
+                    pagination(cubicComb, itemsPerPageComb, page).map(
+                      (item, index) => (
+                        <SlideTransition
+                          key={item.img}
+                          classNames="slide"
+                          timeout={300}
+                          direction={direction}
+                        >
+                          <List key={index}>
+                            <Item>
+                              <Text>{item.name}:</Text>
+                              <CombImg
+                                src={item.img}
+                                alt={index.toString()}
+                                width="100"
+                              />
+                            </Item>
+                          </List>
+                        </SlideTransition>
+                      )
+                    )}
+                </TransitionGroup>
+                <ButtonWrap>
+                  <Button
+                    disabled={page !== 0 ? false : true}
+                    onClick={handlePrevClick}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Prev'
+                      : language === 'ru'
+                      ? 'Предыдущая'
+                      : 'Попередня'}
+                  </Button>
+                  <Button
+                    disabled={page < 1 ? false : true}
+                    onClick={handleNextClick}
+                    type="button"
+                  >
+                    {language === 'en'
+                      ? 'Next'
+                      : language === 'ru'
+                      ? 'Следущая'
+                      : 'Наступна'}
+                  </Button>
+                </ButtonWrap>
+              </Container>
             ) : null}
           </>
         )}

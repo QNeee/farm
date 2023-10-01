@@ -6,7 +6,7 @@ import useSound from 'use-sound';
 import { FcIdea } from 'react-icons/fc';
 // import lampAnimation from '../../utils/lamp.json';
 import { Slots } from '../Slot';
-
+import Modal from 'react-modal';
 import spinSound from '../../audio/spin.mp3';
 import winSound from '../../audio/money.mp3';
 import lineSound from '../../audio/line.mp3';
@@ -26,6 +26,7 @@ import {
   WrapSlots,
   Lamp,
   Wrapper,
+  FcIdeaIcon,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
 import {
@@ -52,6 +53,9 @@ import {
 } from '../../redux/slots/slotsOperations';
 import { animateHelper } from '../../redux/slots/slotsSlice';
 import { updateBalance } from '../../redux/auth/authSlice';
+import ReactModal from 'react-modal';
+import { Content, Overlay } from '../Modal/TextModal.styled';
+import { GlobalStyle } from '../../utils/GlobalStyle.styled';
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -72,6 +76,19 @@ export const SlotApp = () => {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const namePath = pathname.split('/')[1];
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
   const getDemoBalanceNumber = () => {
     return parseInt(localStorage.getItem(localBalance) as string);
   };
@@ -401,37 +418,13 @@ export const SlotApp = () => {
     setShowBet(false);
     setW8(false);
   };
-  // const checkWin = () => {
-  //     if (result > 0) {
-  //         if (!isWinSoundPlayed) {
-  //             playWin();
-  //             setWinSoundPlayed(true);
-  //         }
-  //         return `(+${result})`;
-  //     } else {
-  //         setWinSoundPlayed(false);
-  //     }
-  // };
-  const toggleModal = () => setIsOpen((prev) => !prev);
-  // const toggleModal = () => setIsOpen(true);
+
   return (
     <>
+      {/* <GlobalStyle modal={modalIsOpen} /> */}
       <Wrapper />
       <MainContainer imgUrl={slotImg}>
         <HeaderStyled>
-          <Lamp>
-            {isOpen && (
-              <TextModal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-              ></TextModal>
-            )}
-            <FcIdea
-              onClick={toggleModal}
-              title="Інструкції"
-              style={{ height: 32, width: 32 }}
-            />
-          </Lamp>
           <Balance>
             {language === 'en'
               ? 'Balance'
@@ -473,6 +466,17 @@ export const SlotApp = () => {
               : 'Загальна ставка'}
             :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}
           </LineCount>
+          <Lamp>
+            <FcIdeaIcon onClick={openModal} title="Інструкції" />
+            <Modal
+              appElement={document.getElementById('root') || undefined}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Інструкції"
+            >
+              <TextModal onClose={closeModal} />
+            </Modal>
+          </Lamp>
         </HeaderStyled>
         <Container>
           {result > 0 && resultRender && <NumberModal number={result} />}

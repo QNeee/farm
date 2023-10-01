@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import Modal from 'react-modal';
 import Table from './Table';
 import ImageContainer from './ImageContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,6 +39,7 @@ import {
 } from './GameField.styled';
 import { LuBeaker, LuDices } from 'react-icons/lu';
 import { Checkbox, IconButton } from '@mui/material';
+// import { ModalStyle } from '../Modal/TextModal.styled';
 
 const GameField: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +54,19 @@ const GameField: React.FC = () => {
   const cubicInStash = useSelector(getCubicInStashArr);
   const { pathname } = useLocation();
   const namePath = pathname.split('/')[1];
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
   const onClickStartGame = async () => {
     if (w8) return;
     if (!startGame) return;
@@ -106,6 +122,21 @@ const GameField: React.FC = () => {
         <Wrapper>
           <TopContainer>
             <ImagePc />
+            <Lamp>
+              <FcIdea
+                onClick={openModal}
+                title="Інструкції"
+                style={{ height: 32, width: 32 }}
+              />
+              <Modal
+                appElement={document.getElementById('root') || undefined}
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="modal"
+              >
+                <TextModal onClose={closeModal} />
+              </Modal>
+            </Lamp>
           </TopContainer>
           <ImageContainer cubicsData={cubicsData} />
           <BottomContainer>
@@ -201,33 +232,22 @@ const GameField: React.FC = () => {
               ></img>
             </Square>
           </BottomContainer>
-          <UrnContainer>
-            <Text>
-              {language === 'en'
-                ? 'Rolls'
-                : language === 'ru'
-                ? 'Кинуть кости'
-                : 'Кинути кістки'}{' '}
-              <br />
-              {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
-              <br />
-              <PointerAngle />
-            </Text>
-            <UrnImage onClick={onClickStartGame} />
-          </UrnContainer>
-          <Lamp>
-            {isOpen && (
-              <TextModal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-              ></TextModal>
-            )}
-            <FcIdea
-              onClick={toggleModal}
-              title="Інструкції"
-              style={{ height: 32, width: 32 }}
-            />
-          </Lamp>
+          {startGame && (
+            <UrnContainer>
+              <Text>
+                {language === 'en'
+                  ? 'Rolls'
+                  : language === 'ru'
+                  ? 'Кинуть кости'
+                  : 'Кинути кістки'}{' '}
+                <br />
+                {rolls !== null && rolls >= 0 ? rolls + rollsNumber() : null}
+                <br />
+                <PointerAngle />
+              </Text>
+              <UrnImage onClick={onClickStartGame} />
+            </UrnContainer>
+          )}
         </Wrapper>
       </GameFieldContainer>
     </MainContainer>

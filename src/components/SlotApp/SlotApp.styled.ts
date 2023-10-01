@@ -1,4 +1,6 @@
+import { FcIdea } from 'react-icons/fc';
 import styled, { keyframes } from 'styled-components';
+import { Button } from '@mui/material';
 
 const Position = keyframes` 
     0% {
@@ -202,9 +204,8 @@ export const SpinButton = styled.button<{ primary: boolean }>`
   }
 `;
 export const HeaderStyled = styled.div`
-  position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   margin-bottom: 15px;
@@ -212,18 +213,10 @@ export const HeaderStyled = styled.div`
   color: #fff;
   background-color: #333;
   font-family: 'Montserrat Variable';
-  /* font-size: 10px; */
-
-  /* @media (min-width: 480px) {
-    font-size: 24px;
-  } */
-  /* @media (min-width: 768px) {
-    font-size: 18px;
-  } */
 `;
 
 export const Balance = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   margin-right: 10px;
   @media (min-width: 480px) {
     font-size: 18px;
@@ -234,7 +227,7 @@ export const Balance = styled.div`
 `;
 
 export const LineCount = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 10px;
   @media (min-width: 480px) {
     font-size: 16px;
@@ -248,12 +241,29 @@ export const Span = styled.span<{ primary: boolean }>`
 `;
 
 export const Lamp = styled.div`
-  position: absolute;
-  top: 17px;
-  right: 5px;
-  z-index: 1;
+  margin-right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #333 #333 transparent;
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  scale: 1;
+  transition: scale 500ms, background-color 500ms;
   cursor: pointer;
+  z-index: 5;
   &:hover {
-    padding: 1px;
+    background-color: rgba(13, 110, 43, 0.8);
+    scale: 0.9;
+    transition: scale 500ms, background-color 500ms;
   }
+`;
+
+export const FcIdeaIcon = styled(FcIdea)`
+  height: 32px;
+  width: 32px;
 `;
