@@ -59,10 +59,12 @@ const GameField: React.FC = () => {
 
   const openModal = () => {
     setModalIsOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   const onClickStartGame = async () => {

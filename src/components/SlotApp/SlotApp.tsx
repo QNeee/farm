@@ -26,6 +26,7 @@ import {
   WrapSlots,
   Lamp,
   Wrapper,
+  FcIdeaIcon,
 } from './SlotApp.styled';
 import { AppDispatch } from '../../redux/store';
 import {
@@ -52,6 +53,9 @@ import {
 } from '../../redux/slots/slotsOperations';
 import { animateHelper } from '../../redux/slots/slotsSlice';
 import { updateBalance } from '../../redux/auth/authSlice';
+import ReactModal from 'react-modal';
+import { Content, Overlay } from '../Modal/TextModal.styled';
+import { GlobalStyle } from '../../utils/GlobalStyle.styled';
 
 export const SlotApp = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -77,10 +81,12 @@ export const SlotApp = () => {
 
   const openModal = () => {
     setModalIsOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   const getDemoBalanceNumber = () => {
@@ -412,37 +418,13 @@ export const SlotApp = () => {
     setShowBet(false);
     setW8(false);
   };
-  // const checkWin = () => {
-  //     if (result > 0) {
-  //         if (!isWinSoundPlayed) {
-  //             playWin();
-  //             setWinSoundPlayed(true);
-  //         }
-  //         return `(+${result})`;
-  //     } else {
-  //         setWinSoundPlayed(false);
-  //     }
-  // };
-  const toggleModal = () => setIsOpen((prev) => !prev);
-  // const toggleModal = () => setIsOpen(true);
+
   return (
     <>
+      {/* <GlobalStyle modal={modalIsOpen} /> */}
       <Wrapper />
       <MainContainer imgUrl={slotImg}>
         <HeaderStyled>
-          {/* <Lamp>
-            {isOpen && (
-              <TextModal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-              ></TextModal>
-            )}
-            <FcIdea
-              onClick={toggleModal}
-              title="Інструкції"
-              style={{ height: 32, width: 32 }}
-            />
-          </Lamp> */}
           <Balance>
             {language === 'en'
               ? 'Balance'
@@ -485,11 +467,7 @@ export const SlotApp = () => {
             :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}
           </LineCount>
           <Lamp>
-            <FcIdea
-              onClick={openModal}
-              title="Інструкції"
-              style={{ height: 24, width: 24 }}
-            />
+            <FcIdeaIcon onClick={openModal} title="Інструкції" />
             <Modal
               appElement={document.getElementById('root') || undefined}
               isOpen={modalIsOpen}

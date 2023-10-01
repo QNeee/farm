@@ -5,6 +5,7 @@ import { AppDispatch } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { getInstructionSlot } from '../../redux/slots/slotsOperations';
+import Modal from 'react-modal';
 import {
   getInstrCombination,
   getInstrLines,
@@ -106,6 +107,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
     setDirection('next');
   };
 
+  Modal.setAppElement('#root');
   return (
     <Overlay>
       <Content>

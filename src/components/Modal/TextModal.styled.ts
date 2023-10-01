@@ -4,15 +4,11 @@ import styled, { keyframes } from 'styled-components';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
 
-export const Wrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 export const Overlay = styled.div`
   max-width: 900px;
   margin: auto;
-  height: 120vh;
-  overflow-y: hidden;
+  /* height: 120vh;
+  overflow-y: hidden; */
 
   @media (min-width: 1280px) {
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -25,6 +21,11 @@ export const Content = styled.div`
   @media (min-width: 1280px) {
     background: rgba(0, 0, 0, 0.01);
   }
+`;
+
+export const Wrap = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const CloseButtonIcon = styled(AiOutlineCloseCircle)`
@@ -46,7 +47,7 @@ export const Text = styled.p`
   margin: 10px;
 `;
 
-// export const Btn = styled(Button)`
+// export const Btn = styled(Button )`
 //   && {
 //     min-width: 33.3%;
 //     margin-top: 10px;
