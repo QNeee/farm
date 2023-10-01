@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 import Modal from 'react-modal';
+import { CSSTransition } from 'react-transition-group';
 
 export const Wrap = styled.div`
   display: flex;
@@ -147,3 +148,23 @@ export const ButtonWrap = styled.div`
 //   left: 140px;
 //   right: 140px;
 // `;
+
+export const SlideTransition = styled(CSSTransition)`
+  &.slide-enter {
+    transform: translateX(100%);
+  }
+
+  &.slide-enter-active {
+    transform: translateX(0%);
+    transition: transform 300ms ease-in-out;
+  }
+
+  &.slide-exit {
+    transform: translateX(0%);
+  }
+
+  &.slide-exit-active {
+    transform: translateX(-100%);
+    transition: transform 300ms ease-in-out;
+  }
+`;

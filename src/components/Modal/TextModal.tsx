@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { AppDispatch } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
@@ -28,6 +28,7 @@ import {
   Wrapper,
   ButtonWrap,
   Wrap,
+  SlideTransition,
 } from './TextModal.styled';
 import { Button, ButtonGroup } from '@mui/material';
 
@@ -92,6 +93,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
     setLines(false);
     setCombination(!combination);
   };
+
   return (
     <Overlay>
       <Content>
@@ -206,21 +208,29 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
           <>
             {lines ? (
               <Container>
-                {cubicText.length > 0 &&
-                  pagination(cubicText, itemsPerPageText, page).map(
-                    (item, index) => (
-                      <List key={index}>
-                        <Item>
-                          <Text>{translateFunc(item.text, language)}</Text>
-                          <img
-                            src={item.img}
-                            alt={index.toString()}
-                            width="200"
-                          />
-                        </Item>
-                      </List>
-                    )
-                  )}
+                <TransitionGroup component={null}>
+                  {cubicText.length > 0 &&
+                    pagination(cubicText, itemsPerPageText, page).map(
+                      (item, index) => (
+                        <SlideTransition
+                          key={index}
+                          classNames="slide"
+                          timeout={300}
+                        >
+                          <List key={index}>
+                            <Item>
+                              <Text>{translateFunc(item.text, language)}</Text>
+                              <img
+                                src={item.img}
+                                alt={index.toString()}
+                                width="200"
+                              />
+                            </Item>
+                          </List>
+                        </SlideTransition>
+                      )
+                    )}
+                </TransitionGroup>
                 <ButtonWrap>
                   <Button
                     disabled={page !== 0 ? false : true}
