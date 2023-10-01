@@ -29,6 +29,7 @@ import {
   ButtonWrap,
   Wrap,
   SlideTransition,
+  ImgValCub,
 } from './TextModal.styled';
 import { Button, ButtonGroup } from '@mui/material';
 
@@ -54,6 +55,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
   const [values, setValues] = useState(false);
   const [combination, setCombination] = useState(false);
   const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState<'prev' | 'next'>('next');
 
   useEffect(() => {
     if (pathname === '/demoCubics' || pathname === '/cubics') {
@@ -92,6 +94,16 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
     setValues(false);
     setLines(false);
     setCombination(!combination);
+  };
+
+  const handlePrevClick = () => {
+    setPage((prev) => prev - 1);
+    setDirection('prev');
+  };
+
+  const handleNextClick = () => {
+    setPage((prev) => prev + 1);
+    setDirection('next');
   };
 
   return (
@@ -213,17 +225,18 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
                     pagination(cubicText, itemsPerPageText, page).map(
                       (item, index) => (
                         <SlideTransition
-                          key={index}
+                          key={item.img}
                           classNames="slide"
                           timeout={300}
+                          direction={direction}
                         >
                           <List key={index}>
                             <Item>
                               <Text>{translateFunc(item.text, language)}</Text>
-                              <img
+                              <ImgValCub
                                 src={item.img}
                                 alt={index.toString()}
-                                width="200"
+                                width="180"
                               />
                             </Item>
                           </List>
@@ -234,7 +247,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
                 <ButtonWrap>
                   <Button
                     disabled={page !== 0 ? false : true}
-                    onClick={() => setPage((prev) => prev - 1)}
+                    onClick={handlePrevClick}
                     type="button"
                   >
                     {language === 'en'
@@ -245,7 +258,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
                   </Button>
                   <Button
                     disabled={page < 7 ? false : true}
-                    onClick={() => setPage((prev) => prev + 1)}
+                    onClick={handleNextClick}
                     type="button"
                   >
                     {language === 'en'
@@ -278,25 +291,35 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
             ) : null}
             {combination ? (
               <Container>
-                {cubicComb.length > 0 &&
-                  pagination(cubicComb, itemsPerPageComb, page).map(
-                    (item, index) => (
-                      <List key={index}>
-                        <Item>
-                          <Text>{item.name}:</Text>
-                          <CombImg
-                            src={item.img}
-                            alt={index.toString()}
-                            width="100"
-                          />
-                        </Item>
-                      </List>
-                    )
-                  )}
+                {' '}
+                <TransitionGroup component={null}>
+                  {cubicComb.length > 0 &&
+                    pagination(cubicComb, itemsPerPageComb, page).map(
+                      (item, index) => (
+                        <SlideTransition
+                          key={item.img}
+                          classNames="slide"
+                          timeout={300}
+                          direction={direction}
+                        >
+                          <List key={index}>
+                            <Item>
+                              <Text>{item.name}:</Text>
+                              <CombImg
+                                src={item.img}
+                                alt={index.toString()}
+                                width="150"
+                              />
+                            </Item>
+                          </List>
+                        </SlideTransition>
+                      )
+                    )}
+                </TransitionGroup>
                 <ButtonWrap>
                   <Button
-                    disabled={page === 1 ? false : true}
-                    onClick={() => setPage((prev) => prev - 1)}
+                    disabled={page !== 0 ? false : true}
+                    onClick={handlePrevClick}
                     type="button"
                   >
                     {language === 'en'
@@ -306,8 +329,8 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
                       : 'Попередня'}
                   </Button>
                   <Button
-                    disabled={page === 0 ? false : true}
-                    onClick={() => setPage((prev) => prev + 1)}
+                    disabled={page < 1 ? false : true}
+                    onClick={handleNextClick}
                     type="button"
                   >
                     {language === 'en'

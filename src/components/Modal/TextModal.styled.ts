@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
 
@@ -11,6 +11,8 @@ export const Wrap = styled.div`
 export const Overlay = styled.div`
   max-width: 900px;
   margin: auto;
+  height: 100vh;
+  overflow-y: hidden;
 
   @media (min-width: 1280px) {
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -35,9 +37,9 @@ export const CloseButtonIcon = styled(AiOutlineCloseCircle)`
 `;
 
 export const CombImg = styled.img`
-  &:hover {
+  /* &:hover {
     width: 100px;
-  }
+  } */
 `;
 
 export const Text = styled.p`
@@ -117,7 +119,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  min-height: 300px;
+  min-height: 400px;
 `;
 
 export const List = styled.ul`
@@ -151,20 +153,33 @@ export const ButtonWrap = styled.div`
 
 export const SlideTransition = styled(CSSTransition)`
   &.slide-enter {
-    transform: translateX(100%);
+    opacity: 0;
+    transform: translateX(
+      ${(props) => (props.direction === 'prev' ? '-100%' : '100%')}
+    );
   }
 
   &.slide-enter-active {
+    opacity: 1;
     transform: translateX(0%);
-    transition: transform 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
   }
 
   &.slide-exit {
+    opacity: 1;
     transform: translateX(0%);
   }
 
   &.slide-exit-active {
-    transform: translateX(-100%);
-    transition: transform 300ms ease-in-out;
+    opacity: 0;
+    transform: translateX(
+      ${(props) => (props.direction === 'prev' ? '100%' : '-100%')}
+    );
+    transition: all 300ms ease-out-in;
   }
+`;
+
+export const ImgValCub = styled.img`
+  /* max-width: 180px;
+  max-height: 200px; */
 `;
