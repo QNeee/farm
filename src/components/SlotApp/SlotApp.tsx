@@ -392,7 +392,7 @@ export const SlotApp = () => {
           };
           dispatch(postBetSlot(reqData));
         } else {
-          if (demoBet === 20) return;
+          if (demoBet === 1) return;
           const storedData = localStorage.getItem(localItem) || [];
           const arr: ISlotDemo[] = JSON.parse(storedData as string);
           const index = arr.findIndex((item) => item.id === id);
@@ -429,16 +429,15 @@ export const SlotApp = () => {
             {language === 'en'
               ? 'Balance'
               : language === 'ru'
-              ? 'Баланс'
-              : 'Баланс'}
+                ? 'Баланс'
+                : 'Баланс'}
             : {renderBalance}
             {expense ? (
               <Span primary={!resultRender ? true : false}>
                 {result > 0 && resultRender
                   ? `+(${result})`
-                  : `-(${
-                      token ? bet * lines : (demoLines || 1) * (demoBet || 1)
-                    })`}
+                  : `-(${token ? bet * lines : (demoLines || 1) * (demoBet || 1)
+                  })`}
               </Span>
             ) : null}
           </Balance>
@@ -446,24 +445,24 @@ export const SlotApp = () => {
             {language === 'en'
               ? 'Lines'
               : language === 'ru'
-              ? 'Линии'
-              : 'Лінії'}
+                ? 'Линии'
+                : 'Лінії'}
             :{token ? lines : demoLines || 1}
           </LineCount>
           <LineCount>
             {language === 'en'
               ? 'Bet'
               : language === 'ru'
-              ? 'Ставка'
-              : 'Ставка'}
+                ? 'Ставка'
+                : 'Ставка'}
             :{token ? bet : demoBet || 1}
           </LineCount>
           <LineCount>
             {language === 'en'
               ? 'Total bet'
               : language === 'ru'
-              ? 'Общая ставка'
-              : 'Загальна ставка'}
+                ? 'Общая ставка'
+                : 'Загальна ставка'}
             :{token ? bet * lines : (demoLines || 1) * (demoBet || 1) || 1}
           </LineCount>
           <Lamp>
@@ -495,8 +494,8 @@ export const SlotApp = () => {
                 {language === 'en'
                   ? 'Bet'
                   : language === 'ru'
-                  ? 'Ставка'
-                  : 'Ставка'}
+                    ? 'Ставка'
+                    : 'Ставка'}
               </SpinButton>
             )}
 
@@ -510,8 +509,8 @@ export const SlotApp = () => {
                   ? language === 'en'
                     ? 'Spin'
                     : language === 'ru'
-                    ? 'Крутить'
-                    : 'Крутити'
+                      ? 'Крутить'
+                      : 'Крутити'
                   : count}
               </SpinButton>
             )}
@@ -526,13 +525,13 @@ export const SlotApp = () => {
                   ? language === 'en'
                     ? 'Auto'
                     : language === 'ru'
-                    ? 'Авто'
-                    : 'Авто'
+                      ? 'Авто'
+                      : 'Авто'
                   : language === 'en'
-                  ? 'Stop'
-                  : language === 'ru'
-                  ? 'Стоп'
-                  : 'Стоп'}
+                    ? 'Stop'
+                    : language === 'ru'
+                      ? 'Стоп'
+                      : 'Стоп'}
               </SpinButton>
             )}
             {!showModal && !autoModal && (
@@ -544,8 +543,8 @@ export const SlotApp = () => {
                 {language === 'en'
                   ? 'Lines'
                   : language === 'ru'
-                  ? 'Линии'
-                  : 'Лінії'}
+                    ? 'Линии'
+                    : 'Лінії'}
               </SpinButton>
             )}
             {showModal && (
@@ -569,8 +568,8 @@ export const SlotApp = () => {
                 {language === 'en'
                   ? 'Back'
                   : language === 'ru'
-                  ? 'назад'
-                  : 'назад'}
+                    ? 'назад'
+                    : 'назад'}
               </SpinButton>
             )}
             {autoModal && (
@@ -578,8 +577,8 @@ export const SlotApp = () => {
                 {language === 'en'
                   ? 'Back'
                   : language === 'ru'
-                  ? 'назад'
-                  : 'назад'}
+                    ? 'назад'
+                    : 'назад'}
               </SpinButton>
             )}
             {autoModal && (
