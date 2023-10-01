@@ -6,24 +6,21 @@ import Modal from 'react-modal';
 export const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  /* max-width: 800px;
-  margin: auto; */
 `;
 export const Overlay = styled.div`
-  /* display: flex;
-  justify-content: space-between; */
   max-width: 900px;
   margin: auto;
-  outline: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(255, 255, 255, 0.1);
+
+  @media (min-width: 1280px) {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const Content = styled.div`
-  background: rgba(0, 0, 0, 0.01);
   padding-top: 6px;
   color: black;
-  @media (min-width: 768px) {
-    /* padding: 20px; */
+  @media (min-width: 1280px) {
+    background: rgba(0, 0, 0, 0.01);
   }
 `;
 
@@ -114,17 +111,12 @@ export const Btn = styled.button`
 `;
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   min-height: 300px;
-
-  padding: 10px 20px;
-
-  @media (min-width: 768px) {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    /* outline: 1px solid tomato; */
-  }
 `;
 
 export const List = styled.ul`

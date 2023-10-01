@@ -95,9 +95,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
   return (
     <Overlay>
       <Content>
-        <button onClick={onClose}>
-          <CloseButtonIcon />
-        </button>
+        <CloseButtonIcon onClick={onClose} />
 
         <Wrap>
           <Btn disabled={lines} onClick={onClickLines}>
