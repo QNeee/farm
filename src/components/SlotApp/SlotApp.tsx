@@ -488,7 +488,7 @@ export const SlotApp = () => {
             <FcIdea
               onClick={openModal}
               title="Інструкції"
-              style={{ height: 32, width: 32 }}
+              style={{ height: 24, width: 24 }}
             />
             <Modal
               appElement={document.getElementById('root') || undefined}

@@ -213,18 +213,10 @@ export const HeaderStyled = styled.div`
   color: #fff;
   background-color: #333;
   font-family: 'Montserrat Variable';
-  /* font-size: 10px; */
-
-  /* @media (min-width: 480px) {
-    font-size: 24px;
-  } */
-  /* @media (min-width: 768px) {
-    font-size: 18px;
-  } */
 `;
 
 export const Balance = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   margin-right: 10px;
   @media (min-width: 480px) {
     font-size: 18px;
@@ -235,7 +227,7 @@ export const Balance = styled.div`
 `;
 
 export const LineCount = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 10px;
   @media (min-width: 480px) {
     font-size: 16px;

@@ -308,7 +308,7 @@ const TextModal: FC<ModalProps> = ({ onClose }) => {
                               <CombImg
                                 src={item.img}
                                 alt={index.toString()}
-                                width="150"
+                                width="100"
                               />
                             </Item>
                           </List>

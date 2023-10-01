@@ -11,7 +11,7 @@ export const Wrap = styled.div`
 export const Overlay = styled.div`
   max-width: 900px;
   margin: auto;
-  height: 100vh;
+  height: 120vh;
   overflow-y: hidden;
 
   @media (min-width: 1280px) {
