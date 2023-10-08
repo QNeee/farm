@@ -16,7 +16,7 @@ const SelectLang = () => {
 
   return (
     <>
-      <FormControl /* fullWidth */>
+      <FormControl>
         <Select
           onChange={onChange}
           value={language}
