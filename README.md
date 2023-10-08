@@ -1,3 +1,9 @@
+<div align='center'>
+
+![Casino](src/images/line-dice.png)
+
+</div>
+
 ## *НАЗВА ТА ОПИС ПРОЕКТУ*
 
 <div align="center"></div>
@@ -32,3 +38,31 @@
 - Нашою метою було створити щось цікаве. У процесі ми навчилися адаптуватися до змін і постійно вдосконалювати проект.
 
 - В результаті у нас вийшло унікальне рішення, яке ми з гордістю представляємо вам сьогодні.
+
+## *РОЗРОБНИКИ*
+
+**`QNeee:`**
+
+  <a href="https://www.linkedin.com/in/volodymyr-sahan/">
+    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+  </a>
+
+- Ініціатор проекту та автор його концепції.
+- Розробив логіку та функціональність бэкенду та фронтенду.
+- Вів управління всім проектом.
+
+**`EfirNet:`**
+
+  <a href="https://www.linkedin.com/in/efirnet/">
+    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+  </a>
+
+- Займався фронтенд-розробкою, включно зі стилізацією та анімацією інтерфейсу.
+
+----
+
+<div align='center'>
+
+![Casino](src/images/line-dice1.png)
+
+</div>
